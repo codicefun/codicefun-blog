@@ -1,8 +1,9 @@
-package com.codicefun.blog;
+package com.codicefun.blog.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+@SuppressWarnings("unused")
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class NotFoundException extends RuntimeException {
 

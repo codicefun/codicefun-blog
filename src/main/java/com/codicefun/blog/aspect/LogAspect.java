@@ -18,9 +18,7 @@ public class LogAspect {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Pointcut("execution(* com.codicefun.blog.web.*.*(..))")
-    public void log() {
-
-    }
+    public void log() {}
 
     @Before("log()")
     public void doBefore(JoinPoint joinPoint) {
@@ -36,9 +34,7 @@ public class LogAspect {
     }
 
     @After("log()")
-    public void doAfter() {
-        // logger.info("---------- do after ----------");
-    }
+    public void doAfter() {}
 
     @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterReturn(Object result) {

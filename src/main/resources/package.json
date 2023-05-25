@@ -1,0 +1,13 @@
+{
+  "name": "codicefun-blog",
+  "version": "1.0.0",
+  "dependencies": {
+    "animate.css": "^3.5.2",
+    "editor.md": "^1.5.0",
+    "jquery.scrollto": "^2.1.3",
+    "prismjs": "^1.29.0",
+    "qrcodejs": "^1.0.0",
+    "tocbot": "^3.0.2",
+    "waypoints": "^4.0.1"
+  }
+}

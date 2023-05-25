@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>500</title>
+<head th:replace="_fragments::head(~{::title})">
+  <title>500 Internal Server Error</title>
 </head>
+
+<style>
+  @media (min-height: 746px) {
+    footer { /* Increased specificity for SO snippet priority */
+      position: absolute !important;
+      bottom: 0 !important;
+      width: 100% !important;
+    }
+  }
+</style>
+
 <body>
-  <h1>500</h1>
+  
+  <!-- 导航 -->
+  <th:block th:replace="_fragments::menu(0)"></th:block>
+  
+  <!-- 错误信息 -->
+  <div class="m-container m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+      <div class="ui container">
+        <h2>500 Internal Server Error</h2>
+        <p>很抱歉，服务器内部错误</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 底部 footer -->
+  <th:block th:replace="_fragments::footer"></th:block>
+
 </body>
 </html>

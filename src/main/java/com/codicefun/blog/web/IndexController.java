@@ -2,16 +2,48 @@ package com.codicefun.blog.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class IndexController {
 
-    @GetMapping("/{id}/{name}")
-    public String index(@PathVariable String id, @PathVariable String name) {
-        System.out.println(id + ", " + name);
-
+    @GetMapping("/")
+    public String index() {
         return "index";
+    }
+
+    @GetMapping("/blog")
+    public String blog() {
+        return "blog";
+    }
+
+    @GetMapping("/types")
+    public String types() {
+        return "types";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/archives")
+    public String archives() {
+        return "archives";
+    }
+
+    @GetMapping("/tags")
+    public String tags() {
+        return "tags";
+    }
+
+    @GetMapping("/admin/blogs")
+    public String blogs() {
+        return "admin/blogs";
+    }
+
+    @GetMapping("/admin/input")
+    public String input() {
+        return "admin/input";
     }
 
 }
