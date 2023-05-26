@@ -2,7 +2,7 @@
 <!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/_fragments::head(~{::title})">
-  <title>新增/修改分类</title>
+  <title>新增/修改标签</title>
 </head>
 
 <style>
@@ -24,8 +24,8 @@
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
-        <a th:href="@{/admin/types/add}" class="teal item active">新增/修改</a>
-        <a th:href="@{/admin/types}" class="teal item">列表</a>
+        <a th:href="@{/admin/tags/add}" class="teal item active">新增/修改</a>
+        <a th:href="@{/admin/tags}" class="teal item">列表</a>
       </div>
     </div>
   </div>
@@ -33,15 +33,15 @@
   <!-- 中间内容 -->
   <div class="m-padded-tb-massive m-container-small">
     <div class="ui container">
-      <form method="post" class="ui form" th:object="${type}"
-            th:action="*{id} == null ? @{/admin/types/add} : @{/admin/types/{id}/update(id=*{id})} ">
+      <form method="post" class="ui form" th:object="${tag}"
+            th:action="*{id} == null ? @{/admin/tags/add} : @{/admin/tags/{id}/update(id=*{id})} ">
         <input type="hidden" name="id" th:value="*{id}">
         
-        <!-- 分类名称 -->
+        <!-- 标签名称 -->
         <div class="required field">
           <div class="ui left labeled input">
             <label class="ui teal basic label">名称</label>
-            <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+            <input type="text" name="name" placeholder="标签名称" th:value="*{name}">
           </div>
         </div>
         
@@ -83,7 +83,7 @@
           identifier: 'name',
           rules: [{
             type: 'empty',
-            prompt: '请输入分类名称'
+            prompt: '请输入标签名称'
           }]
         }
       }
