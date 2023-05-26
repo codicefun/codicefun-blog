@@ -23,6 +23,7 @@
   <div class="m-padded-tb-big m-container">
     <div class="ui container">
       <div class="ui success large message">
+        <i class="close icon"></i>
         <h2>Hi</h2>
         <p>James, Welcome!</p>
       </div>
@@ -46,6 +47,14 @@
     $('.ui.dropdown').dropdown({
       on: 'hover'
     })
+    
+    // 消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+          $(this)
+              .closest('.message')
+              .transition('fade')
+        })
   </script>
 
 </body>
