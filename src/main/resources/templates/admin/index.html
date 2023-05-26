@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments::head(~{::title})">
+  <title>博客管理</title>
+</head>
+<body>
+  
+  <!-- 导航 -->
+  <th:block th:replace="admin/_fragments::menu(1)"></th:block>
+  
+  <!-- 二级导航 -->
+  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="#" class="teal active item">列表</a>
+        <a href="#" class="item">发布</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 中间内容 -->
+  <div class="m-padded-tb-big m-container">
+    <div class="ui container">
+      <div class="ui success large message">
+        <h2>Hi</h2>
+        <p>James, Welcome!</p>
+      </div>
+      <img src="https://picsum.photos/id/2/1000/600" alt="" class="ui rounded bordered fluid image">
+    </div>
+  </div>
+  <br>
+  <br>
+  
+  <!-- 底部 footer -->
+  <th:block th:replace="admin/_fragments::footer"></th:block>
+  
+  <!-- JS 依赖-->
+  <th:block th:replace="admin/_fragments::scripts"></th:block>
+  
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide')
+    })
+    
+    $('.ui.dropdown').dropdown({
+      on: 'hover'
+    })
+  </script>
+
+</body>
+</html>

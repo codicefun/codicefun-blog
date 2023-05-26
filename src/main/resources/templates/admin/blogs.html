@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="_fragments::head(~{::title})">
+<head th:replace="admin/_fragments::head(~{::title})">
   <title>博客管理</title>
 </head>
 <body>
   
   <!-- 导航 -->
-  <th:block th:replace="_fragments::menu-admin(1)"></th:block>
+  <th:block th:replace="admin/_fragments::menu(1)"></th:block>
   
   <!-- 二级导航 -->
   <div class="ui attached pointing menu">
@@ -53,6 +53,7 @@
         </div>
       </form>
       
+      <!-- 博客列表 -->
       <table class="ui celled table">
         <thead>
           <tr>
@@ -65,6 +66,28 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>1</td>
+            <td>刻意练习清单</td>
+            <td>认知升级</td>
+            <td>是</td>
+            <td>2023-05-22 22:54</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>刻意练习清单</td>
+            <td>认知升级</td>
+            <td>是</td>
+            <td>2023-05-22 22:54</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
           <tr>
             <td>1</td>
             <td>刻意练习清单</td>
@@ -116,10 +139,10 @@
   <br>
   
   <!-- 底部 footer -->
-  <th:block th:replace="_fragments::footer"></th:block>
+  <th:block th:replace="admin/_fragments::footer"></th:block>
   
   <!-- JS 依赖-->
-  <th:block th:replace="_fragments::scripts"></th:block>
+  <th:block th:replace="admin/_fragments::scripts"></th:block>
   
   <script>
     $('.menu.toggle').click(function () {

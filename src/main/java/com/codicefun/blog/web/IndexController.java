@@ -36,14 +36,4 @@ public class IndexController {
         return "tags";
     }
 
-    @GetMapping("/admin/blogs")
-    public String blogs() {
-        return "admin/blogs";
-    }
-
-    @GetMapping("/admin/input")
-    public String input() {
-        return "admin/input";
-    }
-
 }

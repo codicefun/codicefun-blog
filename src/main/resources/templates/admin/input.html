@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="_fragments::head(~{::title})">
+<head th:replace="admin/_fragments::head(~{::title})">
   <title>编辑博客</title>
 </head>
 <body>
   
   <!-- 导航 -->
-  <th:block th:replace="_fragments::menu-admin(0)"></th:block>
+  <th:block th:replace="admin/_fragments::menu(0)"></th:block>
   
   <!-- 二级导航 -->
   <div class="ui attached pointing menu">
@@ -136,10 +136,10 @@
   <br>
   
   <!-- 底部 footer -->
-  <th:block th:replace="_fragments::footer"></th:block>
+  <th:block th:replace="admin/_fragments::footer"></th:block>
   
   <!-- JS 依赖-->
-  <th:block th:replace="_fragments::scripts"></th:block>
+  <th:block th:replace="admin/_fragments::scripts"></th:block>
   
   <script>
     // 初始化 markdown 编辑器
@@ -162,7 +162,7 @@
       on: 'hover'
     });
     
-    $('.ui form').form({
+    $('.ui.form').form({
       fields: {
         title: {
           identifier: 'title',
