@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress HtmlFormInputWithoutLabel -->
+<!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/_fragments::head(~{::title})">
   <title>博客管理</title>
@@ -24,19 +24,20 @@
     <div class="ui container">
       
       <!-- 搜索要求 -->
-      <form action="#" method="post" class="ui segment form">
+      <div class="ui segment form">
+        <input name="page" type="hidden">
         <div class="inline fields">
           <div class="field">
             <input type="text" name="title" placeholder="标题">
           </div>
           <div class="field">
             <div class="ui selection dropdown">
-              <input type="hidden" name="type">
+              <input name="type-id" type="hidden">
               <i class="dropdown icon"></i>
               <div class="default text">分类</div>
               <div class="menu">
-                <div class="item" data-value="1">错误日志</div>
-                <div class="item" data-value="2">开发者手册</div>
+                <div class="item" th:data-value="${type.id}" th:each="type: ${types}" th:text="${type.name}">错误日志
+                </div>
               </div>
             </div>
           </div>
@@ -47,92 +48,54 @@
             </div>
           </div>
           <div class="field">
-            <button class="ui mini teal basic button"><i class="search icon"></i>搜索</button>
-            <a href="#" class="ui right floated mini teal basic button">新增</a>
+            <button class="ui mini teal basic button" id="search-btn" type="button">
+              <i class="search icon"></i>搜索
+            </button>
           </div>
         </div>
-      </form>
+      </div>
       
       <!-- 博客列表 -->
-      <table class="ui celled table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>标题</th>
-            <th>类型</th>
-            <th>推荐</th>
-            <th>更新时间</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>刻意练习清单</td>
-            <td>认知升级</td>
-            <td>是</td>
-            <td>2023-05-22 22:54</td>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>刻意练习清单</td>
-            <td>认知升级</td>
-            <td>是</td>
-            <td>2023-05-22 22:54</td>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>刻意练习清单</td>
-            <td>认知升级</td>
-            <td>是</td>
-            <td>2023-05-22 22:54</td>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>刻意练习清单</td>
-            <td>认知升级</td>
-            <td>是</td>
-            <td>2023-05-22 22:54</td>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>刻意练习清单</td>
-            <td>认知升级</td>
-            <td>是</td>
-            <td>2023-05-22 22:54</td>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="6">
-              <div class="ui mini right floated pagination menu">
-                <a class="item">上一页</a>
-                <a class="item">下一页</a>
-              </div>
-            </th>
-          </tr>
-        </tfoot>
-      </table>
+      <div id="table-container">
+        <table class="ui compact teal table" th:fragment="blogList">
+          <thead>
+            <tr>
+              <th></th>
+              <th>标题</th>
+              <th>类型</th>
+              <th>推荐</th>
+              <th>更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="blog, iterStat: ${page.content}">
+              <td th:text="${iterStat.count}">1</td>
+              <td th:text="${blog.title}">刻意练习清单</td>
+              <td th:text="${blog.type.name}">认知升级</td>
+              <td th:text="${blog.recommand} ? '是' : '否'">是</td>
+              <td th:text="${blog.updateTime}">2023-05-22 22:54</td>
+              <td>
+                <a class="ui mini teal basic button" th:href="@{/admin/blogs/{id}/update(id=${tag.id})}">编辑</a>
+                <a class="ui mini red basic button" th:href="@{/admin/blogs/{id}/delete(id=${tag.id})}">删除</a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="6">
+                <a class="ui mini teal basic button" th:href="@{/admin/blogs/add}">新增</a>
+                <div class="ui mini right floated pagination menu" th:if="${page.totalPages > 1}">
+                  <a class="item button" onclick="page(this)" th:attr="data-page=${page.number - 1}"
+                     th:unless="${page.first}">上一页</a>
+                  <a class="item button" onclick="page(this)" th:attr="data-page=${page.number + 1}"
+                     th:unless="${page.last}">下一页</a>
+                </div>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
   <br>
@@ -152,6 +115,29 @@
     $('.ui.dropdown').dropdown({
       on: 'hover'
     })
+    
+    function page(obj) {
+      // 先翻页，改变页码，再调 loadData() 获取新的页码
+      // 新页码为 data-page=${page.number - 1} 中指定的值
+      $("[name='page']").val($(obj).data("page"))
+      loadData()
+    }
+    
+    $('#search-btn').click(function () {
+      loadData()
+    })
+    
+    /**
+     * 异步加载数据，实现页面局部的刷新
+     */
+    function loadData() {
+      $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+        title: $("[name='title']").val(),
+        typeId: $("[name='type-id']").val(),
+        recommend: $("[name='recommend']").prop('checked'),
+        page: $("[name='page']").val()
+      })
+    }
   </script>
   
 </body>
