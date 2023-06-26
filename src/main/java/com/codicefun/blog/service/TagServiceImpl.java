@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TagServiceImpl implements TagService {
@@ -36,6 +38,42 @@ public class TagServiceImpl implements TagService {
     @Override
     public Page<Tag> listTag(Pageable pageable) {
         return tagRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Tag> listTag() {
+        return tagRepository.findAll();
+    }
+
+
+    /**
+     * 根据 id 字符串，返回 Tag 列表
+     *
+     * @param ids id 字符串，"1,2,3"
+     * @return 选中的 Tag 列表
+     */
+    @Override
+    public List<Tag> listTag(String ids) {
+        return tagRepository.findAll(coverToList(ids));
+    }
+
+    /**
+     * 将 id 字符串转为对应的 Tag 列表
+     *
+     * @param ids id 字符串，"1,2,3"
+     * @return Tag 列表
+     */
+    private List<Long> coverToList(String ids) {
+        ArrayList<Long> list = new ArrayList<>();
+
+        if (ids != null && !ids.equals("")) {
+            String[] split = ids.split(",");
+            for (String s : split) {
+                list.add(new Long(s));
+            }
+        }
+
+        return list;
     }
 
     @Transactional

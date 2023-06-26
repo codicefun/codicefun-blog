@@ -34,7 +34,7 @@
   <div class="m-padded-tb-massive m-container-small">
     <div class="ui container">
       <form method="post" class="ui form" th:object="${tag}"
-            th:action="*{id} == null ? @{/admin/tags/add} : @{/admin/tags/{id}/update(id=*{id})} ">
+            th:action="*{id} == null ? @{/admin/tags/add} : @{/admin/tags/{id}/update(id=*{id})}">
         <input type="hidden" name="id" th:value="*{id}">
         
         <!-- 标签名称 -->

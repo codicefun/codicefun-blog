@@ -15,10 +15,13 @@ public class Blog {
     private Long id;
 
     private String title;
-    private String content;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    private String content; // longtext
     private String firstPicture;
     private String flag;
-    private Integer views;
+    private Integer views; // 浏览次数
     private boolean appreciation;
     private boolean shareStatement;
     private boolean commentable;
@@ -40,6 +43,9 @@ public class Blog {
 
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+
+    @Transient // 正常属性，不存储到数据库
+    private String tagIds;
 
     public Blog() {
     }
@@ -178,6 +184,14 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 
     @Override

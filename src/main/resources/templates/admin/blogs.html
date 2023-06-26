@@ -30,15 +30,19 @@
           <div class="field">
             <input type="text" name="title" placeholder="标题">
           </div>
+          
           <div class="field">
-            <div class="ui selection dropdown">
-              <input name="type-id" type="hidden">
-              <i class="dropdown icon"></i>
-              <div class="default text">分类</div>
-              <div class="menu">
-                <div class="item" th:data-value="${type.id}" th:each="type: ${types}" th:text="${type.name}">错误日志
+            <div class="ui labeled action input">
+              <div class="ui type selection dropdown">
+                <input name="type-id" type="hidden">
+                <i class="dropdown icon"></i>
+                <div class="default text">分类</div>
+                <div class="menu">
+                  <div class="item" th:data-value="${type.id}" th:each="type: ${types}" th:text="${type.name}">错误日志
+                  </div>
                 </div>
               </div>
+              <button class="ui compact button" id="clear-btn">Clear</button>
             </div>
           </div>
           <div class="field">
@@ -47,6 +51,7 @@
               <label for="recommend">推荐</label>
             </div>
           </div>
+          
           <div class="field">
             <button class="ui mini teal basic button" id="search-btn" type="button">
               <i class="search icon"></i>搜索
@@ -64,6 +69,7 @@
               <th>标题</th>
               <th>类型</th>
               <th>推荐</th>
+              <th>发布</th>
               <th>更新时间</th>
               <th>操作</th>
             </tr>
@@ -73,17 +79,18 @@
               <td th:text="${iterStat.count}">1</td>
               <td th:text="${blog.title}">刻意练习清单</td>
               <td th:text="${blog.type.name}">认知升级</td>
-              <td th:text="${blog.recommand} ? '是' : '否'">是</td>
+              <td th:text="${blog.recommend} ? '✅' : '❌'">✅</td>
+              <td th:text="${blog.published} ? '✅' : '❌'">✅</td>
               <td th:text="${blog.updateTime}">2023-05-22 22:54</td>
               <td>
-                <a class="ui mini teal basic button" th:href="@{/admin/blogs/{id}/update(id=${tag.id})}">编辑</a>
-                <a class="ui mini red basic button" th:href="@{/admin/blogs/{id}/delete(id=${tag.id})}">删除</a>
+                <a class="ui mini teal basic button" th:href="@{/admin/blogs/{id}/update(id=${blog.id})}">编辑</a>
+                <a class="ui mini red basic button" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}">删除</a>
               </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="6">
+              <th colspan="7">
                 <a class="ui mini teal basic button" th:href="@{/admin/blogs/add}">新增</a>
                 <div class="ui mini right floated pagination menu" th:if="${page.totalPages > 1}">
                   <a class="item button" onclick="page(this)" th:attr="data-page=${page.number - 1}"
@@ -95,6 +102,12 @@
             </tr>
           </tfoot>
         </table>
+        
+        <div class="ui success message" th:unless="${#strings.isEmpty(messages)}">
+          <i class="close icon"></i>
+          <div class="header">提示：</div>
+          <p th:text="${messages}">恭喜，操作成功！</p>
+        </div>
       </div>
     </div>
   </div>
@@ -116,6 +129,22 @@
       on: 'hover'
     })
     
+    // 消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+          $(this)
+              .closest('.message')
+              .transition('.fade')
+        })
+    
+    // 点击 Clear 按钮，清除分类
+    $('#clear-btn')
+        .on('click', function () {
+          $('.ui.type.dropdown')
+              .dropdown('clear')
+        })
+    
+    // 翻页
     function page(obj) {
       // 先翻页，改变页码，再调 loadData() 获取新的页码
       // 新页码为 data-page=${page.number - 1} 中指定的值
@@ -123,7 +152,9 @@
       loadData()
     }
     
+    // 搜索
     $('#search-btn').click(function () {
+      $("[name='page']").val(0) // 搜索从第一页开始
       loadData()
     })
     
@@ -139,6 +170,6 @@
       })
     }
   </script>
-  
+
 </body>
 </html>
