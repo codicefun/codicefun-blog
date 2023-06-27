@@ -13,8 +13,8 @@
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
-        <a href="#" class="teal active item">列表</a>
-        <a href="#" class="item">发布</a>
+        <a class="teal active item" href="#" th:href="@{/admin/blogs/add}">新增</a>
+        <a class="item" href="#" th:href="@{/admin/blogs}">列表</a>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@
           <div class="field">
             <div class="ui left labeled action input">
               <label class="ui compact teal basic label">标签</label>
-              <div class="ui fluid selection multiple search dropdown">
+              <div class="ui tag fluid selection multiple search dropdown">
                 <input name="tagIds" th:value="*{tagIds}" type="hidden">
                 <i class="dropdown icon"></i>
                 <div class="default text">标签</div>
@@ -183,6 +183,12 @@
       $("[name='published']").val(true)
       $('#blog-form').submit()
     })
+    
+    // 自动新增标签
+    $('.ui.tag.dropdown')
+        .dropdown({
+          allowAdditions: true
+        })
     
     // 非空校验
     $('.ui.form').form({

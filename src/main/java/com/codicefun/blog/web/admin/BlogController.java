@@ -50,7 +50,7 @@ public class BlogController {
      * 显示博客列表
      */
     @GetMapping("/blogs")
-    public String list(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+    public String list(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                        Pageable pageable, BlogQuery blog, Model model) {
         model.addAttribute("types", typeService.listType());
         model.addAttribute("page", blogService.listBlog(pageable, blog));
@@ -62,7 +62,7 @@ public class BlogController {
      * 分页，多条件查询
      */
     @PostMapping("/blogs/search")
-    public String search(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+    public String search(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                          Pageable pageable, BlogQuery blog, Model model) {
         model.addAttribute("page", blogService.listBlog(pageable, blog));
 

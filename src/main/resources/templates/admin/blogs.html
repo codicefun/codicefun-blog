@@ -4,6 +4,17 @@
 <head th:replace="admin/_fragments::head(~{::title})">
   <title>博客管理</title>
 </head>
+
+<style>
+  @media screen and (min-height: 890px) {
+    footer { /* Increased specificity for SO snippet priority */
+      position: absolute !important;
+      bottom: 0 !important;
+      width: 100% !important;
+    }
+  }
+</style>
+
 <body>
   
   <!-- 导航 -->
@@ -13,8 +24,8 @@
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
-        <a href="#" class="teal active item">列表</a>
-        <a href="#" class="item">发布</a>
+        <a class="item" href="#" th:href="@{/admin/blogs/add}">新增</a>
+        <a class="teal active item" href="#" th:href="@{/admin/blogs}">列表</a>
       </div>
     </div>
   </div>
@@ -112,8 +123,6 @@
       </div>
     </div>
   </div>
-  <br>
-  <br>
   
   <!-- 底部 footer -->
   <th:block th:replace="admin/_fragments::footer"></th:block>

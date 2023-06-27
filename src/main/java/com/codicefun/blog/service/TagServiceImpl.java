@@ -45,7 +45,6 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll();
     }
 
-
     /**
      * find tags by tag id string
      *
@@ -69,7 +68,14 @@ public class TagServiceImpl implements TagService {
         if (ids != null && !ids.equals("")) {
             String[] split = ids.split(",");
             for (String s : split) {
-                list.add(new Long(s));
+                try {
+                    list.add(new Long(s));
+                } catch (NumberFormatException e) { // auto add new tag
+                    Tag tag = new Tag();
+                    tag.setName(s);
+                    saveTag(tag);
+                    list.add(tag.getId());
+                }
             }
         }
 
