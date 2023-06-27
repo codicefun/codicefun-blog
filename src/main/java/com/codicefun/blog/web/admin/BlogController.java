@@ -39,6 +39,14 @@ public class BlogController {
     private TagService tagService;
 
     /**
+     * 设置可供博客选择的分类和标签列表
+     */
+    private void setTypeAndTags(Model model) {
+        model.addAttribute("types", typeService.listType());
+        model.addAttribute("tags", tagService.listTag());
+    }
+
+    /**
      * 显示博客列表
      */
     @GetMapping("/blogs")
@@ -61,6 +69,9 @@ public class BlogController {
         return "admin/blogs :: blogList";
     }
 
+    /**
+     * 新增博客页面
+     */
     @GetMapping("/blogs/add")
     public String add(Model model) {
         model.addAttribute("blog", new Blog());
@@ -69,6 +80,9 @@ public class BlogController {
         return INPUT;
     }
 
+    /**
+     * 新增博客操作，提交表单
+     */
     @PostMapping("/blogs/add")
     public String add(Blog blog, RedirectAttributes attributes, HttpSession session) {
         blog.setUser((User) session.getAttribute("user")); // 设置用户为当前登录用户
@@ -84,16 +98,22 @@ public class BlogController {
         return REDIRECT_LIST;
     }
 
+    /**
+     * 修改博客页面，根据路径参数获取博客 id，
+     */
     @GetMapping("/blogs/{id}/update")
     public String update(@PathVariable Long id, Model model) {
         Blog blog = blogService.getBlog(id);
-        blog.init();
+        blog.init(); // 博客的一下额外操作，如：将标签列表转为前端需要的 ids 字符串
         model.addAttribute("blog", blog);
         setTypeAndTags(model);
 
         return INPUT;
     }
 
+    /**
+     * 修改博客操作，根据根据路径参数获取博客 id
+     */
     @PostMapping("blogs/{id}/update")
     public String update(Blog blog, @PathVariable Long id, RedirectAttributes attributes, HttpSession session) {
         blog.setUser((User) session.getAttribute("user")); // 设置用户为当前登录用户
@@ -109,9 +129,12 @@ public class BlogController {
         return REDIRECT_LIST;
     }
 
-    private void setTypeAndTags(Model model) {
-        model.addAttribute("types", typeService.listType());
-        model.addAttribute("tags", tagService.listTag());
+    @GetMapping("blogs/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        blogService.deleteBlog(id);
+        attributes.addFlashAttribute("message", "删除成功");
+
+        return REDIRECT_LIST;
     }
 
 }

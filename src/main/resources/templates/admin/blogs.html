@@ -38,6 +38,7 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">分类</div>
                 <div class="menu">
+                  <!-- 可选的分类列表 -->
                   <div class="item" th:data-value="${type.id}" th:each="type: ${types}" th:text="${type.name}">错误日志
                   </div>
                 </div>
