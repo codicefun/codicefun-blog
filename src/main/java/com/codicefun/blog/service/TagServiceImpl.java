@@ -47,23 +47,23 @@ public class TagServiceImpl implements TagService {
 
 
     /**
-     * 根据 id 字符串，返回 Tag 列表
+     * find tags by tag id string
      *
-     * @param ids id 字符串，"1,2,3"
-     * @return 选中的 Tag 列表
+     * @param ids tag ids string("1,2,3")
+     * @return find result
      */
     @Override
     public List<Tag> listTag(String ids) {
-        return tagRepository.findAll(coverToList(ids));
+        return tagRepository.findAll(tagIds2TagList(ids));
     }
 
     /**
-     * 将 id 字符串转为对应的 Tag 列表
+     * convert tag ids string("1,2,3") to tag list
      *
-     * @param ids id 字符串，"1,2,3"
-     * @return Tag 列表
+     * @param ids tag ids string("1,2,3")
+     * @return tag list
      */
-    private List<Long> coverToList(String ids) {
+    private List<Long> tagIds2TagList(String ids) {
         ArrayList<Long> list = new ArrayList<>();
 
         if (ids != null && !ids.equals("")) {

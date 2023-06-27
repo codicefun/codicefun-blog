@@ -194,6 +194,32 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
+    public void init() {
+        tagIds = tagList2TagIds(tags);
+    }
+
+    /**
+     * convert tag list to tag ids string(1,2,3)
+     *
+     * @param tags tag list
+     * @return tag ids string(1,2,3)
+     */
+    private String tagList2TagIds(List<Tag> tags) {
+        StringBuilder ids = new StringBuilder();
+        boolean flag = false;
+
+        for (Tag tag : tags) {
+            if (flag) {
+                ids.append(",");
+            } else {
+                flag = true;
+            }
+            ids.append(tag.getId());
+        }
+
+        return ids.toString();
+    }
+
     @Override
     public String toString() {
         return "Blog{" +

@@ -65,9 +65,10 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
 
-        BeanUtils.copyProperties(b, blog);
+        b.setUpdateTime(new Date());
+        BeanUtils.copyProperties(blog, b);
 
-        return blogRepository.save(blog);
+        return blogRepository.save(b);
     }
 
     @Transactional
