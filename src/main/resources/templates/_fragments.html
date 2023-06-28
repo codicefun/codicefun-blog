@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress HtmlFormInputWithoutLabel -->
+<!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title)">
   <meta charset="UTF-8">
@@ -30,12 +30,15 @@
             class="clone icon"></i>归档</a>
         <a href="/about" class="m-item item m-mobile-hide" th:classappend="${n == 5} ? 'active'"><i
             class="info icon"></i>关于我</a>
+        
         <!-- 右侧搜索框 -->
         <div class="right item m-mobile-hide">
-          <div class="ui icon inverted transparent input">
-            <input type="text" placeholder="Search...">
-            <i class="search link icon"></i>
-          </div>
+          <form method="post" name="search" target="_blank" th:action="@{/search}">
+            <div class="ui icon inverted transparent input">
+              <input name="query" placeholder="Search..." th:value="${query}" type="text">
+              <i class="search link icon" onclick="document.forms['search'].submit()"></i>
+            </div>
+          </form>
         </div>
       </div>
     </div>
