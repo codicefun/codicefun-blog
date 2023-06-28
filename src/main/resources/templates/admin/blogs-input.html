@@ -198,6 +198,13 @@
     // 非空校验
     $('.ui.form').form({
       fields: {
+        flag: {
+          identifier: 'flag',
+          rules: [{
+            type: 'empty',
+            prompt: '标题：请输入博客标记'
+          }]
+        },
         title: {
           identifier: 'title',
           rules: [{
@@ -230,7 +237,7 @@
           identifier: 'description',
           rules: [{
             type: 'empty',
-            promql: '标题：请输入博客描述'
+            prompt: '标题：请输入博客描述'
           }]
         }
       }

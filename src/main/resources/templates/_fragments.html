@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
   <link rel="stylesheet" th:href="@{/css/typo.css}">
   <link rel="stylesheet" th:href="@{/animate.css/animate.min.css}">
-  <link rel="stylesheet" th:href="@{/prismjs/themes/prism-okaidia.min.css}">
+  <link rel="stylesheet" th:href="@{/prismjs/themes/prism-tomorrow.css}">
+  <link rel="stylesheet" th:href="@{/prismjs/plugins/line-numbers/prism-line-numbers.min.css}">
+  <link rel="stylesheet" th:href="@{/prismjs/plugins/toolbar/prism-toolbar.min.css}">
   <link rel="stylesheet" th:href="@{/tocbot/dist/tocbot.css}">
   <link rel="stylesheet" th:href="@{/css/me.css}">
-  <link rel="stylesheet" th:href="@{/editor.md/css/editormd.min.css}">
 </head>
 <body>
   
@@ -91,12 +92,15 @@
   <th:block th:fragment="scripts">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <script th:src="@{/prismjs/prism.js}"></script>
+    <script th:src="@{/prismjs/components/prism-core.min.js}"></script>
+    <script th:src="@{/prismjs/plugins/autoloader/prism-autoloader.min.js}"></script>
+    <script th:src="@{/prismjs/plugins/line-numbers/prism-line-numbers.min.js}"></script>
+    <script th:src="@{/prismjs/plugins/toolbar/prism-toolbar.min.js}"></script>
+    <script th:src="@{/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js}"></script>
     <script th:src="@{/tocbot/dist/tocbot.min.js}"></script>
     <script th:src="@{/qrcodejs/qrcode.min.js}"></script>
     <script th:src="@{/jquery.scrollto/jquery.scrollTo.min.js}"></script>
     <script th:src="@{/waypoints/lib/jquery.waypoints.min.js}"></script>
-    <script th:src="@{/editor.md/editormd.js}"></script>
   </th:block>
 
 </body>

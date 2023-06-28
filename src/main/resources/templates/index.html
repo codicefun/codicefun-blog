@@ -35,7 +35,7 @@
               <div class="ui middle aligned mobile reversed stackable grid">
                 <div class="eleven wide column">
                   <h3 class="ui header">
-                    <a class="m-black" href="#" target="_blank"
+                    <a class="m-black" href="#"
                        th:href="@{/blog/{id}(id=${blog.id})}"
                        th:text="${blog.title}">
                     </a>
@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="five wide column">
-                  <a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}">
+                  <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
                     <img alt="" class="ui rounded image" src="https://picsum.photos/id/1/800/450"
                          th:src="${blog.firstPicture}">
                   </a>

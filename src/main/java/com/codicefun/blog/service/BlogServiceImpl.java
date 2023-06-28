@@ -3,6 +3,7 @@ package com.codicefun.blog.service;
 import com.codicefun.blog.dao.BlogRepository;
 import com.codicefun.blog.exception.NotFoundException;
 import com.codicefun.blog.po.Blog;
+import com.codicefun.blog.util.MarkdownUtils;
 import com.codicefun.blog.util.MyBeanUtils;
 import com.codicefun.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +25,22 @@ public class BlogServiceImpl implements BlogService {
 
     @Resource
     private BlogRepository blogRepository;
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findOne(id);
+
+        if (blog == null) {
+            throw new NotFoundException("该博客不存在");
+        }
+
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog, b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+
+        return b;
+    }
 
     @Override
     public Blog getBlog(Long id) {
