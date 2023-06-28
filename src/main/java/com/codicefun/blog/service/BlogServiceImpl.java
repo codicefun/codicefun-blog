@@ -3,6 +3,7 @@ package com.codicefun.blog.service;
 import com.codicefun.blog.dao.BlogRepository;
 import com.codicefun.blog.exception.NotFoundException;
 import com.codicefun.blog.po.Blog;
+import com.codicefun.blog.util.MyBeanUtils;
 import com.codicefun.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -65,7 +66,8 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
 
-        BeanUtils.copyProperties(blog, b);
+        // ignore null properties
+        BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
         b.setUpdateTime(new Date());
 
         return blogRepository.save(b);

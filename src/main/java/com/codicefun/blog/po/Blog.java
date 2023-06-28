@@ -19,6 +19,7 @@ public class Blog {
     @Basic(fetch = FetchType.LAZY)
     @Lob
     private String content; // longtext
+    private String description;
     private String firstPicture;
     private String flag;
     private Integer views; // 浏览次数
@@ -72,6 +73,14 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getFirstPicture() {
@@ -226,6 +235,7 @@ public class Blog {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
                 ", firstPicture='" + firstPicture + '\'' +
                 ", flag='" + flag + '\'' +
                 ", views=" + views +
@@ -236,6 +246,11 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", user=" + user +
+                ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
                 '}';
     }
 }

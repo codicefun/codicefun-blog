@@ -100,6 +100,11 @@
           </div>
         </div>
         
+        <!-- 博客描述 -->
+        <div class="required field">
+          <textarea maxlength="200" name="description" placeholder="博客描述" th:text="*{description}"></textarea>
+        </div>
+        
         <!-- 多选框 -->
         <div class="inline fields">
           <div class="field">
@@ -219,6 +224,13 @@
           rules: [{
             type: 'empty',
             prompt: '标题：请输入博客首图'
+          }]
+        },
+        description: {
+          identifier: 'description',
+          rules: [{
+            type: 'empty',
+            promql: '标题：请输入博客描述'
           }]
         }
       }

@@ -73,6 +73,7 @@ public class TagServiceImpl implements TagService {
                 } catch (NumberFormatException e) { // auto add new tag
                     Tag tag = new Tag();
                     tag.setName(s);
+                    // noinspection SpringTransactionalMethodCallsInspection
                     saveTag(tag);
                     list.add(tag.getId());
                 }
