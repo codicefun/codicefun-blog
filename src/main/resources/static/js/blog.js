@@ -100,8 +100,7 @@ function postComment() {
         "nickname": $("[name='nickname']").val(),
         "email": $("[name='email']").val(),
         "content": $("[name='content']").val()
-    }, function (responseTxt, statusTxt, xhr) {
-        $(window).scrollTo($("#comment-container"), 500);
+    }, function () {
         clearContent();
     });
 }

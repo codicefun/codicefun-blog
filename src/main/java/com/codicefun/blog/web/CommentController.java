@@ -1,6 +1,7 @@
 package com.codicefun.blog.web;
 
 import com.codicefun.blog.po.Comment;
+import com.codicefun.blog.po.User;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class CommentController {
@@ -38,10 +40,18 @@ public class CommentController {
      * 添加评论
      */
     @PostMapping("/comments")
-    public String add(Comment comment) {
+    public String add(Comment comment, HttpSession session) {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
-        comment.setAvatar(avatar);
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            comment.setAvatar(user.getAvatar());
+            comment.setAdminComment(true);
+        } else {
+            comment.setAvatar(avatar);
+        }
+
         commentService.saveComment(comment);
 
         return "redirect:/comments/" + blogId;

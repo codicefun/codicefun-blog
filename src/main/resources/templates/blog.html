@@ -94,14 +94,20 @@
                   <img alt="" src="https://picsum.photos/id/1/100/100" th:src="@{${comment.avatar}}">
                 </a>
                 <div class="content">
-                  <a class="author" th:text="${comment.nickname}"></a>
+                  <a class="author">
+                    <span th:text="${comment.nickname}"></span>
+                    <div class="ui mini basic teal left pointing label m-padded-mini"
+                         th:if="${comment.adminComment}">博主
+                    </div>
+                  </a>
                   <div class="metadata">
                     <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}"></span>
                   </div>
                   <div class="text" th:text="${comment.content}"></div>
                   <div class="actions">
                     <a class="reply"
-                       data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)" th:attr="data-comment-id=${comment.id}, data-comment-nickname=${comment.nickname}">回复</a>
+                       data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)"
+                       th:attr="data-comment-id=${comment.id}, data-comment-nickname=${comment.nickname}">回复</a>
                   </div>
                 </div>
                 <!-- 嵌套评论 -->
@@ -113,6 +119,9 @@
                     <div class="content">
                       <a class="author">
                         <span th:text="${reply.nickname}"></span>
+                        <div class="ui mini basic teal left pointing label m-padded-mini"
+                             th:if="${reply.adminComment}">博主
+                        </div>
                         <span class="m-teal" th:text="|@${reply.parentComment.nickname}|"></span>
                       </a>
                       <div class="metadata">
@@ -121,7 +130,8 @@
                       <div class="text" th:text="${reply.content}"></div>
                       <div class="actions">
                         <a class="reply"
-                           data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)" th:attr="data-comment-id=${reply.id}, data-comment-nickname=${reply.nickname}">回复</a>
+                           data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)"
+                           th:attr="data-comment-id=${reply.id}, data-comment-nickname=${reply.nickname}">回复</a>
                       </div>
                     </div>
                   </div>
@@ -140,13 +150,15 @@
             <div class="field m-mobile-wide m-margin-bottom-small">
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                <input type="text" name="nickname" placeholder="姓名">
+                <input name="nickname"
+                       placeholder="姓名" th:value="${session.user} != null ? ${session.user.nickname} : ''" type="text">
               </div>
             </div>
             <div class="field m-mobile-wide m-margin-bottom-small">
               <div class="ui left icon input">
                 <i class="mail icon"></i>
-                <input type="text" name="email" placeholder="邮箱">
+                <input name="email"
+                       placeholder="邮箱" th:value="${session.user} != null ? ${session.user.email} : ''" type="text">
               </div>
             </div>
             <div class="field m-mobile-wide m-margin-bottom-small">
