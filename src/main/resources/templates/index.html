@@ -167,12 +167,7 @@
   
   <!-- JS 依赖-->
   <th:block th:replace="_fragments::scripts"></th:block>
-  
-  <script>
-    $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide')
-    })
-  </script>
+  <script th:src="@{/js/index.js}"></script>
 
 </body>
 </html>

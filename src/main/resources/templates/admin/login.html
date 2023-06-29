@@ -45,26 +45,6 @@
   </div>
   
   <th:block th:replace="admin/_fragments::scripts"></th:block>
-  
-  <script>
-    $('.ui.form').form({
-      fields: {
-        username: {
-          identifier: 'username',
-          rules: [{
-            type: 'empty',
-            prompt: '请输入用户名'
-          }]
-        },
-        password: {
-          identifier: 'password',
-          rules: [{
-            type: 'empty',
-            prompt: '请输入密码'
-          }]
-        }
-      }
-    });
-  </script>
+  <script th:src="@{/js/admin/login.js}"></script>
 </body>
 </html>

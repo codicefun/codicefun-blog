@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress HtmlFormInputWithoutLabel -->
+<!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments::head(~{::title})">
   <title>博客</title>
@@ -44,7 +44,8 @@
         <h1 class="ui centered header" th:text="*{title}"></h1>
         
         <!-- 文章内容 -->
-        <div class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large line-numbers" id="content"
+        <div class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large line-numbers"
+             id="content"
              th:utext="*{content}"></div>
         
         <!-- 标签 -->
@@ -81,77 +82,57 @@
       </div>
       
       <!-- 留言区域 -->
-      <div id="comment-container" class="ui bottom attached segment">
-        <div class="ui teal segment">
-          <div class="ui comments">
-            <h3 class="ui dividing header">Comments</h3>
-            <div class="comment">
-              <a class="avatar">
-                <img src="https://picsum.photos/id/1/100/100" alt="">
-              </a>
-              <div class="content">
-                <a class="author">Matt</a>
-                <div class="metadata">
-                  <span class="date">今天下午 5:42</span>
+      <div class="ui bottom attached segment">
+        <!-- 留言区域列表 -->
+        <div class="ui teal segment" id="comment-container">
+          <div th:fragment="commentList">
+            <div class="ui threaded comments" style="max-width: 100%">
+              <h3 class="ui dividing header">评论</h3>
+              <!-- 评论列表 -->
+              <div class="comment" th:each="comment: ${comments}">
+                <a class="avatar">
+                  <img alt="" src="https://picsum.photos/id/1/100/100" th:src="@{${comment.avatar}}">
+                </a>
+                <div class="content">
+                  <a class="author" th:text="${comment.nickname}"></a>
+                  <div class="metadata">
+                    <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}"></span>
+                  </div>
+                  <div class="text" th:text="${comment.content}"></div>
+                  <div class="actions">
+                    <a class="reply"
+                       data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)" th:attr="data-comment-id=${comment.id}, data-comment-nickname=${comment.nickname}">回复</a>
+                  </div>
                 </div>
-                <div class="text">太赞了！</div>
-                <div class="actions">
-                  <a class="reply">回复</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment">
-              <a class="avatar">
-                <img src="https://picsum.photos/id/1/100/100" alt="">
-              </a>
-              <div class="content">
-                <a class="author">Elliot Fu</a>
-                <div class="metadata">
-                  <span class="date">昨天上午12:30</span>
-                </div>
-                <div class="text">
-                  <p>這對我的研究是非常有用.謝謝!</p>
-                </div>
-                <div class="actions">
-                  <a class="reply">回复</a>
-                </div>
-              </div>
-              <div class="comments">
-                <div class="comment">
-                  <a class="avatar">
-                    <img src="https://picsum.photos/id/1/100/100" alt="">
-                  </a>
-                  <div class="content">
-                    <a class="author">Jenny Hess</a>
-                    <div class="metadata">
-                      <span class="date">刚刚</span>
-                    </div>
-                    <div class="text">艾略特你永远是多么正确 :)</div>
-                    <div class="actions">
-                      <a class="reply">回复</a>
+                <!-- 嵌套评论 -->
+                <div class="comments" th:if="${#arrays.length(comment.replyComments)} > 0">
+                  <div class="comment" th:each="reply: ${comment.replyComments}">
+                    <a class="avatar">
+                      <img alt="" src="https://picsum.photos/id/1/100/100" th:src="@{${reply.avatar}}">
+                    </a>
+                    <div class="content">
+                      <a class="author">
+                        <span th:text="${reply.nickname}"></span>
+                        <span class="m-teal" th:text="|@${reply.parentComment.nickname}|"></span>
+                      </a>
+                      <div class="metadata">
+                        <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}"></span>
+                      </div>
+                      <div class="text" th:text="${reply.content}"></div>
+                      <div class="actions">
+                        <a class="reply"
+                           data-comment-id="1" data-comment-nickname="Matt" onclick="reply(this)" th:attr="data-comment-id=${reply.id}, data-comment-nickname=${reply.nickname}">回复</a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="comment">
-              <a class="avatar">
-                <img src="https://picsum.photos/id/1/100/100" alt="">
-              </a>
-              <div class="content">
-                <a class="author">Joe Henderson</a>
-                <div class="metadata">
-                  <span class="date">5 天以前</span>
-                </div>
-                <div class="text">老兄，这太棒了。非常感谢。</div>
-                <div class="actions">
-                  <a class="reply">回复</a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-        <div class="ui form">
+        <div class="ui form" id="comment-form">
+          <input name="blog.id" th:value="${id}" type="hidden">
+          <input name="parentComment.id" type="hidden" value="-1">
           <div class="field">
             <textarea name="content" placeholder="请留下友善的评论"></textarea>
           </div>
@@ -169,7 +150,7 @@
               </div>
             </div>
             <div class="field m-mobile-wide m-margin-bottom-small">
-              <button class="ui teal button m-mobile-wide">
+              <button class="ui teal button m-mobile-wide" id="comment-btn" type="button">
                 <i class="edit icon"></i>发布
               </button>
             </div>
@@ -220,66 +201,7 @@
   
   <!-- JS 依赖-->
   <th:block th:replace="_fragments::scripts"></th:block>
-  
-  <script th:inline="javascript">
-    $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide')
-    })
-    
-    $('#payButton').popup({
-      popup: $('.payQR.popup'),
-      on: 'click',
-      position: 'bottom center'
-    })
-    
-    tocbot.init({
-      // Where to render the table of contents.
-      tocSelector: '.js-toc',
-      // Where to grab the headings to build the table of contents.
-      contentSelector: '.js-toc-content',
-      // Which headings to grab inside of the contentSelector element.
-      headingSelector: 'h1, h2, h3',
-    })
-    
-    $('.toc.button').popup({
-      popup: $('.toc-container.popup'),
-      on: 'click',
-      position: 'left center'
-    })
-    
-    $('.wechat-b').popup({
-      popup: $('.wechat-qr'),
-      position: 'left center'
-    })
-    
-    let server = "https://blog.codicefun.com"
-    let url = /*[[@{/blog/{id}(id=${blog.id})}]]*/""
-    
-    let qrcode = new QRCode("qrcode", {
-      text: server + url,
-      width: 110,
-      height: 110,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    })
-    
-    $('#to-top-button').click(function () {
-      $(window).scrollTo(0, 500)
-    })
-    
-    let waypoint = new Waypoint({
-      element: document.getElementById('waypoint'),
-      handler: function (direction) {
-        if (direction === 'down') {
-          $('#toolbar').show(500)
-        } else {
-          $('#toolbar').hide(500)
-        }
-      }
-    })
-  
-  </script>
+  <script th:inline="javascript" th:src="@{/js/blog.js}"></script>
 
 </body>
 </html>

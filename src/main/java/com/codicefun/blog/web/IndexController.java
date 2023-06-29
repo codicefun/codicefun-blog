@@ -1,6 +1,7 @@
 package com.codicefun.blog.web;
 
 import com.codicefun.blog.service.BlogService;
+import com.codicefun.blog.service.CommentService;
 import com.codicefun.blog.service.TagService;
 import com.codicefun.blog.service.TypeService;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public class IndexController {
 
     @Resource
     private TagService tagService;
+
+    @Resource
+    private CommentService commentService;
 
     /**
      * 分页显示博客列表
@@ -59,6 +63,7 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         model.addAttribute("blog", blogService.getAndConvert(id));
+        model.addAttribute("comments", commentService.listCommentByBlogId(id));
 
         return "blog";
     }
