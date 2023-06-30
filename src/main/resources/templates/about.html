@@ -82,19 +82,7 @@
   
   <!-- JS 依赖-->
   <th:block th:replace="_fragments::scripts"></th:block>
-  
-  <script>
-    $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide')
-    })
-    
-    $('.qq').popup()
-    
-    $('.wechat-a').popup({
-      popup: $('.wechat-qr'),
-      position: 'bottom center'
-    })
-  </script>
+  <script th:src="@{/js/about.js}"></script>
   
 </body>
 </html>
