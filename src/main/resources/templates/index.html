@@ -103,14 +103,13 @@
                   <i class="idea icon"></i>分类
                 </div>
                 <div class="right aligned column">
-                  <a href="#" target="_blank">more<i class="angle double right icon"></i></a>
+                  <a href="#" th:href="@{/type/-1}">more<i class="angle double right icon"></i></a>
                 </div>
               </div>
             </div>
             <div class="ui teal segment">
               <div class="ui fluid vertical menu">
-                <a class="item"
-                   href="#" th:each="type: ${types}">
+                <a class="item" href="#" th:each="type: ${types}" th:href="@{/type/{id}(id=${type.id})}">
                   <span th:text="${type.name}"></span>
                   <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}"></div>
                 </a>
@@ -146,7 +145,7 @@
             </div>
             <div class="ui segment" th:each="blog: ${recommendBlogs}">
               <a class="item m-black m-text-thin" href="#"
-                 target="_blank" th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
+                 th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
             </div>
           </div>
           
