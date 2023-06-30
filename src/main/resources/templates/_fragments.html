@@ -38,7 +38,7 @@
         
         <!-- 右侧搜索框 -->
         <div class="right item m-mobile-hide">
-          <form method="post" name="search" target="_blank" th:action="@{/search}">
+          <form method="post" name="search" th:action="@{/search}">
             <div class="ui icon inverted transparent input">
               <input name="query" placeholder="Search..." th:value="${query}" type="text">
               <i class="search link icon" onclick="document.forms['search'].submit()"></i>

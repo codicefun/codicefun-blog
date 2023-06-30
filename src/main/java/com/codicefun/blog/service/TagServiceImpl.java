@@ -86,7 +86,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> listTag(Integer size) {
+    public List<Tag> listTagTop(Integer size) {
         Sort sort = new Sort(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = new PageRequest(0, size, sort);
 
@@ -112,4 +112,5 @@ public class TagServiceImpl implements TagService {
     public void deleteTag(Long id) {
         tagRepository.delete(id);
     }
+
 }
