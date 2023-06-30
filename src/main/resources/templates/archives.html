@@ -20,167 +20,26 @@
             <div class="ui teal header">归档</div>
           </div>
           <div class="right aligned column">
-            共 <h2 class="ui orange header m-inline-block m-text-thin">114</h2> 篇博客
+            共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"></h2> 篇博客
           </div>
         </div>
       </div>
       
-      <h3 class="ui center aligned header">2023</h3>
-      <div class="ui fluid vertical menu">
-        <a href="#" target="_blank" class="item">
+      <th:block th:each="item: ${archiveMap}">
+        <h3 class="ui center aligned header" th:text="${item.key}"></h3>
+        <div class="ui fluid vertical menu">
+          <a class="item" th:each="blog: ${item.value}" th:href="@{/blog/{id}(id=${blog.id})}">
           <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
+            <i class="mini teal circle icon"></i>
+            <span th:text="${blog.title}"></span>
           </span>
-          <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-      </div>
-      
-      <h3 class="ui center aligned header">2022</h3>
-      <div class="ui fluid vertical menu">
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-      </div>
-      
-      <h3 class="ui center aligned header">2021</h3>
-      <div class="ui fluid vertical menu">
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-      </div>
-      
-      <h3 class="ui center aligned header">2020</h3>
-      <div class="ui fluid vertical menu">
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-        <a href="#" target="_blank" class="item">
-          <span>
-            <i class="mini teal circle icon"></i>关于刻意联系的清单
-            <div class="ui teal basic left pointing label m-padded-mini">5月22</div>
-          </span>
-          <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-        </a>
-      </div>
+            <div class="ui teal basic left pointing label m-padded-mini"
+                 th:text="${#dates.format(blog.createTime, 'MMMdd')}">5月22
+            </div>
+            <div class="ui orange basic left pointing label m-padded-mini" th:text="${blog.flag}">原创</div>
+          </a>
+        </div>
+      </th:block>
     </div>
   </div>
   <br>
@@ -191,12 +50,7 @@
   
   <!-- JS 依赖-->
   <th:block th:replace="_fragments::scripts"></th:block>
-  
-  <script>
-    $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide')
-    })
-  </script>
+  <script th:src="@{/js/archives.js}"></script>
   
 </body>
 </html>

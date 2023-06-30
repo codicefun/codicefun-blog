@@ -17,9 +17,7 @@ import javax.annotation.Resource;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -91,6 +89,23 @@ public class BlogServiceImpl implements BlogService {
         Pageable pageable = new PageRequest(0, size, sort);
 
         return blogRepository.findTop(pageable);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years = blogRepository.findGroupByYear();
+        Map<String, List<Blog>> map = new HashMap<>();
+
+        for (String year : years) {
+            map.put(year, blogRepository.findByYear(year));
+        }
+
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 
     @Transactional
