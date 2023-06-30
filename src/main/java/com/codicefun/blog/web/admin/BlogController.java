@@ -1,7 +1,7 @@
 package com.codicefun.blog.web.admin;
 
-import com.codicefun.blog.po.Blog;
-import com.codicefun.blog.po.User;
+import com.codicefun.blog.entity.Blog;
+import com.codicefun.blog.entity.User;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.TagService;
 import com.codicefun.blog.service.TypeService;
@@ -51,9 +51,9 @@ public class BlogController {
      */
     @GetMapping("/blogs")
     public String list(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC)
-                       Pageable pageable, BlogQuery blog, Model model) {
+                       Pageable pageable, BlogQuery query, Model model) {
         model.addAttribute("types", typeService.listType());
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listByMultiQuery(query, pageable));
 
         return LIST;
     }
@@ -63,8 +63,8 @@ public class BlogController {
      */
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC)
-                         Pageable pageable, BlogQuery blog, Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+                         Pageable pageable, BlogQuery query, Model model) {
+        model.addAttribute("page", blogService.listByMultiQuery(query, pageable));
 
         return "admin/blogs :: blogList";
     }

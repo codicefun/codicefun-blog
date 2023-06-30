@@ -1,6 +1,6 @@
 package com.codicefun.blog.web;
 
-import com.codicefun.blog.po.Tag;
+import com.codicefun.blog.entity.Tag;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.TagService;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +33,7 @@ public class TagShowController {
         }
 
         model.addAttribute("tags", tags);
-        model.addAttribute("page", blogService.listBlog(id, pageable));
+        model.addAttribute("page", blogService.listByTag(id, pageable));
         model.addAttribute("activeTagId", id);
 
         return "tags";

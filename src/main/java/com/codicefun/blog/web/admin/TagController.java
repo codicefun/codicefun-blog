@@ -1,6 +1,6 @@
 package com.codicefun.blog.web.admin;
 
-import com.codicefun.blog.po.Tag;
+import com.codicefun.blog.entity.Tag;
 import com.codicefun.blog.service.TagService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

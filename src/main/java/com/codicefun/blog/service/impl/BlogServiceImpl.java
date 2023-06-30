@@ -1,8 +1,9 @@
-package com.codicefun.blog.service;
+package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.BlogRepository;
+import com.codicefun.blog.entity.Blog;
 import com.codicefun.blog.exception.NotFoundException;
-import com.codicefun.blog.po.Blog;
+import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.util.MarkdownUtils;
 import com.codicefun.blog.util.MyBeanUtils;
 import com.codicefun.blog.vo.BlogQuery;
@@ -26,39 +27,46 @@ public class BlogServiceImpl implements BlogService {
     private BlogRepository blogRepository;
 
     @Override
-    public Blog getAndConvert(Long id) {
+    public Blog getBlog(Long id) {
+        return blogRepository.findOne(id);
+    }
+
+    @Override
+    public Blog getContent(Long id) {
         Blog blog = blogRepository.findOne(id);
 
         if (blog == null) {
             throw new NotFoundException("该博客不存在");
         }
 
-        Blog b = new Blog();
-        BeanUtils.copyProperties(blog, b);
-        String content = b.getContent();
-        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
-        blogRepository.updateViews(b.getId());
-
-        return b;
+        return convertMarkdownToHtml(blog);
     }
 
     @Override
-    public Blog getBlog(Long id) {
-        return blogRepository.findOne(id);
+    public Page<Blog> listPublished(Pageable pageable) {
+        return blogRepository.findByPublishedTrue(pageable);
     }
 
     @Override
-    public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
+    public List<Blog> listRecommended(int size) {
+        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = new PageRequest(0, size, sort);
+
+        return blogRepository.findByRecommendTrueAndPublishedTrue(pageable);
+    }
+
+    @Override
+    public Page<Blog> listByMultiQuery(BlogQuery query, Pageable pageable) {
         return blogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (blog.getTitle() != null && !blog.getTitle().equals("")) {
-                predicates.add(criteriaBuilder.like(root.get("title"), "%" + blog.getTitle() + "%"));
+            if (query.getTitle() != null && !query.getTitle().equals("")) {
+                predicates.add(criteriaBuilder.like(root.get("title"), "%" + query.getTitle() + "%"));
             }
-            if (blog.getTypeId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("type").get("id"), blog.getTypeId()));
+            if (query.getTypeId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("type").get("id"), query.getTypeId()));
             }
-            if (blog.isRecommend()) {
-                predicates.add(criteriaBuilder.equal(root.get("recommend"), blog.isRecommend()));
+            if (query.isRecommend()) {
+                predicates.add(criteriaBuilder.equal(root.get("recommend"), query.isRecommend()));
             }
             criteriaQuery.where(predicates.toArray(new Predicate[0]));
             return null;
@@ -66,17 +74,17 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Blog> listBlog(Pageable pageable) {
-        return blogRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Blog> listBlog(String query, Pageable pageable) {
+    public Page<Blog> listByQuery(String query, Pageable pageable) {
         return blogRepository.findByQuery(query, pageable);
     }
 
     @Override
-    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+    public Page<Blog> listByType(Long typeId, Pageable pageable) {
+        return blogRepository.findByTypeId(typeId, pageable);
+    }
+
+    @Override
+    public Page<Blog> listByTag(Long tagId, Pageable pageable) {
         return blogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
             Join<Object, Object> join = root.join("tags");
             return criteriaBuilder.equal(join.get("id"), tagId);
@@ -84,17 +92,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> listRecommendBlogTop(Integer size) {
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
-        Pageable pageable = new PageRequest(0, size, sort);
-
-        return blogRepository.findTop(pageable);
-    }
-
-    @Override
-    public Map<String, List<Blog>> archiveBlog() {
-        List<String> years = blogRepository.findGroupByYear();
-        Map<String, List<Blog>> map = new HashMap<>();
+    public Map<String, List<Blog>> getArchive() {
+        List<String> years = blogRepository.findByGroupYear();
+        Map<String, List<Blog>> map = new TreeMap<>(Comparator.reverseOrder());
 
         for (String year : years) {
             map.put(year, blogRepository.findByYear(year));
@@ -104,8 +104,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Long countBlog() {
-        return blogRepository.count();
+    public Long countPublished() {
+        return blogRepository.countByPublishedTrue();
     }
 
     @Transactional
@@ -139,6 +139,22 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Long id) {
         blogRepository.delete(id);
+    }
+
+    /**
+     * 将博客内容的 markdown 格式转为 html 格式，不改变数据库中的博客内容
+     *
+     * @param blog 内容为 markdown 格式的博客对象
+     * @return 内容为 html 格式的博客对象
+     */
+    private Blog convertMarkdownToHtml(Blog blog) {
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog, b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        blogRepository.updateViews(b.getId());
+
+        return b;
     }
 
 }

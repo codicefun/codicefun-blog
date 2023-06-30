@@ -1,5 +1,8 @@
 package com.codicefun.blog.vo;
 
+/**
+ * 博客的多条件查询
+ */
 @SuppressWarnings("unused")
 public class BlogQuery {
 

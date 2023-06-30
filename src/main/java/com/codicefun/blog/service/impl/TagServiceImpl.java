@@ -1,8 +1,9 @@
-package com.codicefun.blog.service;
+package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.TagRepository;
+import com.codicefun.blog.entity.Tag;
 import com.codicefun.blog.exception.NotFoundException;
-import com.codicefun.blog.po.Tag;
+import com.codicefun.blog.service.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,12 +48,6 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll();
     }
 
-    /**
-     * find tags by tag id string
-     *
-     * @param ids tag ids string("1,2,3")
-     * @return find result
-     */
     @Override
     public List<Tag> listTag(String ids) {
         return tagRepository.findAll(tagIds2TagList(ids));

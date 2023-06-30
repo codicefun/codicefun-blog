@@ -1,9 +1,8 @@
 package com.codicefun.blog.web;
 
-import com.codicefun.blog.po.Type;
+import com.codicefun.blog.entity.Type;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.TypeService;
-import com.codicefun.blog.vo.BlogQuery;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -33,10 +32,11 @@ public class TypeShowController {
             id = types.get(0).getId();
         }
 
-        BlogQuery blogQuery = new BlogQuery();
-        blogQuery.setTypeId(id);
+        // BlogQuery query = new BlogQuery();
+        // query.setTypeId(id);
         model.addAttribute("types", types);
-        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
+        // model.addAttribute("page", blogService.listByMultiQuery(query, pageable));
+        model.addAttribute("page", blogService.listByType(id, pageable));
         model.addAttribute("activeTypeId", id);
 
         return "types";

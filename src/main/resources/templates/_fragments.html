@@ -23,7 +23,9 @@
       <div class="ui inverted secondary stackable menu">
         <h2 class="ui teal header item">Blog</h2>
         <a class="m-item item m-mobile-hide" th:classappend="${n == 1} ? 'active'" th:href="@{/}">
-          <i class="home icon"></i>首页</a>
+          <i class="home icon"></i>
+          <span th:text="#{nav.index}"></span>
+        </a>
         <a class="m-item item m-mobile-hide" th:classappend="${n == 2} ? 'active'"
            th:href="@{/type/-1}"><i class="idea icon"></i>分类</a>
         <a class="m-item item m-mobile-hide" th:classappend="${n == 3} ? 'active'"
@@ -62,20 +64,22 @@
             </div>
           </div>
         </div>
+        <!-- 最新博客 -->
         <div class="three wide column">
           <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">用户故事 (User Story)</a>
-            <a href="#" class="item">用户故事 (User Story)</a>
-            <a href="#" class="item">用户故事 (User Story)</a>
+          <div id="new-blog-container">
+            <div class="ui inverted link list" th:fragment="newBlogList">
+              <a class="item" th:each="blog: ${newBlogs}" th:href="@{/blog/{id}(id=${blog.id})}"
+                 th:text="${blog.title}"></a>
+            </div>
           </div>
         </div>
         <div class="three wide column">
           <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
           <div class="ui inverted link list">
-            <a href="#" class="item">Email: james_wangx@163.com</a>
-            <a href="#" class="item">QQ: 1836811530</a>
-            <a href="#" class="item">用户故事 (User Story)</a>
+            <a class="item" th:text="#{footer.email}"></a>
+            <a class="item" th:text="#{footer.qq}"></a>
+            <a class="item" th:text="#{footer.wechat}"></a>
           </div>
         </div>
         <div class="seven wide column">
@@ -102,6 +106,7 @@
     <script th:src="@{/qrcodejs/qrcode.min.js}"></script>
     <script th:src="@{/jquery.scrollto/jquery.scrollTo.min.js}"></script>
     <script th:src="@{/waypoints/lib/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/fragement.js}"></script>
   </th:block>
 
 </body>

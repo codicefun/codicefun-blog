@@ -1,7 +1,8 @@
-package com.codicefun.blog.service;
+package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.CommentRepository;
-import com.codicefun.blog.po.Comment;
+import com.codicefun.blog.entity.Comment;
+import com.codicefun.blog.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class CommentServiceImpl implements CommentService {
     private List<Comment> tempReplies = new ArrayList<>();
 
     @Override
-    public List<Comment> listCommentByBlogId(Long blogId) {
+    public List<Comment> listByBlog(Long blogId) {
         Sort sort = new Sort("createTime");
         List<Comment> comments = commentRepository.findByBlogIdAndParentCommentNull(blogId, sort);
 
@@ -29,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment saveComment(Comment comment) {
+    public void saveComment(Comment comment) {
         comment.setCreateTime(new Date());
         Long parentCommentId = comment.getParentComment().getId();
 
@@ -39,10 +40,17 @@ public class CommentServiceImpl implements CommentService {
             comment.setParentComment(null);
         }
 
-        return commentRepository.save(comment);
+        commentRepository.save(comment);
     }
 
+    /**
+     * 将多级评论转为两级评论
+     *
+     * @param comments 多级评论列表
+     * @return 两级评论列表
+     */
     private List<Comment> eachComment(List<Comment> comments) {
+        // 放置拷贝的评论对象，不改变数据库中的结构
         List<Comment> commentsView = new ArrayList<>();
 
         for (Comment comment : comments) {
@@ -56,6 +64,11 @@ public class CommentServiceImpl implements CommentService {
         return commentsView;
     }
 
+    /**
+     * 合并各层子评论到一级子评论中
+     *
+     * @param comments 多级评论列表
+     */
     private void combineChildren(List<Comment> comments) {
         for (Comment comment : comments) {
             List<Comment> replies = comment.getReplyComments();
@@ -70,6 +83,11 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    /**
+     * 递归找出所有子评论，并放入临时列表中
+     *
+     * @param comment 当前评论
+     */
     private void recursively(Comment comment) {
         tempReplies.add(comment); // 顶节点添加到临时存放集合
 

@@ -1,6 +1,6 @@
 package com.codicefun.blog.web.admin;
 
-import com.codicefun.blog.po.User;
+import com.codicefun.blog.entity.User;
 import com.codicefun.blog.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,8 @@
-package com.codicefun.blog.service;
+package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.UserRepository;
-import com.codicefun.blog.po.User;
+import com.codicefun.blog.entity.User;
+import com.codicefun.blog.service.UserService;
 import com.codicefun.blog.util.MD5Util;
 import org.springframework.stereotype.Service;
 

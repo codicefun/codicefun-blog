@@ -1,13 +1,24 @@
 package com.codicefun.blog.service;
 
-import com.codicefun.blog.po.Comment;
+import com.codicefun.blog.entity.Comment;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> listCommentByBlogId(Long blogId);
+    /**
+     * 列出一篇博客下的所有评论
+     *
+     * @param blogId 博客 id
+     * @return 评论列表
+     */
+    List<Comment> listByBlog(Long blogId);
 
-    Comment saveComment(Comment comment);
+    /**
+     * 保存评论
+     *
+     * @param comment 待保存的评论对象
+     */
+    void saveComment(Comment comment);
 
 }

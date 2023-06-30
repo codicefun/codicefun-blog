@@ -1,4 +1,4 @@
-package com.codicefun.blog.po;
+package com.codicefun.blog.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

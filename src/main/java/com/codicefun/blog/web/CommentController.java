@@ -1,7 +1,7 @@
 package com.codicefun.blog.web;
 
-import com.codicefun.blog.po.Comment;
-import com.codicefun.blog.po.User;
+import com.codicefun.blog.entity.Comment;
+import com.codicefun.blog.entity.User;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +31,7 @@ public class CommentController {
      */
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
-        model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
+        model.addAttribute("comments", commentService.listByBlog(blogId));
 
         return "blog :: commentList";
     }

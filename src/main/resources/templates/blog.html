@@ -54,13 +54,13 @@
         </div>
         
         <!-- 赞赏 -->
-        <div class="ui center aligned basic segment">
+        <div class="ui center aligned basic segment" th:if="*{appreciation}">
           <button id="payButton" class="ui orange basic circular button">赞赏</button>
         </div>
       </div>
       
       <!-- 博客信息 -->
-      <div class="ui attached positive message">
+      <div class="ui attached positive message" th:if="*{shareStatement}">
         <div class="ui middle aligned grid">
           <div class="eleven wide column">
             <ul class="list">
@@ -82,7 +82,7 @@
       </div>
       
       <!-- 留言区域 -->
-      <div class="ui bottom attached segment">
+      <div class="ui bottom attached segment" th:if="*{commentable}">
         <!-- 留言区域列表 -->
         <div class="ui teal segment" id="comment-container">
           <div th:fragment="commentList">
