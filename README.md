@@ -1,6 +1,6 @@
 # codicefun-blog
 
-Personal blogging system designed by Codicefun
+Personal Blogging System designed by Codicefun
 
 ## Development environment
 
