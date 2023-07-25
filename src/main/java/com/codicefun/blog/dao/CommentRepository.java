@@ -1,6 +1,6 @@
 package com.codicefun.blog.dao;
 
-import com.codicefun.blog.entity.Comment;
+import com.codicefun.blog.model.pojo.Comment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

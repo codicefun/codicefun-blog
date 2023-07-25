@@ -1,4 +1,4 @@
-package com.codicefun.blog.vo;
+package com.codicefun.blog.model.vo;
 
 /**
  * 博客的多条件查询

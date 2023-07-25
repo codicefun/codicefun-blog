@@ -1,12 +1,12 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.BlogRepository;
-import com.codicefun.blog.entity.Blog;
 import com.codicefun.blog.exception.NotFoundException;
+import com.codicefun.blog.model.pojo.Blog;
+import com.codicefun.blog.model.vo.BlogQuery;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.util.MarkdownUtils;
 import com.codicefun.blog.util.MyBeanUtils;
-import com.codicefun.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

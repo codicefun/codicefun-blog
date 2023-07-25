@@ -1,11 +1,11 @@
-package com.codicefun.blog.web.admin;
+package com.codicefun.blog.controller.admin;
 
-import com.codicefun.blog.entity.Blog;
-import com.codicefun.blog.entity.User;
+import com.codicefun.blog.model.pojo.Blog;
+import com.codicefun.blog.model.pojo.User;
+import com.codicefun.blog.model.vo.BlogQuery;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.TagService;
 import com.codicefun.blog.service.TypeService;
-import com.codicefun.blog.vo.BlogQuery;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @SuppressWarnings("SpringMVCViewInspection")
 @Controller
 @RequestMapping("/admin")
-public class BlogController {
+public class AdminBlogController {
 
     public static final String INPUT = "admin/blogs-input";
     public static final String LIST = "admin/blogs";

@@ -1,6 +1,6 @@
-package com.codicefun.blog.web;
+package com.codicefun.blog.controller;
 
-import com.codicefun.blog.entity.Tag;
+import com.codicefun.blog.model.pojo.Tag;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.TagService;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
-public class TagShowController {
+public class TagController {
 
     @Resource
     private TagService tagService;

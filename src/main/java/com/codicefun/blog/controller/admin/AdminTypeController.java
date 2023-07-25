@@ -1,6 +1,6 @@
-package com.codicefun.blog.web.admin;
+package com.codicefun.blog.controller.admin;
 
-import com.codicefun.blog.entity.Type;
+import com.codicefun.blog.model.pojo.Type;
 import com.codicefun.blog.service.TypeService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
-public class TypeController {
+public class AdminTypeController {
 
     @Resource
     private TypeService typeService;

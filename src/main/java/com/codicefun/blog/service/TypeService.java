@@ -1,6 +1,6 @@
 package com.codicefun.blog.service;
 
-import com.codicefun.blog.entity.Type;
+import com.codicefun.blog.model.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

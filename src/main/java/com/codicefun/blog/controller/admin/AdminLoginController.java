@@ -1,6 +1,6 @@
-package com.codicefun.blog.web.admin;
+package com.codicefun.blog.controller.admin;
 
-import com.codicefun.blog.entity.User;
+import com.codicefun.blog.model.pojo.User;
 import com.codicefun.blog.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
-public class LoginController {
+public class AdminLoginController {
 
     @Resource
     private UserService userService;

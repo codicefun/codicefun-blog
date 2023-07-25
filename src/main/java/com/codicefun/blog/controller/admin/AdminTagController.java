@@ -1,6 +1,6 @@
-package com.codicefun.blog.web.admin;
+package com.codicefun.blog.controller.admin;
 
-import com.codicefun.blog.entity.Tag;
+import com.codicefun.blog.model.pojo.Tag;
 import com.codicefun.blog.service.TagService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
-public class TagController {
+public class AdminTagController {
 
     @Resource
     private TagService tagService;

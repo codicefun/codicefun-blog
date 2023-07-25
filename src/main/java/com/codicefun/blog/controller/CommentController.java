@@ -1,7 +1,7 @@
-package com.codicefun.blog.web;
+package com.codicefun.blog.controller;
 
-import com.codicefun.blog.entity.Comment;
-import com.codicefun.blog.entity.User;
+import com.codicefun.blog.model.pojo.Comment;
+import com.codicefun.blog.model.pojo.User;
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +29,7 @@ public class CommentController {
     /**
      * 显示评论列表
      */
+    @SuppressWarnings("SpringMVCViewInspection")
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
         model.addAttribute("comments", commentService.listByBlog(blogId));

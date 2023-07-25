@@ -1,7 +1,7 @@
 package com.codicefun.blog.service;
 
-import com.codicefun.blog.entity.Blog;
-import com.codicefun.blog.vo.BlogQuery;
+import com.codicefun.blog.model.pojo.Blog;
+import com.codicefun.blog.model.vo.BlogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

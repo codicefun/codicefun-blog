@@ -20,7 +20,7 @@ public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("execution(* com.codicefun.blog.web.*.*(..))")
+    @Pointcut("execution(* com.codicefun.blog.controller.*.*(..))")
     public void log() {}
 
     @Before("log()")

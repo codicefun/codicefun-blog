@@ -1,6 +1,6 @@
 package com.codicefun.blog.service;
 
-import com.codicefun.blog.entity.Comment;
+import com.codicefun.blog.model.pojo.Comment;
 
 import java.util.List;
 

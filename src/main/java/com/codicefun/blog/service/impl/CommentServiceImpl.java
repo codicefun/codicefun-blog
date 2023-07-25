@@ -1,7 +1,7 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.CommentRepository;
-import com.codicefun.blog.entity.Comment;
+import com.codicefun.blog.model.pojo.Comment;
 import com.codicefun.blog.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;

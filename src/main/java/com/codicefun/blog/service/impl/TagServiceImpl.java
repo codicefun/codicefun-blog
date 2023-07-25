@@ -1,8 +1,8 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.TagRepository;
-import com.codicefun.blog.entity.Tag;
 import com.codicefun.blog.exception.NotFoundException;
+import com.codicefun.blog.model.pojo.Tag;
 import com.codicefun.blog.service.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

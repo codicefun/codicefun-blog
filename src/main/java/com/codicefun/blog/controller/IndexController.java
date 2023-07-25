@@ -1,4 +1,4 @@
-package com.codicefun.blog.web;
+package com.codicefun.blog.controller;
 
 import com.codicefun.blog.service.BlogService;
 import com.codicefun.blog.service.CommentService;
@@ -68,6 +68,7 @@ public class IndexController {
         return "blog";
     }
 
+    @SuppressWarnings("SpringMVCViewInspection")
     @GetMapping("/footer/blog")
     public String newBlogs(Model model) {
         model.addAttribute("newBlogs", blogService.listRecommended(3));

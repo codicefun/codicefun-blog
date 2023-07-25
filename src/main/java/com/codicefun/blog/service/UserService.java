@@ -1,6 +1,6 @@
 package com.codicefun.blog.service;
 
-import com.codicefun.blog.entity.User;
+import com.codicefun.blog.model.pojo.User;
 
 public interface UserService {
 

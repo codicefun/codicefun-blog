@@ -1,4 +1,4 @@
-package com.codicefun.blog.web;
+package com.codicefun.blog.controller;
 
 import com.codicefun.blog.service.BlogService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.annotation.Resource;
 
 @Controller
-public class ArchiveShowController {
+public class ArchiveController {
 
     @Resource
     private BlogService blogService;

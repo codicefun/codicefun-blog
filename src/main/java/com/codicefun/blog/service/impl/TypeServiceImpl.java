@@ -1,8 +1,8 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.dao.TypeRepository;
-import com.codicefun.blog.entity.Type;
 import com.codicefun.blog.exception.NotFoundException;
+import com.codicefun.blog.model.pojo.Type;
 import com.codicefun.blog.service.TypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

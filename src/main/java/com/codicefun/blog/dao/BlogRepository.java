@@ -1,6 +1,6 @@
 package com.codicefun.blog.dao;
 
-import com.codicefun.blog.entity.Blog;
+import com.codicefun.blog.model.pojo.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

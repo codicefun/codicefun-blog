@@ -1,4 +1,4 @@
-package com.codicefun.blog.entity;
+package com.codicefun.blog.model.pojo;
 
 import org.hibernate.validator.constraints.NotBlank;
 

@@ -1,10 +1,10 @@
-package com.codicefun.blog.web;
+package com.codicefun.blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AboutShowController {
+public class AboutController {
 
     @GetMapping("/about")
     public String about() {
