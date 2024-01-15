@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codicefun.blog.mapper.UserMapper">
+
+  <insert id="insert">
+    INSERT INTO `user` (`username`, `password`, `nickname`, `email`, `avatar`, `role`)
+    VALUES (#{username}, #{password}, #{nickname}, #{email}, #{avatar}, #{role})
+  </insert>
+
+  <select id="selectById" resultType="user">
+    SELECT *
+    FROM `user`
+    WHERE `id` = #{id}
+  </select>
+
+  <select id="selectAll" resultType="user">
+    SELECT *
+    FROM `user`
+  </select>
+
+  <update id="update">
+    UPDATE `user`
+    <set>
+      <if test="username != null">
+        `username` = #{username},
+      </if>
+      <if test="password != null">
+        `password` = #{password},
+      </if>
+      <if test="nickname != null">
+        `nickname` = #{nickname},
+      </if>
+      <if test="email != null">
+        `email` = #{email},
+      </if>
+      <if test="avatar != null">
+        `avatar` = #{avatar},
+      </if>
+      <if test="role != null">
+        `role` = #{role},
+      </if>
+      `update_time` = CURRENT_TIMESTAMP
+    </set>
+    WHERE `id` = #{id}
+  </update>
+
+  <delete id="delete">
+    DELETE
+    FROM `user`
+    WHERE `id` = #{id}
+  </delete>
+
+</mapper>

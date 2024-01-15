@@ -8,12 +8,6 @@
     VALUES (#{name})
   </insert>
 
-  <update id="update">
-    UPDATE `tag`
-    SET `name` = #{name}
-    WHERE `id` = #{id}
-  </update>
-
   <select id="selectById" resultType="tag">
     SELECT *
     FROM `tag`
@@ -25,11 +19,20 @@
     FROM `tag`
   </select>
 
+  <update id="update">
+    UPDATE `tag`
+    <set>
+      <if test="name != null and name != ''">
+        `name` = #{name},
+      </if>
+    </set>
+    WHERE `id` = #{id}
+  </update>
+
   <delete id="delete">
     DELETE
     FROM `tag`
     WHERE `id` = #{id}
   </delete>
-
 
 </mapper>

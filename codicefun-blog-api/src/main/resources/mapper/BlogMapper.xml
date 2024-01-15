@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codicefun.blog.mapper.BlogMapper">
+
+  <insert id="insert">
+    INSERT INTO `blog` (`title`, `content`, `description`, `picture`, `user_id`, `type_id`, `viewed`, `liked`)
+    VALUES (#{title}, #{content}, #{description}, #{picture}, #{userId}, #{typeId}, #{viewed}, #{liked})
+  </insert>
+
+  <select id="selectById" resultType="blog">
+    SELECT *
+    FROM `blog`
+    WHERE `id` = #{id}
+  </select>
+
+  <select id="selectAll" resultType="blog">
+    SELECT *
+    FROM `blog`
+  </select>
+
+  <update id="update">
+    UPDATE `blog`
+    <set>
+      <if test="title != null and title != ''">
+        `title` = #{title},
+      </if>
+      <if test="content != null and content != ''">
+        `content` = #{content},
+      </if>
+      <if test="description != null and description != ''">
+        `description` = #{description},
+      </if>
+      <if test="picture != null and picture != ''">
+        `picture` = #{picture},
+      </if>
+      <if test="userId != null">
+        `user_id` = #{userId},
+      </if>
+      <if test="typeId != null">
+        `type_id` = #{typeId},
+      </if>
+      <if test="viewed != null">
+        `viewed` = #{viewed},
+      </if>
+      <if test="liked != null">
+        `liked` = #{liked},
+      </if>
+      `update_time` = CURRENT_TIMESTAMP
+    </set>
+    WHERE `id` = #{id}
+  </update>
+
+  <delete id="delete">
+    DELETE
+    FROM `blog`
+    WHERE `id` = #{id}
+  </delete>
+
+</mapper>
+
