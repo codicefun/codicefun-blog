@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codicefun.blog.mapper.TagMapper">
+
+  <insert id="insert">
+    INSERT INTO `tag` (`name`)
+    VALUES (#{name})
+  </insert>
+
+  <update id="update">
+    UPDATE `tag`
+    SET `name` = #{name}
+    WHERE `id` = #{id}
+  </update>
+
+  <select id="selectById" resultType="tag">
+    SELECT *
+    FROM `tag`
+    WHERE `id` = #{id}
+  </select>
+
+  <select id="selectAll" resultType="tag">
+    SELECT *
+    FROM `tag`
+  </select>
+
+  <delete id="delete">
+    DELETE
+    FROM `tag`
+    WHERE `id` = #{id}
+  </delete>
+
+
+</mapper>
