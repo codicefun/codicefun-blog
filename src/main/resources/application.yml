@@ -1,9 +1,0 @@
-spring:
-  thymeleaf:
-    mode: HTML
-  profiles:
-    active: dev
-  resources:
-    static-locations: classpath:/static/,classpath:node_modules/
-
-comment.avatar: /images/avatar.png
