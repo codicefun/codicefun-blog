@@ -14,9 +14,35 @@
     WHERE `id` = #{id}
   </select>
 
-  <select id="selectAll" resultType="blog">
+  <select id="selectByTerms" resultType="blog">
     SELECT *
     FROM `blog`
+    <where>
+      <if test="title != null and title != ''">
+        AND `title` = #{title}
+      </if>
+      <if test="content != null and content != ''">
+        AND `content` = #{content}
+      </if>
+      <if test="description != null and description != ''">
+        AND `description` = #{description}
+      </if>
+      <if test="picture != null and picture != ''">
+        AND `picture` = #{picture}
+      </if>
+      <if test="userId != null">
+        AND `user_id` = #{userId}
+      </if>
+      <if test="typeId != null">
+        AND `type_id` = #{typeId}
+      </if>
+      <if test="viewed != null">
+        AND `viewed` = #{viewed}
+      </if>
+      <if test="liked != null">
+        AND `liked` = #{liked}
+      </if>
+    </where>
   </select>
 
   <update id="update">
@@ -58,4 +84,3 @@
   </delete>
 
 </mapper>
-

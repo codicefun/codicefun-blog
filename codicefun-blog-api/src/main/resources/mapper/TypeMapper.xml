@@ -14,9 +14,14 @@
     WHERE `id` = #{id}
   </select>
 
-  <select id="selectAll" resultType="type">
+  <select id="selectByTerms" resultType="type">
     SELECT *
     FROM `type`
+    <where>
+      <if test="name != null and name != ''">
+        AND `name` = #{name}
+      </if>
+    </where>
   </select>
 
   <update id="update">
@@ -36,4 +41,3 @@
   </delete>
 
 </mapper>
-

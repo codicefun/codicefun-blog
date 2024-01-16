@@ -14,9 +14,29 @@
     WHERE `id` = #{id}
   </select>
 
-  <select id="selectAll" resultType="comment">
+  <select id="selectByTerms" resultType="comment">
     SELECT *
     FROM `comment`
+    <where>
+      <if test="nickname != null and nickname != ''">
+        AND `nickname` = #{nickname}
+      </if>
+      <if test="email != null and email != ''">
+        AND `email` = #{email}
+      </if>
+      <if test="content != null and content != ''">
+        AND `content` = #{content}
+      </if>
+      <if test="blogId != null">
+        AND `blog_id` = #{blogId}
+      </if>
+      <if test="parentId != null">
+        AND `parent_id` = #{parentId}
+      </if>
+      <if test="liked != null">
+        AND `liked` = #{liked}
+      </if>
+    </where>
   </select>
 
   <update id="update">
@@ -51,4 +71,3 @@
   </delete>
 
 </mapper>
-

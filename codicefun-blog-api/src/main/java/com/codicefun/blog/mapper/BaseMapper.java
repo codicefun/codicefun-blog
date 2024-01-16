@@ -8,7 +8,7 @@ public interface BaseMapper<T> {
 
     T selectById(Integer id);
 
-    List<T> selectAll();
+    List<T> selectByTerms(T t);
 
     Integer update(T t);
 
