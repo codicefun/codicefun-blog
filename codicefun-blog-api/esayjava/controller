@@ -1,0 +1,67 @@
+##导入宏定义
+$!{define.vm}
+##保存文件（宏定义）
+#save("/controller", "Controller.java")
+##包路径（宏定义）
+#setPackageSuffix("controller")
+##定义常量
+#set($serviceName = $!tool.append($!tool.firstLowerCase($!tableInfo.name), "Service"))
+#set($entityName = $tool.firstLowerCase($!tableInfo.name))
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import $!{tableInfo.savePackageName}.entity.Constants;
+import $!{tableInfo.savePackageName}.entity.enums.ResponseStatusEnum;
+import $!{tableInfo.savePackageName}.entity.po.$!{tableInfo.name};
+import $!{tableInfo.savePackageName}.entity.vo.PaginationVO;
+import $!{tableInfo.savePackageName}.entity.vo.ResponseVO;
+import $!{tableInfo.savePackageName}.exception.BusinessException;
+import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/$!tool.firstLowerCase($!tableInfo.name)")
+public class $!{tableInfo.name}Controller {
+
+    private final $!{tableInfo.name}Service $!{serviceName};
+
+    public $!{tableInfo.name}Controller($!{tableInfo.name}Service $!{serviceName}) {
+        this.${serviceName} = $!{serviceName};
+    }
+
+    @PostMapping
+    public ResponseVO<Object> save(@RequestBody $!tableInfo.name $entityName) {
+        return $!{serviceName}.save($entityName) ? ResponseVO.success() : ResponseVO.fail();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseVO<$!tableInfo.name> getById(@PathVariable Integer id) {
+        $!tableInfo.name $entityName = $!{serviceName}.getOptById(id)
+                               .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+
+        return ResponseVO.success($entityName);
+    }
+
+    @GetMapping
+    public ResponseVO<PaginationVO<$!tableInfo.name>> listByTerms(
+            @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
+            @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
+            @RequestBody(required = false) $!tableInfo.name $entityName) {
+        IPage<$!tableInfo.name> page = new Page<>(current, size, true);
+        IPage<$!tableInfo.name> result = $!{serviceName}.listByTerms(page, $entityName);
+        return ResponseVO.page(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseVO<Object> update(@PathVariable Integer id, @RequestBody $!tableInfo.name $entityName) {
+        ${entityName}.setId(id);
+
+        return $!{serviceName}.updateById($entityName) ? ResponseVO.success() : ResponseVO.fail();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseVO<Object> delete(@PathVariable Integer id) {
+        return $!{serviceName}.removeById(id) ? ResponseVO.success() : ResponseVO.fail();
+    }
+
+}

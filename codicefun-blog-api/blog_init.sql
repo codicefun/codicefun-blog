@@ -1,9 +1,10 @@
-# DROP DATABASE IF EXISTS `blog`;
-# CREATE DATABASE `blog`;
+# DROP DATABASE IF EXISTS `article`;
+# CREATE DATABASE `article`;
+# USE `article`;
 
 DROP TABLE IF EXISTS `comment`;
-DROP TABLE IF EXISTS `blog_tag`;
-DROP TABLE IF EXISTS `blog`;
+DROP TABLE IF EXISTS `article_tag`;
+DROP TABLE IF EXISTS `article`;
 DROP TABLE IF EXISTS `tag`;
 DROP TABLE IF EXISTS `type`;
 DROP TABLE IF EXISTS `user`;
@@ -34,7 +35,7 @@ CREATE TABLE `tag` (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `blog` (
+CREATE TABLE `article` (
     `id`          INT          NOT NULL AUTO_INCREMENT,
     `title`       VARCHAR(255) NOT NULL,
     `content`     LONGTEXT     NOT NULL,
@@ -53,14 +54,14 @@ CREATE TABLE `blog` (
     FOREIGN KEY (`type_id`) REFERENCES `type` (`id`)
 );
 
-CREATE TABLE `blog_tag` (
-    `id`      INT NOT NULL AUTO_INCREMENT,
-    `blog_id` INT NOT NULL,
-    `tag_id`  INT NOT NULL,
+CREATE TABLE `article_tag` (
+    `id`         INT NOT NULL AUTO_INCREMENT,
+    `article_id` INT NOT NULL,
+    `tag_id`     INT NOT NULL,
 
     PRIMARY KEY (`id`),
 
-    FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
     FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
 );
 
@@ -69,13 +70,13 @@ CREATE TABLE `comment` (
     `nickname`    VARCHAR(255) NOT NULL,
     `email`       VARCHAR(255) NOT NULL,
     `content`     LONGTEXT     NOT NULL,
-    `blog_id`     INT          NOT NULL,
+    `article_id` INT NOT NULL,
     `parent_id`   INT                   DEFAULT NULL,
     `liked`       INT          NOT NULL DEFAULT 0,
     `create_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`id`),
 
-    FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
+    FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
     FOREIGN KEY (`parent_id`) REFERENCES `comment` (`id`)
 );
