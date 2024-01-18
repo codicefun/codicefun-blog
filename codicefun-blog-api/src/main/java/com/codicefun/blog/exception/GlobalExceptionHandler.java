@@ -11,7 +11,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public ResponseVO<Object> handle(BusinessException e) {
-        return ResponseVO.respond(e.getStatus());
+        return ResponseVO.respond(e.getStatusEnum());
     }
 
 }

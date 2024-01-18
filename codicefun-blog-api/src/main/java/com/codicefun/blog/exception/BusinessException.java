@@ -8,16 +8,16 @@ import lombok.EqualsAndHashCode;
 @Data
 public class BusinessException extends RuntimeException {
 
-    private ResponseStatusEnum status;
+    private ResponseStatusEnum statusEnum;
 
     public BusinessException() {
         super(ResponseStatusEnum.BUSINESS_ERROR.getMessage());
-        this.status = ResponseStatusEnum.BUSINESS_ERROR;
+        this.statusEnum = ResponseStatusEnum.BUSINESS_ERROR;
     }
 
-    public BusinessException(ResponseStatusEnum status) {
-        super(status.getMessage());
-        this.status = status;
+    public BusinessException(ResponseStatusEnum statusEnum) {
+        super(statusEnum.getMessage());
+        this.statusEnum = statusEnum;
     }
 
 }

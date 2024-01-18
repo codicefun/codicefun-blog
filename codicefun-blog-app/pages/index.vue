@@ -2,8 +2,7 @@
 const data = ref({})
 
 const getUserList = async () => {
-  data.value = await useFetch('/user', { baseURL: 'http://localhost:8080/api' })
-  console.log(data.value)
+  data.value = useRequest.get('/user')
 }
 </script>
 
