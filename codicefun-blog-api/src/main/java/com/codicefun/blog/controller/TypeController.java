@@ -38,7 +38,7 @@ public class TypeController {
     public ResponseVO<PaginationVO<Type>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) Type type) {
+            Type type) {
         IPage<Type> page = new Page<>(current, size, true);
         IPage<Type> result = typeService.listByTerms(page, type);
         return ResponseVO.page(result);

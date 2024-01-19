@@ -38,7 +38,7 @@ public class TagController {
     public ResponseVO<PaginationVO<Tag>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) Tag tag) {
+            Tag tag) {
         IPage<Tag> page = new Page<>(current, size, true);
         IPage<Tag> result = tagService.listByTerms(page, tag);
         return ResponseVO.page(result);

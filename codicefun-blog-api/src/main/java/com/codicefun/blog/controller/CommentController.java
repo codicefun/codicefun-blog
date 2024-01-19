@@ -38,7 +38,7 @@ public class CommentController {
     public ResponseVO<PaginationVO<Comment>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) Comment comment) {
+            Comment comment) {
         IPage<Comment> page = new Page<>(current, size, true);
         IPage<Comment> result = commentService.listByTerms(page, comment);
         return ResponseVO.page(result);

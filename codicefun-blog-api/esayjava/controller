@@ -46,7 +46,7 @@ public class $!{tableInfo.name}Controller {
     public ResponseVO<PaginationVO<$!tableInfo.name>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) $!tableInfo.name $entityName) {
+            $!tableInfo.name $entityName) {
         IPage<$!tableInfo.name> page = new Page<>(current, size, true);
         IPage<$!tableInfo.name> result = $!{serviceName}.listByTerms(page, $entityName);
         return ResponseVO.page(result);

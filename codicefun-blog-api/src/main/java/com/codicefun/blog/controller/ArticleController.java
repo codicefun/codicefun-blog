@@ -38,7 +38,7 @@ public class ArticleController {
     public ResponseVO<PaginationVO<Article>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) Article article) {
+            Article article) {
         IPage<Article> page = new Page<>(current, size, true);
         IPage<Article> result = articleService.listByTerms(page, article);
         return ResponseVO.page(result);

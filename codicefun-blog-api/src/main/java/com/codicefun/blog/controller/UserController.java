@@ -38,7 +38,7 @@ public class UserController {
     public ResponseVO<PaginationVO<User>> listByTerms(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            @RequestBody(required = false) User user) {
+            User user) {
         IPage<User> page = new Page<>(current, size, true);
         IPage<User> result = userService.listByTerms(page, user);
         return ResponseVO.page(result);
