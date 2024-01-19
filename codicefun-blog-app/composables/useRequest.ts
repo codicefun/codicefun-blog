@@ -11,7 +11,7 @@ export type UrlType = string | Request | Ref<string | Request> | (() => string |
 
 export type RequestOption<T> = UseFetchOptions<ResponseOptions<T>>
 
-const request = <T>(url: UrlType, options: RequestOption<T>) => {
+const request = async <T>(url: UrlType, options: RequestOption<T>) => {
   return useFetch<ResponseOptions<T>>(url, {
     baseURL: 'http://localhost:8080/api',
 
@@ -19,10 +19,11 @@ const request = <T>(url: UrlType, options: RequestOption<T>) => {
 
     },
 
-    onResponse({ response }): Promise<void> | void {
+    onResponse({ response }) {
       if (response.status !== 200) {
-        console.log(response)
+        return Promise.reject(response._data)
       }
+      return response._data.data
     },
 
     ...options
@@ -30,19 +31,19 @@ const request = <T>(url: UrlType, options: RequestOption<T>) => {
 }
 
 export const useRequest = {
-  post: <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
-    return request<T>(url, { method: 'POST', body, ...options })
+  post: async <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
+    return await request<T>(url, { method: 'POST', body, ...options })
   },
 
-  get: <T>(url: UrlType, options?: RequestOption<T>) => {
-    return request<T>(url, { method: 'GET', ...options })
+  get: async <T>(url: UrlType, options?: RequestOption<T>) => {
+    return await request<T>(url, { method: 'GET', ...options })
   },
 
-  put: <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
-    return request<T>(url, { method: 'PUT', body, ...options })
+  put: async <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
+    return await request<T>(url, { method: 'PUT', body, ...options })
   },
 
-  delete: <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
-    return request<T>(url, { method: 'DELETE', body, ...options })
+  delete: async <T>(url: UrlType, body?: any, options?: RequestOption<T>) => {
+    return await request<T>(url, { method: 'DELETE', body, ...options })
   },
 }
