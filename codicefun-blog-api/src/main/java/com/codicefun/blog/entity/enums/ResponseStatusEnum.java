@@ -10,7 +10,8 @@ public enum ResponseStatusEnum {
     FAIL(400, "Request fail"),
 
     BUSINESS_ERROR(600, "Business error"),
-    RESOURCE_NOT_FOUND(601, "Resource not found");
+    RESOURCE_NOT_FOUND(601, "Resource not found"),
+    INVALID_LOGIN_FORM(602, "Invalid Username or Password ");
 
     private final int code;
     private final String message;
