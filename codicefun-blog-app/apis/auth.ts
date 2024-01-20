@@ -1,5 +1,5 @@
 enum API {
-  LOGIN = '/user/login'
+  LOGIN = '/auth/login'
 }
 
 export interface Token {

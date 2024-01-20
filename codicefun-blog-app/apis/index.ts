@@ -1,7 +1,7 @@
 import * as article from './article'
-import * as user from './user'
+import * as auth from './auth'
 
 export default {
   article,
-  user
+  auth
 }

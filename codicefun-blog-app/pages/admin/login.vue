@@ -15,7 +15,7 @@ const formData = ref<UserForm>({} as UserForm)
 const userStore = useUserStore();
 
 const login = async () => {
-  const { data, error } = await apis.user.login(formData.value.username, formData.value.password);
+  const { data, error } = await apis.auth.login(formData.value.username, formData.value.password);
 
   if (error.value) {
     ElMessage({ showClose: true, message: error.value.message, type: 'error' })
