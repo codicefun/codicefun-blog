@@ -1,9 +1,9 @@
 import apis from '~/apis';
 
-const userStore = useUserStore();
-const token = userStore.token
-
 const isAuthenticated = async () => {
+  const userStore = useUserStore();
+  const token = userStore.token
+
   if (token === '' || token === undefined) {
     return false
   }
