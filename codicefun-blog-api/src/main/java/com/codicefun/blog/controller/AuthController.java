@@ -33,4 +33,13 @@ public class AuthController {
         return ResponseVO.success(new TokenVO(token));
     }
 
+    @PostMapping("/validate")
+    public ResponseVO<Object> validate(@RequestBody TokenVO tokenVO) {
+        if (jwtUtil.validateToken(tokenVO.getToken())) {
+            return ResponseVO.success();
+        }
+
+        throw new BusinessException(ResponseStatusEnum.INVALID_TOKEN);
+    }
+
 }

@@ -2,7 +2,8 @@
 import apis from '~/apis';
 
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'auth'
 })
 
 interface UserForm {
@@ -21,7 +22,8 @@ const login = async () => {
     ElMessage({ showClose: true, message: error.value.message, type: 'error' })
   } else {
     ElMessage({ showClose: true, message: 'Login success', type: 'success' })
-    userStore.token = data.value?.data.token;
+    userStore.username = formData.value.username
+    userStore.token = data.value?.data.token
     await router.push('/admin')
   }
 }
@@ -49,7 +51,6 @@ const login = async () => {
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>

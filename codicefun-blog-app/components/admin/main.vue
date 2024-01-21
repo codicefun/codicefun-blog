@@ -6,6 +6,7 @@
   <el-main>
     <div>
       <nuxt-page/>
+      <slot/>
     </div>
   </el-main>
 </template>

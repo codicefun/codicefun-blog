@@ -4,6 +4,10 @@ import apis from '~/apis';
 import type { Article, Pagination } from '~/apis/article';
 import type { Ref } from 'vue';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const { data: resp, error } = await apis.article.getArticleList()
 
 if (error.value) {

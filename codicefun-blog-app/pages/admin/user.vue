@@ -3,12 +3,10 @@ definePageMeta({
   layout: 'admin',
   middleware: 'auth'
 })
-
-const userStore = useUserStore();
 </script>
 
 <template>
-  <h1>Welcome! {{ userStore.username }}.</h1>
+  <h1>User</h1>
 </template>
 
 <style scoped>

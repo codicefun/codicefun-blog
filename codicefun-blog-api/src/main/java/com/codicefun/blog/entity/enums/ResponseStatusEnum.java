@@ -11,7 +11,8 @@ public enum ResponseStatusEnum {
 
     BUSINESS_ERROR(600, "Business error"),
     RESOURCE_NOT_FOUND(601, "Resource not found"),
-    INVALID_LOGIN_FORM(602, "Invalid Username or Password ");
+    INVALID_LOGIN_FORM(602, "Invalid Username or Password "),
+    INVALID_TOKEN(603, "Invalid Token");
 
     private final int code;
     private final String message;
