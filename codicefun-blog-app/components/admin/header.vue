@@ -9,25 +9,25 @@ const active = ref('1')
         mode="horizontal"
     >
       <el-menu-item index="1" @click="active = '1'">
-        <nuxt-link to="/admin">首页</nuxt-link>
+        <nuxt-link to="/admin">Home</nuxt-link>
       </el-menu-item>
       <el-menu-item index="2" @click="active = '2'">
-        <nuxt-link to="/admin/user">用户</nuxt-link>
+        <nuxt-link to="/admin/user">User</nuxt-link>
       </el-menu-item>
       <el-menu-item index="3" @click="active = '3'">
-        <nuxt-link to="/admin/article">博客</nuxt-link>
+        <nuxt-link to="/admin/article">Article</nuxt-link>
       </el-menu-item>
       <el-menu-item index="4" @click="active = '4'">
-        <nuxt-link to="/admin/type">分类</nuxt-link>
+        <nuxt-link to="/admin/type">Type</nuxt-link>
       </el-menu-item>
       <el-menu-item index="5" @click="active = '5'">
-        <nuxt-link to="/admin/tag">标签</nuxt-link>
+        <nuxt-link to="/admin/tag">Tag</nuxt-link>
       </el-menu-item>
       <el-menu-item index="6" @click="active = '6'">
-        <nuxt-link to="/admin/comment">评论</nuxt-link>
+        <nuxt-link to="/admin/comment">Comment</nuxt-link>
       </el-menu-item>
       <el-menu-item index="7" @click="active = '7'">
-        <nuxt-link to="/admin/login">登录</nuxt-link>
+        <nuxt-link to="/admin/login">Login</nuxt-link>
       </el-menu-item>
     </el-menu>
   </el-header>

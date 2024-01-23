@@ -1,9 +1,5 @@
 import type { SearchParameters } from 'ofetch';
 
-enum API {
-  GET_ARTICLE_LIST = '/article'
-}
-
 export interface Pagination<T> {
   total: number
   current: number
@@ -25,10 +21,14 @@ export interface Article {
   updateTime: Date
 }
 
-export const getArticleList = async (current = 1, size = 5, terms?: SearchParameters) => {
-  return await useRequest.get<Pagination<Article>>(API.GET_ARTICLE_LIST, {
+export const getList = async (current = 1, size = 5, terms?: SearchParameters) => {
+  return await useRequest.get<Pagination<Article>>('/article', {
     params: {
       current, size, ...terms
     }
   });
+}
+
+export const getById = async (id: number) => {
+  return await useRequest.get<Article>(`/article/${id}`)
 }

@@ -4,7 +4,7 @@ import apis from '~/apis';
 import type { Article, Pagination } from '~/apis/article';
 import type { Ref } from 'vue';
 
-const { data: resp, error } = await apis.article.getArticleList()
+const { data: resp, error } = await apis.article.getList()
 
 if (error.value) {
   ElMessage({
@@ -19,7 +19,7 @@ const current = ref(data.value?.current)
 const size = ref(data.value?.size)
 
 const handleCurrentChange = async (val: number) => {
-  const { data: resp, error } = await apis.article.getArticleList(val)
+  const { data: resp, error } = await apis.article.getList(val)
 
   if (error.value) {
     ElMessage({
