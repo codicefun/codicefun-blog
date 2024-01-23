@@ -1,5 +1,6 @@
 package com.codicefun.blog.interceptor;
 
+import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.vo.ResponseVO;
 import com.codicefun.blog.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         boolean isValidated = jwtUtil.validateToken(token);
 
         if (!isValidated) {
-            ResponseVO<Object> responseVO = ResponseVO.fail();
+            ResponseVO<Object> responseVO = ResponseVO.respond(ResponseStatusEnum.INVALID_TOKEN);
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(responseVO);
             response.getWriter().print(json);

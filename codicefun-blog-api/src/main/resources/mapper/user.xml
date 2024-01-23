@@ -9,4 +9,17 @@
     WHERE `id` = #{id}
   </select>
 
+  <select id="selectByEquals" resultType="user">
+    SELECT *
+    FROM `user`
+    <where>
+      <if test="username != null and username != ''">
+        AND `username` = #{username}
+      </if>
+      <if test="password != null and password != ''">
+        AND `password` = #{password}
+      </if>
+    </where>
+  </select>
+
 </mapper>

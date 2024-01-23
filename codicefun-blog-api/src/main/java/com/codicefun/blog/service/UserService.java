@@ -8,4 +8,8 @@ public interface UserService {
 
     Optional<User> getById(Integer id);
 
+    boolean exist(User user);
+
+    String login(User user);
+
 }
