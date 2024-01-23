@@ -1,6 +1,5 @@
 package com.codicefun.blog.entity.vo;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import lombok.Builder;
 import lombok.Data;
@@ -42,13 +41,6 @@ public class ResponseVO<T> {
                          .message(status.getMessage())
                          .data(data)
                          .build();
-    }
-
-    public static <T> ResponseVO<PaginationVO<T>> page(IPage<T> data) {
-        PaginationVO<T> paginationVO =
-                new PaginationVO<>(data.getTotal(), data.getCurrent(), data.getSize(), data.getRecords());
-
-        return success(paginationVO);
     }
 
     public ResponseVO<T> code(int code) {
