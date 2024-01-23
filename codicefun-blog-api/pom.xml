@@ -21,6 +21,7 @@
     <java.version>17</java.version>
     <mybatis-starter.version>3.0.3</mybatis-starter.version>
     <openapi-starter.version>2.3.0</openapi-starter.version>
+    <pagehelper-stater.version>2.1.0</pagehelper-stater.version>
     <jjwt.version>0.12.3</jjwt.version>
   </properties>
 
@@ -60,6 +61,11 @@
       <artifactId>mybatis-spring-boot-starter-test</artifactId>
       <version>${mybatis-starter.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <version>${pagehelper-stater.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>

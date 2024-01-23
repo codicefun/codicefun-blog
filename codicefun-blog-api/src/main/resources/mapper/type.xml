@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codicefun.blog.mapper.TypeMapper">
+
+  <insert id="insert">
+    INSERT INTO `type`(`name`) VALUE (#{name})
+  </insert>
+
+  <select id="selectById" resultType="type">
+    SELECT *
+    FROM `type`
+    WHERE `id` = #{id}
+  </select>
+
+  <select id="selectByEquals" resultType="type">
+    SELECT *
+    FROM `type`
+    <where>
+      <if test="name != null and name != ''">
+        AND `name` = #{name}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateById">
+    UPDATE `type`
+    <set>
+      <if test="name != null and name != ''">
+        `name` = #{name},
+      </if>
+    </set>
+    WHERE `id` = #{id}
+  </update>
+
+  <delete id="deleteById">
+    DELETE
+    FROM `type`
+    WHERE `id` = #{id}
+  </delete>
+
+</mapper>

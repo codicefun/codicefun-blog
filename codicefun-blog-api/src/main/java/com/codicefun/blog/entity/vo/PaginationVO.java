@@ -10,8 +10,8 @@ import java.util.List;
 public class PaginationVO<T> {
 
     private Long total;
-    private Long current;
-    private Long size;
+    private Integer current;
+    private Integer size;
     private List<T> list;
 
 }
