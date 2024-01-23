@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codicefun.blog.mapper.ArticleMapper">
+
+  <resultMap id="ArticleMap" type="article">
+    <id property="id" column="id"/>
+    <association property="user" javaType="user">
+      <id property="id" column="id"/>
+    </association>
+    <association property="type" javaType="type">
+      <id property="id" column="id"/>
+    </association>
+  </resultMap>
+
+  <insert id="insert">
+    INSERT INTO `article`(`title`, `content`, `description`, `picture`, `user_id`, `type_id`)
+      VALUE (#{title}, #{content}, #{description}, #{picture}, #{user.id}, #{type.id})
+  </insert>
+
+  <select id="selectById" resultMap="ArticleMap">
+    SELECT *
+    FROM `article` AS `a`
+           JOIN `user` AS `u` ON `a`.`user_id` = `u`.`id`
+           JOIN `type` AS `t` ON `a`.`type_id` = `t`.`id`
+    WHERE `a`.`id` = #{id}
+  </select>
+
+  <select id="selectByEquals" resultMap="ArticleMap">
+    SELECT *
+    FROM `article`
+    <where>
+
+    </where>
+  </select>
+
+</mapper>
