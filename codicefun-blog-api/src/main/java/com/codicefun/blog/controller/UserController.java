@@ -2,7 +2,7 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.User;
-import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +21,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseVO<User> getById(@PathVariable Integer id) {
+    public ResponseVo<User> getById(@PathVariable Integer id) {
         User user = userService.getById(id)
                                .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
 
-        return ResponseVO.success(user);
+        return ResponseVo.success(user);
     }
 
 }

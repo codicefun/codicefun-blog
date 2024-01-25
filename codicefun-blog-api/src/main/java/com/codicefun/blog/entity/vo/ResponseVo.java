@@ -6,50 +6,50 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ResponseVO<T> {
+public class ResponseVo<T> {
 
     private int code;
     private String message;
     private T data;
 
-    public static <T> ResponseVO<T> success() {
+    public static <T> ResponseVo<T> success() {
         return success(null);
     }
 
-    public static <T> ResponseVO<T> fail() {
+    public static <T> ResponseVo<T> fail() {
         return fail(null);
     }
 
-    public static <T> ResponseVO<T> success(T data) {
+    public static <T> ResponseVo<T> success(T data) {
         return respond(ResponseStatusEnum.SUCCESS, data);
     }
 
-    public static <T> ResponseVO<T> fail(T data) {
+    public static <T> ResponseVo<T> fail(T data) {
         return respond(ResponseStatusEnum.FAIL, data);
     }
 
-    public static <T> ResponseVO<T> respond(ResponseStatusEnum status) {
-        return ResponseVO.<T>builder()
+    public static <T> ResponseVo<T> respond(ResponseStatusEnum status) {
+        return ResponseVo.<T>builder()
                          .code(status.getCode())
                          .message(status.getMessage())
                          .build();
     }
 
-    public static <T> ResponseVO<T> respond(ResponseStatusEnum status, T data) {
-        return ResponseVO.<T>builder()
+    public static <T> ResponseVo<T> respond(ResponseStatusEnum status, T data) {
+        return ResponseVo.<T>builder()
                          .code(status.getCode())
                          .message(status.getMessage())
                          .data(data)
                          .build();
     }
 
-    public ResponseVO<T> code(int code) {
+    public ResponseVo<T> code(int code) {
         this.setCode(code);
 
         return this;
     }
 
-    public ResponseVO<T> message(String message) {
+    public ResponseVo<T> message(String message) {
         this.setMessage(message);
 
         return this;

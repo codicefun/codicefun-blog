@@ -3,7 +3,7 @@ package com.codicefun.blog.service.impl;
 import com.codicefun.blog.entity.dao.TagDao;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVO;
+import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.service.TagService;
 import com.github.pagehelper.Page;
@@ -35,11 +35,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public PageVO<Tag> getByEquals(Integer current, Integer size, Tag type) {
+    public PageVo<Tag> getByEquals(Integer current, Integer size, Tag type) {
         Page<Tag> page = PageHelper.startPage(current, size);
         List<Tag> typeList = tagMapper.selectByEquals(type);
 
-        return PageVO.of(page.getTotal(), current, size, typeList);
+        return PageVo.of(page.getTotal(), current, size, typeList);
     }
 
     @Transactional

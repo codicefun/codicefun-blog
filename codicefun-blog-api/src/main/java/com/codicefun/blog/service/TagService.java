@@ -1,7 +1,7 @@
 package com.codicefun.blog.service;
 
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVO;
+import com.codicefun.blog.entity.vo.PageVo;
 
 public interface TagService {
 
@@ -9,7 +9,7 @@ public interface TagService {
 
     Tag getById(Integer id);
 
-    PageVO<Tag> getByEquals(Integer current, Integer size, Tag tag);
+    PageVo<Tag> getByEquals(Integer current, Integer size, Tag tag);
 
     boolean updateById(Integer id, Tag tag);
 

@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.Date;
 
 @Data
-public class ArticleVO {
+public class ArticleVo {
 
     private Integer id;
     private String title;
@@ -25,8 +25,8 @@ public class ArticleVO {
     private String typeName;
 
     // TODO: Remove entity convert method
-    public static ArticleVO po2vo(Article article) {
-        ArticleVO articleVO = new ArticleVO();
+    public static ArticleVo po2vo(Article article) {
+        ArticleVo articleVO = new ArticleVo();
         BeanUtils.copyProperties(article, articleVO);
         articleVO.username = article.getUser().getUsername();
         articleVO.typeName = article.getType().getName();
@@ -34,7 +34,7 @@ public class ArticleVO {
         return articleVO;
     }
 
-    public static Article vo2po(ArticleVO articleVO) {
+    public static Article vo2po(ArticleVo articleVO) {
         Article article = new Article();
         BeanUtils.copyProperties(articleVO, article);
         article.setUser(User.of(articleVO.username));

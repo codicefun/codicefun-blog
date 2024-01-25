@@ -1,6 +1,6 @@
 package com.codicefun.blog.exception;
 
-import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.entity.vo.ResponseVo;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,8 +12,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus
-    public ResponseVO<Object> handle(BusinessException e) {
-        return ResponseVO.respond(e.getStatusEnum());
+    public ResponseVo<Object> handle(BusinessException e) {
+        return ResponseVo.respond(e.getStatusEnum());
     }
 
 }

@@ -2,9 +2,9 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
 import com.codicefun.blog.entity.po.Article;
-import com.codicefun.blog.entity.vo.ArticleVO;
-import com.codicefun.blog.entity.vo.PageVO;
-import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.entity.vo.ArticleVo;
+import com.codicefun.blog.entity.vo.PageVo;
+import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
 import com.github.pagehelper.Page;
@@ -25,24 +25,24 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseVO<ArticleVO> getById(@PathVariable Integer id) {
+    public ResponseVo<ArticleVo> getById(@PathVariable Integer id) {
         Article article = articleService.getById(id);
-        ArticleVO articleVo = articleMapper.po2vo(article);
+        ArticleVo articleVo = articleMapper.po2vo(article);
 
-        return ResponseVO.success(articleVo);
+        return ResponseVo.success(articleVo);
     }
 
     @GetMapping
-    public ResponseVO<PageVO<ArticleVO>> getByEquals(
+    public ResponseVo<PageVo<ArticleVo>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            ArticleVO articleVO) {
-        Article article = articleMapper.vo2po(articleVO);
+            ArticleVo articleVo) {
+        Article article = articleMapper.vo2po(articleVo);
         Page<Article> page = (Page<Article>) articleService.getBtEquals(current, size, article);
-        List<ArticleVO> articleVos = articleMapper.pos2vos(page);
-        PageVO<ArticleVO> pageVO = PageVO.of(page.getTotal(), current, size, articleVos);
+        List<ArticleVo> articleVos = articleMapper.pos2vos(page);
+        PageVo<ArticleVo> pageVo = PageVo.of(page.getTotal(), current, size, articleVos);
 
-        return ResponseVO.success(pageVO);
+        return ResponseVo.success(pageVo);
     }
 
 }

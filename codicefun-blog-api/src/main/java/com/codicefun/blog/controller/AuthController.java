@@ -2,8 +2,8 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.User;
-import com.codicefun.blog.entity.vo.ResponseVO;
-import com.codicefun.blog.entity.vo.TokenVO;
+import com.codicefun.blog.entity.vo.ResponseVo;
+import com.codicefun.blog.entity.vo.TokenVo;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.service.UserService;
 import com.codicefun.blog.util.JwtUtil;
@@ -25,17 +25,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseVO<TokenVO> login(@RequestBody User user) {
+    public ResponseVo<TokenVo> login(@RequestBody User user) {
         String token = userService.login(user);
-        TokenVO tokenVO = new TokenVO(token);
+        TokenVo tokenVO = new TokenVo(token);
 
-        return ResponseVO.success(tokenVO);
+        return ResponseVo.success(tokenVO);
     }
 
     @PostMapping("/validate")
-    public ResponseVO<Object> validate(@RequestBody TokenVO tokenVO) {
+    public ResponseVo<Object> validate(@RequestBody TokenVo tokenVO) {
         if (jwtUtil.validateToken(tokenVO.getToken())) {
-            return ResponseVO.success();
+            return ResponseVo.success();
         } else {
             throw new BusinessException(ResponseStatusEnum.INVALID_TOKEN);
         }

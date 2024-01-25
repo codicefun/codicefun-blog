@@ -2,8 +2,8 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVO;
-import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.entity.vo.PageVo;
+import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.service.TagService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,35 +18,35 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseVO<Object> add(@RequestBody Tag tag) {
-        return tagService.add(tag) ? ResponseVO.success() : ResponseVO.fail();
+    public ResponseVo<Object> add(@RequestBody Tag tag) {
+        return tagService.add(tag) ? ResponseVo.success() : ResponseVo.fail();
     }
 
     @GetMapping("/{id}")
-    public ResponseVO<Tag> getById(@PathVariable Integer id) {
+    public ResponseVo<Tag> getById(@PathVariable Integer id) {
         Tag tag = tagService.getById(id);
 
-        return ResponseVO.success(tag);
+        return ResponseVo.success(tag);
     }
 
     @GetMapping
-    public ResponseVO<PageVO<Tag>> getByEquals(
+    public ResponseVo<PageVo<Tag>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             Tag tag) {
-        PageVO<Tag> paginationVO = tagService.getByEquals(current, size, tag);
+        PageVo<Tag> paginationVO = tagService.getByEquals(current, size, tag);
 
-        return ResponseVO.success(paginationVO);
+        return ResponseVo.success(paginationVO);
     }
 
     @PutMapping("/{id}")
-    public ResponseVO<Object> updateById(@PathVariable Integer id, @RequestBody Tag tag) {
-        return tagService.updateById(id, tag) ? ResponseVO.success() : ResponseVO.fail();
+    public ResponseVo<Object> updateById(@PathVariable Integer id, @RequestBody Tag tag) {
+        return tagService.updateById(id, tag) ? ResponseVo.success() : ResponseVo.fail();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseVO<Object> removeById(@PathVariable Integer id) {
-        return tagService.removeById(id) ? ResponseVO.success() : ResponseVO.fail();
+    public ResponseVo<Object> removeById(@PathVariable Integer id) {
+        return tagService.removeById(id) ? ResponseVo.success() : ResponseVo.fail();
     }
 
 }

@@ -1,7 +1,7 @@
 package com.codicefun.blog.service;
 
 import com.codicefun.blog.entity.po.Type;
-import com.codicefun.blog.entity.vo.PageVO;
+import com.codicefun.blog.entity.vo.PageVo;
 
 public interface TypeService {
 
@@ -9,7 +9,7 @@ public interface TypeService {
 
     Type getById(Integer id);
 
-    PageVO<Type> getByEquals(Integer current, Integer size, Type type);
+    PageVo<Type> getByEquals(Integer current, Integer size, Type type);
 
     boolean updateById(Integer id, Type type);
 

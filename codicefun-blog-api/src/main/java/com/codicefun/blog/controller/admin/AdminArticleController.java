@@ -1,7 +1,7 @@
 package com.codicefun.blog.controller.admin;
 
 import com.codicefun.blog.entity.po.Article;
-import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.service.ArticleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +16,13 @@ public class AdminArticleController {
     }
 
     @PostMapping
-    public ResponseVO<Object> add(@RequestBody Article article) {
-        return articleService.add(article) ? ResponseVO.success() : ResponseVO.fail();
+    public ResponseVo<Object> add(@RequestBody Article article) {
+        return articleService.add(article) ? ResponseVo.success() : ResponseVo.fail();
     }
 
     @PutMapping("/{id}")
-    public ResponseVO<Object> update(@PathVariable Integer id, @RequestBody Article article) {
-        return articleService.updateById(id, article) ? ResponseVO.success() : ResponseVO.fail();
+    public ResponseVo<Object> update(@PathVariable Integer id, @RequestBody Article article) {
+        return articleService.updateById(id, article) ? ResponseVo.success() : ResponseVo.fail();
     }
 
 }

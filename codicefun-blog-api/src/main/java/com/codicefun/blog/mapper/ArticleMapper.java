@@ -1,7 +1,7 @@
 package com.codicefun.blog.mapper;
 
 import com.codicefun.blog.entity.po.Article;
-import com.codicefun.blog.entity.vo.ArticleVO;
+import com.codicefun.blog.entity.vo.ArticleVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,14 +12,14 @@ public interface ArticleMapper {
 
     @Mapping(source = "article.user.username", target = "username")
     @Mapping(source = "article.type.name", target = "typeName")
-    ArticleVO po2vo(Article article);
+    ArticleVo po2vo(Article article);
 
     @Mapping(source = "articleVo.username", target = "user.username")
     @Mapping(source = "articleVo.typeName", target = "type.name")
-    Article vo2po(ArticleVO articleVo);
+    Article vo2po(ArticleVo articleVo);
 
-    List<ArticleVO> pos2vos(List<Article> articles);
+    List<ArticleVo> pos2vos(List<Article> articles);
 
-    List<Article> vos2pos(List<ArticleVO> articleVos);
+    List<Article> vos2pos(List<ArticleVo> articleVos);
 
 }
