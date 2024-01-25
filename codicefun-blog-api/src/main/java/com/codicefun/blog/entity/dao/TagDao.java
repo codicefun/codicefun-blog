@@ -1,11 +1,11 @@
-package com.codicefun.blog.mapper;
+package com.codicefun.blog.entity.dao;
 
 import com.codicefun.blog.entity.po.Tag;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface TagMapper {
+public interface TagDao {
 
     int insert(Tag tag);
 

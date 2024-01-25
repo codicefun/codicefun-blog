@@ -5,11 +5,11 @@ import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.entity.vo.ArticleVO;
 import com.codicefun.blog.entity.vo.PageVO;
 import com.codicefun.blog.entity.vo.ResponseVO;
+import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
 import com.github.pagehelper.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,17 +17,19 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final ArticleMapper articleMapper;
 
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, ArticleMapper articleMapper) {
         this.articleService = articleService;
+        this.articleMapper = articleMapper;
     }
 
     @GetMapping("/{id}")
     public ResponseVO<ArticleVO> getById(@PathVariable Integer id) {
         Article article = articleService.getById(id);
-        ArticleVO articleVO = ArticleVO.po2vo(article);
+        ArticleVO articleVo = articleMapper.po2vo(article);
 
-        return ResponseVO.success(articleVO);
+        return ResponseVO.success(articleVo);
     }
 
     @GetMapping
@@ -35,15 +37,10 @@ public class ArticleController {
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             ArticleVO articleVO) {
-        Article article = ArticleVO.vo2po(articleVO);
+        Article article = articleMapper.vo2po(articleVO);
         Page<Article> page = (Page<Article>) articleService.getBtEquals(current, size, article);
-        List<ArticleVO> articleVOList = new ArrayList<>();
-
-        for (Article item: page) {
-            articleVOList.add(ArticleVO.po2vo(item));
-        }
-
-        PageVO<ArticleVO> pageVO = PageVO.of(page.getTotal(), current, size, articleVOList);
+        List<ArticleVO> articleVos = articleMapper.pos2vos(page);
+        PageVO<ArticleVO> pageVO = PageVO.of(page.getTotal(), current, size, articleVos);
 
         return ResponseVO.success(pageVO);
     }

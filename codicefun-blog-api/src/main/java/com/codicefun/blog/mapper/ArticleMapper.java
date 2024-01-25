@@ -1,18 +1,25 @@
 package com.codicefun.blog.mapper;
 
 import com.codicefun.blog.entity.po.Article;
+import com.codicefun.blog.entity.vo.ArticleVO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
-import java.util.Optional;
 
+@Mapper(componentModel = "spring")
 public interface ArticleMapper {
 
-    int insert(Article article);
+    @Mapping(source = "article.user.username", target = "username")
+    @Mapping(source = "article.type.name", target = "typeName")
+    ArticleVO po2vo(Article article);
 
-    Optional<Article> selectById(Integer id);
+    @Mapping(source = "articleVo.username", target = "user.username")
+    @Mapping(source = "articleVo.typeName", target = "type.name")
+    Article vo2po(ArticleVO articleVo);
 
-    List<Article> selectByEquals(Article article);
+    List<ArticleVO> pos2vos(List<Article> articles);
 
-    int updateById(Article article);
+    List<Article> vos2pos(List<ArticleVO> articleVos);
 
 }

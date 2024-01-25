@@ -1,9 +1,9 @@
 package com.codicefun.blog.service.impl;
 
+import com.codicefun.blog.entity.dao.UserDao;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.User;
 import com.codicefun.blog.exception.BusinessException;
-import com.codicefun.blog.mapper.UserMapper;
 import com.codicefun.blog.service.UserService;
 import com.codicefun.blog.util.JwtUtil;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserMapper userMapper;
+    private final UserDao userMapper;
     private final JwtUtil jwtUtil;
 
-    public UserServiceImpl(UserMapper userMapper, JwtUtil jwtUtil) {
+    public UserServiceImpl(UserDao userMapper, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
         this.jwtUtil = jwtUtil;
     }

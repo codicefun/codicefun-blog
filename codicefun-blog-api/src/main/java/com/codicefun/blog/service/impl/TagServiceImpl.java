@@ -1,10 +1,10 @@
 package com.codicefun.blog.service.impl;
 
+import com.codicefun.blog.entity.dao.TagDao;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Tag;
 import com.codicefun.blog.entity.vo.PageVO;
 import com.codicefun.blog.exception.BusinessException;
-import com.codicefun.blog.mapper.TagMapper;
 import com.codicefun.blog.service.TagService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -16,9 +16,9 @@ import java.util.List;
 @Service
 public class TagServiceImpl implements TagService {
 
-    private final TagMapper tagMapper;
+    private final TagDao tagMapper;
 
-    public TagServiceImpl(TagMapper tagMapper) {
+    public TagServiceImpl(TagDao tagMapper) {
         this.tagMapper = tagMapper;
     }
 

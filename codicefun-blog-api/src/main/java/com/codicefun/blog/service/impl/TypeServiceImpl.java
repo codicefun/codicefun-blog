@@ -1,10 +1,10 @@
 package com.codicefun.blog.service.impl;
 
+import com.codicefun.blog.entity.dao.TypeDao;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Type;
 import com.codicefun.blog.entity.vo.PageVO;
 import com.codicefun.blog.exception.BusinessException;
-import com.codicefun.blog.mapper.TypeMapper;
 import com.codicefun.blog.service.TypeService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -16,9 +16,9 @@ import java.util.List;
 @Service
 public class TypeServiceImpl implements TypeService {
 
-    private final TypeMapper typeMapper;
+    private final TypeDao typeMapper;
 
-    public TypeServiceImpl(TypeMapper typeMapper) {
+    public TypeServiceImpl(TypeDao typeMapper) {
         this.typeMapper = typeMapper;
     }
 

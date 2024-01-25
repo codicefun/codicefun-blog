@@ -1,9 +1,9 @@
 package com.codicefun.blog.service.impl;
 
+import com.codicefun.blog.entity.dao.ArticleDao;
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.exception.BusinessException;
-import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private final ArticleMapper articleMapper;
+    private final ArticleDao articleMapper;
 
-    public ArticleServiceImpl(ArticleMapper articleMapper) {
+    public ArticleServiceImpl(ArticleDao articleMapper) {
         this.articleMapper = articleMapper;
     }
 
