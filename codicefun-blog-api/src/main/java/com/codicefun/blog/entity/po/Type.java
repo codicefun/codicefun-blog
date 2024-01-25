@@ -8,4 +8,11 @@ public class Type {
     private Integer id;
     private String name;
 
+    public static Type of(String name) {
+        Type type = new Type();
+        type.name = name;
+
+        return type;
+    }
+
 }

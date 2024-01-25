@@ -28,10 +28,35 @@
 
   <select id="selectByEquals" resultMap="ArticleMap">
     SELECT *
-    FROM `article`
+    FROM `article` AS `a`
+    JOIN `user` AS `u` ON `a`.`user_id` = `u`.`id`
+    JOIN `type` AS `t` ON `a`.`type_id` = `t`.`id`
     <where>
-
+      <!-- Add terms -->
     </where>
   </select>
+
+  <update id="updateById">
+    UPDATE `article`
+    <set>
+      <if test="title != null and title != ''">
+        `title` = #{title},
+      </if>
+      <if test="content != null and content != ''">
+        `content` = #{content},
+      </if>
+      <if test="description != null and description != ''">
+        `description` = #{description},
+      </if>
+      <if test="picture != null and picture != ''">
+        `picture` = #{picture},
+      </if>
+      <if test="type.id != null and type.id">
+        `type_id` = #{type.id},
+      </if>
+      `update_time` = CURRENT_TIMESTAMP
+    </set>
+    WHERE `id` = #{id}
+  </update>
 
 </mapper>

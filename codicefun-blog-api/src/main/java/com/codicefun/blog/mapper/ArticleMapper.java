@@ -13,4 +13,6 @@ public interface ArticleMapper {
 
     List<Article> selectByEquals(Article article);
 
+    int updateById(Article article);
+
 }

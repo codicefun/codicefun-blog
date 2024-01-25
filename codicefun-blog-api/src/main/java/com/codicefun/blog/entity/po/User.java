@@ -17,4 +17,11 @@ public class User {
     private Date createTime;
     private Date updateTime;
 
+    public static User of(String username) {
+        User user = new User();
+        user.username = username;
+
+        return user;
+    }
+
 }

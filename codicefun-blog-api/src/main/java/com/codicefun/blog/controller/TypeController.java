@@ -2,7 +2,7 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
 import com.codicefun.blog.entity.po.Type;
-import com.codicefun.blog.entity.vo.PaginationVO;
+import com.codicefun.blog.entity.vo.PageVO;
 import com.codicefun.blog.entity.vo.ResponseVO;
 import com.codicefun.blog.service.TypeService;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +30,11 @@ public class TypeController {
     }
 
     @GetMapping
-    public ResponseVO<PaginationVO<Type>> getByEquals(
+    public ResponseVO<PageVO<Type>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             Type type) {
-        PaginationVO<Type> paginationVO = typeService.getByEquals(current, size, type);
+        PageVO<Type> paginationVO = typeService.getByEquals(current, size, type);
 
         return ResponseVO.success(paginationVO);
     }

@@ -2,7 +2,7 @@ package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PaginationVO;
+import com.codicefun.blog.entity.vo.PageVO;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.mapper.TagMapper;
 import com.codicefun.blog.service.TagService;
@@ -35,11 +35,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public PaginationVO<Tag> getByEquals(Integer current, Integer size, Tag type) {
+    public PageVO<Tag> getByEquals(Integer current, Integer size, Tag type) {
         Page<Tag> page = PageHelper.startPage(current, size);
         List<Tag> typeList = tagMapper.selectByEquals(type);
 
-        return new PaginationVO<>(page.getTotal(), current, size, typeList);
+        return PageVO.of(page.getTotal(), current, size, typeList);
     }
 
     @Transactional

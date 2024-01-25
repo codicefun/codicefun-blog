@@ -5,7 +5,10 @@ import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -25,6 +28,20 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getById(Integer id) {
         return articleMapper.selectById(id)
                             .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+    }
+
+    @Override
+    public List<Article> getBtEquals(Integer current, Integer size, Article article) {
+        PageHelper.startPage(current, size);
+
+        return articleMapper.selectByEquals(article);
+    }
+
+    @Override
+    public boolean updateById(Integer id, Article article) {
+        article.setId(id);
+
+        return articleMapper.updateById(article) == 1;
     }
 
 }
