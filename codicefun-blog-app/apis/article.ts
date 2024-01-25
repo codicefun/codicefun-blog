@@ -1,10 +1,10 @@
 import type { SearchParameters } from 'ofetch';
 
-export interface Pagination<T> {
+export interface Page<T> {
   total: number
   current: number
   size: number
-  list: T[]
+  record: T[]
 }
 
 export interface Article {
@@ -13,16 +13,17 @@ export interface Article {
   content: string
   description: string
   picture: string
-  userId: number
-  typeId: number
   viewed: number
   liked: number
   createTime: Date
   updateTime: Date
+
+  username: string
+  typeName: string
 }
 
 export const getList = async (current = 1, size = 5, terms?: SearchParameters) => {
-  return await useRequest.get<Pagination<Article>>('/article', {
+  return await useRequest.get<Page<Article>>('/article', {
     params: {
       current, size, ...terms
     }

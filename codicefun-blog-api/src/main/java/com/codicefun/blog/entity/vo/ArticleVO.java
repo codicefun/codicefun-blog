@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class ArticleVO {
 
+    private Integer id;
     private String title;
     private String content;
     private String description;

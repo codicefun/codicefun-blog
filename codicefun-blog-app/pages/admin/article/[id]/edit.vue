@@ -25,10 +25,7 @@ formData.value.content = '# Test content'
       <md-editor v-model="formData.content"/>
     </el-form-item>
     <el-form-item label="Type">
-      <el-input v-model="formData.typeId"/>
-    </el-form-item>
-    <el-form-item label="Tag">
-      <el-input v-model="formData"/>
+      <el-input v-model="formData.typeName"/>
     </el-form-item>
   </el-form>
 </template>

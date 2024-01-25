@@ -21,7 +21,7 @@ if (error.value) {
 }
 
 const resp = data.value?.data
-tableData.value = resp?.list
+tableData.value = resp?.record
 current.value = resp?.current
 size.value = resp?.size
 total.value = resp?.total
@@ -34,7 +34,7 @@ const handleCurrentChange = async (val: number) => {
   }
 
   const resp = data.value?.data
-  tableData.value = resp?.list
+  tableData.value = resp?.record
   current.value = resp?.current
   size.value = resp?.size
   total.value = resp?.total
@@ -48,8 +48,9 @@ const edit = async (id: number) => {
 
 <template>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="id" label="Id" width="50"/>
+    <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column prop="title" label="Title" width="600"/>
+    <el-table-column label="type" prop="typeName" width="100"/>
     <el-table-column label="Operations" width="200">
       <template #default="{row}">
         <el-button type="primary" @click="edit(row.id)">Edit</el-button>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import moment from 'moment';
 import apis from '~/apis';
-import type { Article, Pagination } from '~/apis/article';
+import type { Article, Page } from '~/apis/article';
 import type { Ref } from 'vue';
 
 const { data: resp, error } = await apis.article.getList()
@@ -14,7 +14,7 @@ if (error.value) {
   })
 }
 
-const data: Ref<Pagination<Article> | undefined> = ref(resp.value?.data)
+const data: Ref<Page<Article> | undefined> = ref(resp.value?.data)
 const current = ref(data.value?.current)
 const size = ref(data.value?.size)
 
@@ -36,7 +36,7 @@ const handleCurrentChange = async (val: number) => {
 <template>
   <el-row :gutter="20">
     <el-col :span="16">
-      <el-card v-for="article in data?.list" :key="article" class="box-card" shadow="hover">
+      <el-card v-for="article in data?.record" :key="article" class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
             <span>{{ article.title }}</span>
@@ -53,7 +53,7 @@ const handleCurrentChange = async (val: number) => {
         <template #footer>
           <el-row class="card-footer">
             <el-col :span="3">
-              分类：{{ article.typeId }}
+              分类：{{ article.typeName }}
             </el-col>
             <el-col :span="4">
               浏览人数：{{ article.viewed }}
