@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import apis from '~/apis';
-import type { Article } from '~/apis/article';
+import type { Article } from '~/types';
 
 definePageMeta({
   layout: 'admin',

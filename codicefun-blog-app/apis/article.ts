@@ -1,26 +1,5 @@
 import type { SearchParameters } from 'ofetch';
-
-export interface Page<T> {
-  total: number
-  current: number
-  size: number
-  record: T[]
-}
-
-export interface Article {
-  id: number
-  title: string
-  content: string
-  description: string
-  picture: string
-  viewed: number
-  liked: number
-  createTime: Date
-  updateTime: Date
-
-  username: string
-  typeName: string
-}
+import type { Article, Page } from '~/types';
 
 export const getList = async (current = 1, size = 5, terms?: SearchParameters) => {
   return await useRequest.get<Page<Article>>('/article', {
@@ -30,6 +9,6 @@ export const getList = async (current = 1, size = 5, terms?: SearchParameters) =
   });
 }
 
-export const getById = async (id: number) => {
+export const getById = async (id: string) => {
   return await useRequest.get<Article>(`/article/${id}`)
 }

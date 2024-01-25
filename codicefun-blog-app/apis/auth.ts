@@ -1,10 +1,8 @@
+import type { Token } from '~/types';
+
 enum API {
   LOGIN = '/auth/login',
   VALIDATE = '/auth/validate'
-}
-
-export interface Token {
-  token: string
 }
 
 export const login = async (username: string, password: string) => {

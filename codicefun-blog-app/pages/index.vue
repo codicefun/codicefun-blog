@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import moment from 'moment';
 import apis from '~/apis';
-import type { Article, Page } from '~/apis/article';
 import type { Ref } from 'vue';
+import type { Article, Page } from '~/types';
 
 const { data: resp, error } = await apis.article.getList()
 
