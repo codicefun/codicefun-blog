@@ -17,22 +17,20 @@ const typeList = ref<Type[]>([] as Type[])
 formData.value.content = '# Test content'
 
 const getArticle = async () => {
-  const { data, error } = await apis.article.getById(route.params.id as string)
-
-  if (error.value) {
-    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
-  } else {
-    formData.value = data.value?.data as Article
+  try {
+    const resp = await apis.article.getById(route.params.id as string)
+    formData.value = resp.data
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
 }
 
 const getTypeList = async () => {
-  const { data, error } = await apis.type.getList()
-
-  if (error.value) {
-    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
-  } else {
-    typeList.value = data.value?.data as Type[]
+  try {
+    const resp = await apis.type.getList()
+    typeList.value = resp.data
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
 }
 

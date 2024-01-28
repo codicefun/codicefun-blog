@@ -1,21 +1,20 @@
 import apis from '~/apis';
 
 const isAuthenticated = async () => {
-  const userStore = useUserStore();
-  const token = userStore.token
+  try {
+    const userStore = useUserStore();
+    const token = userStore.token
 
-  if (token === '' || token === undefined) {
+    if (token === '' || token === undefined) {
+      return false
+    }
+    await apis.auth.validate(token)
+    return true
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
     return false
   }
 
-  const { error } = await apis.auth.validate(token)
-
-  if (error.value) {
-    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
-    return false
-  }
-
-  return true
 }
 
 export default defineNuxtRouteMiddleware(async (to) => {

@@ -16,15 +16,14 @@ const formData = ref<UserForm>({} as UserForm)
 const userStore = useUserStore();
 
 const login = async () => {
-  const { data, error } = await apis.auth.login(formData.value.username, formData.value.password);
-
-  if (error.value) {
-    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
-  } else {
+  try {
+    const { data } = await apis.auth.login(formData.value.username, formData.value.password);
     ElMessage({ showClose: true, message: 'Login success', type: 'success' })
     userStore.username = formData.value.username
-    userStore.token = data.value?.data.token
+    userStore.token = data.token
     await router.push('/admin')
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
 }
 </script>

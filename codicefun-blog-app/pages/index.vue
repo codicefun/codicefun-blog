@@ -1,42 +1,42 @@
 <script lang="ts" setup>
 import moment from 'moment';
 import apis from '~/apis';
-import type { Ref } from 'vue';
 import type { Article, Page } from '~/types';
 
-const { data: resp, error } = await apis.article.getList()
+const articleList = ref<Page<Article>>({} as Page<Article>)
+const total = ref(0)
+const current = ref(0)
+const size = ref(0)
 
-if (error.value) {
-  ElMessage({
-    showClose: true,
-    message: error.value.message,
-    type: 'error'
-  })
+const getArticleList = async () => {
+  try {
+    const { data } = await apis.article.getList()
+    articleList.value = data
+    total.value = data.total
+    current.value = data.current
+    size.value = data.size
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
 }
-
-const data: Ref<Page<Article> | undefined> = ref(resp.value?.data)
-const current = ref(data.value?.current)
-const size = ref(data.value?.size)
 
 const handleCurrentChange = async (val: number) => {
-  const { data: resp, error } = await apis.article.getList(val)
-
-  if (error.value) {
-    ElMessage({
-      showClose: true,
-      message: error.value.message,
-      type: 'error'
-    })
+  try {
+    const { data } = await apis.article.getList(val)
+    articleList.value = data
+    current.value = data.current
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
-  data.value = resp.value?.data
-  current.value = data.value?.current
 }
+
+await getArticleList()
 </script>
 
 <template>
   <el-row :gutter="20">
     <el-col :span="16">
-      <el-card v-for="article in data?.record" :key="article" class="box-card" shadow="hover">
+      <el-card v-for="article in articleList.record" :key="article" class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
             <span>{{ article.title }}</span>
@@ -71,7 +71,7 @@ const handleCurrentChange = async (val: number) => {
         <el-pagination
             v-model:current-page="current"
             v-model:page-size="size"
-            :total="data?.total"
+            :total="total"
             background
             layout="prev, pager, next"
             @current-change="handleCurrentChange"

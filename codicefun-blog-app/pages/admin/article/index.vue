@@ -10,40 +10,40 @@ definePageMeta({
 const router = useRouter();
 
 const tableData = ref<Article[]>()
-const current = ref<number>()
-const size = ref<number>()
-const total = ref<number>()
+const current = ref(0)
+const size = ref(0)
+const total = ref(0)
 
-const { data, error } = await apis.article.getList();
-
-if (error.value) {
-  ElMessage({ showClose: true, message: error.value.message, type: 'error' })
+const getArticleList = async () => {
+  try {
+    const { data } = await apis.article.getList();
+    tableData.value = data.record
+    current.value = data.current
+    size.value = data.size
+    total.value = data.total
+  } catch (e: any) {
+    console.log(e)
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
 }
 
-const resp = data.value?.data
-tableData.value = resp?.record
-current.value = resp?.current
-size.value = resp?.size
-total.value = resp?.total
-
 const handleCurrentChange = async (val: number) => {
-  const { data, error } = await apis.article.getList(val);
-
-  if (error.value) {
-    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
+  try {
+    const { data } = await apis.article.getList(val);
+    tableData.value = data.record
+    current.value = data.current
+    size.value = data.size
+    total.value = data.total
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
-
-  const resp = data.value?.data
-  tableData.value = resp?.record
-  current.value = resp?.current
-  size.value = resp?.size
-  total.value = resp?.total
 }
 
 const edit = async (id: number) => {
   await router.push(`/admin/article/${id}/edit`)
 }
 
+await getArticleList()
 </script>
 
 <template>

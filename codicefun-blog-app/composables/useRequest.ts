@@ -12,7 +12,7 @@ export type UrlType = string | Request | Ref<string | Request> | (() => string |
 export type RequestOption<T> = UseFetchOptions<ResponseOptions<T>>
 
 const request = async <T>(url: UrlType, options: RequestOption<T>) => {
-  return useFetch<ResponseOptions<T>>(url , {
+  const { data, error } = await useFetch<ResponseOptions<T>>(url, {
     baseURL: 'http://localhost:8080/api',
 
     onRequest() {
@@ -28,6 +28,13 @@ const request = async <T>(url: UrlType, options: RequestOption<T>) => {
 
     ...options
   })
+
+  if (error.value) {
+    console.log(error.value)
+    return Promise.reject(error.value)
+  }
+
+  return data.value as ResponseOptions<T>
 }
 
 export const useRequest = {
