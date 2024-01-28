@@ -26,6 +26,11 @@ export interface Type {
   name: string
 }
 
+export interface Tag {
+  id: number
+  name: string
+}
+
 export interface Article {
   id: number
   title: string

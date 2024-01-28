@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import type { Article, Type } from '~/types';
+import type { Article, Tag, Type } from '~/types';
 import apis from '~/apis';
 
 definePageMeta({
@@ -13,6 +13,7 @@ const route = useRoute()
 const router = useRouter()
 const formData = ref<Article>({} as Article)
 const typeList = ref<Type[]>([] as Type[])
+const tagList = ref([] as Tag[])
 
 formData.value.content = '# Test content'
 
@@ -29,6 +30,15 @@ const getTypeList = async () => {
   try {
     const resp = await apis.type.getAll()
     typeList.value = resp.data
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
+}
+
+const getTagList = async () => {
+  try {
+    const resp = await apis.tag.getAll()
+    tagList.value = resp.data
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
@@ -58,6 +68,7 @@ const submit = async () => {
 
 await getArticle()
 await getTypeList()
+await getTagList()
 </script>
 
 <template>
@@ -85,7 +96,7 @@ await getTypeList()
                  filterable
                  multiple
                  style="width: 400px">
-
+        <el-option v-for="item in tagList" :key="item.id" :value="item.name"/>
       </el-select>
     </el-form-item>
   </el-form>

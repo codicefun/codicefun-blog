@@ -42,6 +42,11 @@ public class TagServiceImpl implements TagService {
         return PageVo.of(page.getTotal(), current, size, typeList);
     }
 
+    @Override
+    public List<Tag> getAll() {
+        return tagMapper.selectAll();
+    }
+
     @Transactional
     @Override
     public boolean updateById(Integer id, Tag type) {

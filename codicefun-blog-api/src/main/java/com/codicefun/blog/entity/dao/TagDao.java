@@ -13,6 +13,8 @@ public interface TagDao {
 
     List<Tag> selectByEquals(Tag tag);
 
+    List<Tag> selectAll();
+
     int updateById(Tag tag);
 
     int deleteById(Integer id);
