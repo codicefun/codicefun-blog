@@ -27,7 +27,7 @@ const getArticle = async () => {
 
 const getTypeList = async () => {
   try {
-    const resp = await apis.type.getList()
+    const resp = await apis.type.getAll()
     typeList.value = resp.data
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
