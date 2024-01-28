@@ -13,6 +13,8 @@ public interface TypeDao {
 
     List<Type> selectByEquals(Type type);
 
+    List<Type> selectAll();
+
     int updateById(Type type);
 
     int deleteById(Integer id);

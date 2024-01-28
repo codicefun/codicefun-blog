@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import type { Article } from '~/types';
+import type { Article, Type } from '~/types';
 import apis from '~/apis';
 
 definePageMeta({
@@ -9,18 +9,31 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const formData = ref<Article>({} as Article)
 const route = useRoute()
 const router = useRouter()
+const formData = ref<Article>({} as Article)
+const typeList = ref<Type[]>([] as Type[])
 
 formData.value.content = '# Test content'
 
-const { data, error } = await apis.article.getById(route.params.id as string)
+const getArticle = async () => {
+  const { data, error } = await apis.article.getById(route.params.id as string)
 
-if (error.value) {
-  ElMessage({ showClose: true, message: error.value.message, type: 'error' })
-} else {
-  formData.value = data.value?.data as Article
+  if (error.value) {
+    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
+  } else {
+    formData.value = data.value?.data as Article
+  }
+}
+
+const getTypeList = async () => {
+  const { data, error } = await apis.type.getList()
+
+  if (error.value) {
+    ElMessage({ showClose: true, message: error.value.message, type: 'error' })
+  } else {
+    typeList.value = data.value?.data as Type[]
+  }
 }
 
 const cancel = async () => {
@@ -40,6 +53,13 @@ const cancel = async () => {
     ElMessage({ showClose: true, message: 'Continue edit', type: 'info' })
   }
 }
+
+const submit = async () => {
+  console.log(formData.value)
+}
+
+await getArticle()
+await getTypeList()
 </script>
 
 <template>
@@ -54,12 +74,26 @@ const cancel = async () => {
       <md-editor v-model="formData.content"/>
     </el-form-item>
     <el-form-item label="Type">
-      <el-input v-model="formData.typeName"/>
+      <el-select v-model="formData.typename"
+                 allow-create
+                 filterable
+                 style="width: 240px">
+        <el-option v-for="item in typeList" :key="item.id" :value="item.name"/>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="Tags">
+      <el-select v-model="formData.tagNameList"
+                 allow-create
+                 filterable
+                 multiple
+                 style="width: 400px">
+
+      </el-select>
     </el-form-item>
   </el-form>
   <div class="form-button">
     <el-button type="warning" @click="cancel">Cancel</el-button>
-    <el-button type="success">Submit</el-button>
+    <el-button type="success" @click="submit">Submit</el-button>
   </div>
 </template>
 

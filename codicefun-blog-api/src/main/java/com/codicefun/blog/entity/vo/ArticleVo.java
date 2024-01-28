@@ -3,6 +3,7 @@ package com.codicefun.blog.entity.vo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ArticleVo {
@@ -18,6 +19,7 @@ public class ArticleVo {
     private Date updateTime;
 
     private String username;
-    private String typeName;
+    private String typename;
+    private List<String> tagNameList;
 
 }

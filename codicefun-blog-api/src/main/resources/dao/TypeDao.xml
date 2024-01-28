@@ -23,6 +23,11 @@
     </where>
   </select>
 
+  <select id="selectAll" resultType="type">
+    SELECT *
+    FROM `type`
+  </select>
+
   <update id="updateById">
     UPDATE `type`
     <set>

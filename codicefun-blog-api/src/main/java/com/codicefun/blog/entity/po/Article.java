@@ -3,6 +3,7 @@ package com.codicefun.blog.entity.po;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Article {
@@ -22,5 +23,6 @@ public class Article {
     // fk
     private User user;
     private Type type;
+    private List<Tag> tagList;
 
 }

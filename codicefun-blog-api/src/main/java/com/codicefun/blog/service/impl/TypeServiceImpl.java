@@ -42,6 +42,11 @@ public class TypeServiceImpl implements TypeService {
         return PageVo.of(page.getTotal(), current, size, typeList);
     }
 
+    @Override
+    public List<Type> getAll() {
+        return typeMapper.selectAll();
+    }
+
     @Transactional
     @Override
     public boolean updateById(Integer id, Type type) {

@@ -21,6 +21,11 @@ export interface User {
   updateTime: Date
 }
 
+export interface Type {
+  id: number,
+  name: string
+}
+
 export interface Article {
   id: number
   title: string
@@ -33,5 +38,6 @@ export interface Article {
   updateTime: Date
 
   username: string
-  typeName: string
+  typename: string
+  tagNameList: string[]
 }

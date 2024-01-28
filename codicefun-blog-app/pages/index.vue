@@ -53,7 +53,7 @@ const handleCurrentChange = async (val: number) => {
         <template #footer>
           <el-row class="card-footer">
             <el-col :span="3">
-              分类：{{ article.typeName }}
+              分类：{{ article.typename }}
             </el-col>
             <el-col :span="4">
               浏览人数：{{ article.viewed }}

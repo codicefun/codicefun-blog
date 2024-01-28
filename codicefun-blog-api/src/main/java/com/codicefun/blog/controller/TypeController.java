@@ -7,6 +7,8 @@ import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.service.TypeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/type")
 public class TypeController {
@@ -29,7 +31,7 @@ public class TypeController {
         return ResponseVo.success(type);
     }
 
-    @GetMapping
+    @GetMapping("/page")
     public ResponseVo<PageVo<Type>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
@@ -37,6 +39,13 @@ public class TypeController {
         PageVo<Type> paginationVO = typeService.getByEquals(current, size, type);
 
         return ResponseVo.success(paginationVO);
+    }
+
+    @GetMapping("/all")
+    public ResponseVo<List<Type>> getAll() {
+        List<Type> typeList = typeService.getAll();
+
+        return ResponseVo.success(typeList);
     }
 
     @PutMapping("/{id}")

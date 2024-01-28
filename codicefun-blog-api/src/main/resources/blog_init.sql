@@ -85,10 +85,14 @@ INSERT INTO `user` (`username`, `password`, `nickname`, `email`, `avatar`, `role
 VALUES ('admin', 'admin', 'Admin', 'admin@codicefun.com', 'https://picsum.photos/200', 'admin');
 
 INSERT INTO `type`(`name`)
-VALUES ('Test');
+VALUES ('Test'),
+       ('frontend'),
+       ('backend');
 
 INSERT INTO `tag` (`name`)
-VALUES ('Test');
+VALUES ('Test'),
+       ('Demo'),
+       ('Example');
 
 INSERT INTO `article` (`title`, `content`, `description`, `picture`, `user_id`, `type_id`)
 VALUES ('Test1', 'Test1 content', 'Test1 description', 'https://picsum.photos/320/180', 1, 1),
@@ -112,4 +116,6 @@ VALUES (1, 1),
        (7, 1),
        (8, 1),
        (9, 1),
-       (10, 1);
+       (10, 1),
+       (1, 2),
+       (1, 3);

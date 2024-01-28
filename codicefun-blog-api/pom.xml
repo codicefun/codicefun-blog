@@ -96,6 +96,12 @@
       <artifactId>mapstruct</artifactId>
       <version>${mapstruct.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>${mapstruct.version}</version>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
   <build>
@@ -112,6 +118,10 @@
             <exclude>
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct</artifactId>
+            </exclude>
+            <exclude>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
             </exclude>
           </excludes>
         </configuration>

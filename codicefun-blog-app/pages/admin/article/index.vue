@@ -50,7 +50,7 @@ const edit = async (id: number) => {
   <el-table :data="tableData" style="width: 100%">
     <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column prop="title" label="Title" width="600"/>
-    <el-table-column label="type" prop="typeName" width="100"/>
+    <el-table-column label="type" prop="typename" width="100"/>
     <el-table-column label="Operations" width="200">
       <template #default="{row}">
         <el-button type="primary" @click="edit(row.id)">Edit</el-button>
