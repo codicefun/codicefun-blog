@@ -13,35 +13,35 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private final ArticleDao articleMapper;
+    private final ArticleDao articleDao;
 
-    public ArticleServiceImpl(ArticleDao articleMapper) {
-        this.articleMapper = articleMapper;
+    public ArticleServiceImpl(ArticleDao articleDao) {
+        this.articleDao = articleDao;
     }
 
     @Override
     public boolean add(Article article) {
-        return articleMapper.insert(article) == 1;
+        return articleDao.insert(article) == 1;
     }
 
     @Override
     public Article getById(Integer id) {
-        return articleMapper.selectById(id)
-                            .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+        return articleDao.selectById(id)
+                         .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
     }
 
     @Override
     public List<Article> getBtEquals(Integer current, Integer size, Article article) {
         PageHelper.startPage(current, size);
 
-        return articleMapper.selectByEquals(article);
+        return articleDao.selectByEquals(article);
     }
 
     @Override
     public boolean updateById(Integer id, Article article) {
         article.setId(id);
 
-        return articleMapper.updateById(article) == 1;
+        return articleDao.updateById(article) == 1;
     }
 
 }

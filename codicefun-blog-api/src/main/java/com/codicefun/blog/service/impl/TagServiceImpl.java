@@ -16,35 +16,35 @@ import java.util.List;
 @Service
 public class TagServiceImpl implements TagService {
 
-    private final TagDao tagMapper;
+    private final TagDao tagDao;
 
-    public TagServiceImpl(TagDao tagMapper) {
-        this.tagMapper = tagMapper;
+    public TagServiceImpl(TagDao tagDao) {
+        this.tagDao = tagDao;
     }
 
     @Transactional
     @Override
     public boolean add(Tag type) {
-        return tagMapper.insert(type) == 1;
+        return tagDao.insert(type) == 1;
     }
 
     @Override
     public Tag getById(Integer id) {
-        return tagMapper.selectById(id)
-                        .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+        return tagDao.selectById(id)
+                     .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
     }
 
     @Override
     public PageVo<Tag> getByEquals(Integer current, Integer size, Tag type) {
         Page<Tag> page = PageHelper.startPage(current, size);
-        List<Tag> typeList = tagMapper.selectByEquals(type);
+        List<Tag> typeList = tagDao.selectByEquals(type);
 
         return PageVo.of(page.getTotal(), current, size, typeList);
     }
 
     @Override
     public List<Tag> getAll() {
-        return tagMapper.selectAll();
+        return tagDao.selectAll();
     }
 
     @Transactional
@@ -52,13 +52,13 @@ public class TagServiceImpl implements TagService {
     public boolean updateById(Integer id, Tag type) {
         type.setId(id);
 
-        return tagMapper.updateById(type) == 1;
+        return tagDao.updateById(type) == 1;
     }
 
     @Transactional
     @Override
     public boolean removeById(Integer id) {
-        return tagMapper.deleteById(id) == 1;
+        return tagDao.deleteById(id) == 1;
     }
 
 }

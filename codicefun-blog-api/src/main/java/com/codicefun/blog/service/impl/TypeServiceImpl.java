@@ -16,35 +16,35 @@ import java.util.List;
 @Service
 public class TypeServiceImpl implements TypeService {
 
-    private final TypeDao typeMapper;
+    private final TypeDao typeDao;
 
-    public TypeServiceImpl(TypeDao typeMapper) {
-        this.typeMapper = typeMapper;
+    public TypeServiceImpl(TypeDao typeDao) {
+        this.typeDao = typeDao;
     }
 
     @Transactional
     @Override
     public boolean add(Type type) {
-        return typeMapper.insert(type) == 1;
+        return typeDao.insert(type) == 1;
     }
 
     @Override
     public Type getById(Integer id) {
-        return typeMapper.selectById(id)
-                         .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+        return typeDao.selectById(id)
+                      .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
     }
 
     @Override
     public PageVo<Type> getByEquals(Integer current, Integer size, Type type) {
         Page<Type> page = PageHelper.startPage(current, size);
-        List<Type> typeList = typeMapper.selectByEquals(type);
+        List<Type> typeList = typeDao.selectByEquals(type);
 
         return PageVo.of(page.getTotal(), current, size, typeList);
     }
 
     @Override
     public List<Type> getAll() {
-        return typeMapper.selectAll();
+        return typeDao.selectAll();
     }
 
     @Transactional
@@ -52,13 +52,13 @@ public class TypeServiceImpl implements TypeService {
     public boolean updateById(Integer id, Type type) {
         type.setId(id);
 
-        return typeMapper.updateById(type) == 1;
+        return typeDao.updateById(type) == 1;
     }
 
     @Transactional
     @Override
     public boolean removeById(Integer id) {
-        return typeMapper.deleteById(id) == 1;
+        return typeDao.deleteById(id) == 1;
     }
 
 }

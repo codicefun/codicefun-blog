@@ -13,22 +13,22 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userMapper;
+    private final UserDao userDao;
     private final JwtUtil jwtUtil;
 
-    public UserServiceImpl(UserDao userMapper, JwtUtil jwtUtil) {
-        this.userMapper = userMapper;
+    public UserServiceImpl(UserDao userDao, JwtUtil jwtUtil) {
+        this.userDao = userDao;
         this.jwtUtil = jwtUtil;
     }
 
     @Override
     public Optional<User> getById(Integer id) {
-        return userMapper.selectById(id);
+        return userDao.selectById(id);
     }
 
     @Override
     public boolean exist(User user) {
-        return userMapper.selectByEquals(user).size() == 1;
+        return userDao.selectByEquals(user).size() == 1;
     }
 
     @Override
