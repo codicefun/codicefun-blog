@@ -20,4 +20,6 @@ public class BusinessException extends RuntimeException {
         this.statusEnum = statusEnum;
     }
 
+    // TODO: Add method for lambda invoke
+
 }

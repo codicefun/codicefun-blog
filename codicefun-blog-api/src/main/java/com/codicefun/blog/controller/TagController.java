@@ -36,9 +36,9 @@ public class TagController {
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             Tag tag) {
-        PageVo<Tag> paginationVO = tagService.getByEquals(current, size, tag);
+        PageVo<Tag> pageVo = tagService.getByEquals(current, size, tag);
 
-        return ResponseVo.success(paginationVO);
+        return ResponseVo.success(pageVo);
     }
 
     @GetMapping("/all")

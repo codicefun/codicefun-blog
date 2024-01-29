@@ -3,7 +3,7 @@
 
 <mapper namespace="com.codicefun.blog.entity.dao.TypeDao">
 
-  <insert id="insert">
+  <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     INSERT INTO `type`(`name`) VALUE (#{name})
   </insert>
 
@@ -11,6 +11,12 @@
     SELECT *
     FROM `type`
     WHERE `id` = #{id}
+  </select>
+
+  <select id="selectByName" resultType="type">
+    SELECT *
+    FROM `type`
+    WHERE `name` = #{name}
   </select>
 
   <select id="selectByEquals" resultType="type">

@@ -63,12 +63,26 @@
       <if test="picture != null and picture != ''">
         `picture` = #{picture},
       </if>
-      <if test="type.id != null and type.id">
+      <if test="type != null and type.id != null and type.id">
         `type_id` = #{type.id},
       </if>
       `update_time` = CURRENT_TIMESTAMP
     </set>
     WHERE `id` = #{id}
   </update>
+
+  <delete id="deleteTag">
+    DELETE
+    FROM `article_tag`
+    WHERE `article_id` = #{id}
+  </delete>
+
+  <insert id="insertTag">
+    INSERT INTO `article_tag` VALUES
+    <foreach collection="tagList" separator="," item="tag">
+      (#{articleId}, #{tag.id})
+    </foreach>
+  </insert>
+
 
 </mapper>

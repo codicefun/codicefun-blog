@@ -11,6 +11,8 @@ public interface TypeDao {
 
     Optional<Type> selectById(Integer id);
 
+    Optional<Type> selectByName(String name);
+
     List<Type> selectByEquals(Type type);
 
     List<Type> selectAll();

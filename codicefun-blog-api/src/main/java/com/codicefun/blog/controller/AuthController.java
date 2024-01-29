@@ -27,14 +27,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseVo<TokenVo> login(@RequestBody User user) {
         String token = userService.login(user);
-        TokenVo tokenVO = new TokenVo(token);
+        TokenVo tokenVo = new TokenVo(token);
 
-        return ResponseVo.success(tokenVO);
+        return ResponseVo.success(tokenVo);
     }
 
     @PostMapping("/validate")
-    public ResponseVo<Object> validate(@RequestBody TokenVo tokenVO) {
-        if (jwtUtil.validateToken(tokenVO.getToken())) {
+    public ResponseVo<Object> validate(@RequestBody TokenVo tokenVo) {
+        if (jwtUtil.validateToken(tokenVo.getToken())) {
             return ResponseVo.success();
         } else {
             throw new BusinessException(ResponseStatusEnum.INVALID_TOKEN);

@@ -15,8 +15,11 @@ const request = async <T>(url: UrlType, options: RequestOption<T>) => {
   const { data, error } = await useFetch<ResponseOptions<T>>(url, {
     baseURL: 'http://localhost:8080/api',
 
-    onRequest() {
-
+    onRequest({ options, request }) {
+      if ((request as string).startsWith('/admin')) {
+        const userStore = useUserStore()
+        options.headers = { ...options.headers, token: userStore.token }
+      }
     },
 
     onResponse({ response }) {
@@ -30,7 +33,6 @@ const request = async <T>(url: UrlType, options: RequestOption<T>) => {
   })
 
   if (error.value) {
-    console.log(error.value)
     return Promise.reject(error.value)
   }
 

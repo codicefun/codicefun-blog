@@ -63,7 +63,13 @@ const cancel = async () => {
 }
 
 const submit = async () => {
-  console.log(formData.value)
+  try {
+    await apis.article.edit(formData.value.id, formData.value)
+    await router.push('/admin/article')
+    ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
 }
 
 await getArticle()
@@ -78,6 +84,9 @@ await getTagList()
   >
     <el-form-item label="Title">
       <el-input v-model="formData.title"/>
+    </el-form-item>
+    <el-form-item label="Description">
+      <el-input v-model="formData.description" :autosize="{minRows: 3}" type="textarea"/>
     </el-form-item>
     <el-form-item label="Content">
       <md-editor v-model="formData.content"/>

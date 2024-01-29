@@ -1,4 +1,4 @@
-package com.codicefun.blog.entity.vo;
+package com.codicefun.blog.entity.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ArticleVo {
+public class ArticleDto {
 
     private Integer id;
     private String title;

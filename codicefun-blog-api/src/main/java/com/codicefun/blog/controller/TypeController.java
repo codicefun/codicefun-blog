@@ -36,9 +36,9 @@ public class TypeController {
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             Type type) {
-        PageVo<Type> paginationVO = typeService.getByEquals(current, size, type);
+        PageVo<Type> pageVo = typeService.getByEquals(current, size, type);
 
-        return ResponseVo.success(paginationVO);
+        return ResponseVo.success(pageVo);
     }
 
     @GetMapping("/all")

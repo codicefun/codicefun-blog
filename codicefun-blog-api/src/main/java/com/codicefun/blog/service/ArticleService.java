@@ -1,5 +1,6 @@
 package com.codicefun.blog.service;
 
+import com.codicefun.blog.entity.dto.ArticleDto;
 import com.codicefun.blog.entity.po.Article;
 
 import java.util.List;
@@ -12,6 +13,6 @@ public interface ArticleService {
 
     List<Article> getBtEquals(Integer current, Integer size, Article article);
 
-    boolean updateById(Integer id, Article article);
+    boolean updateById(Integer id, ArticleDto articleDto);
 
 }

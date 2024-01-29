@@ -55,11 +55,10 @@ CREATE TABLE `article` (
 );
 
 CREATE TABLE `article_tag` (
-    `id`         INT NOT NULL AUTO_INCREMENT,
     `article_id` INT NOT NULL,
     `tag_id`     INT NOT NULL,
 
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`article_id`, `tag_id`),
 
     FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
     FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)

@@ -11,6 +11,8 @@ public interface TagDao {
 
     Optional<Tag> selectById(Integer id);
 
+    Optional<Tag> selectByName(String name);
+
     List<Tag> selectByEquals(Tag tag);
 
     List<Tag> selectAll();

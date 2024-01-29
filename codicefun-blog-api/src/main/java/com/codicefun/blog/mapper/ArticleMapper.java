@@ -1,8 +1,8 @@
 package com.codicefun.blog.mapper;
 
+import com.codicefun.blog.entity.dto.ArticleDto;
 import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.ArticleVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -49,15 +49,15 @@ public interface ArticleMapper {
     @Mapping(source = "article.user.username", target = "username")
     @Mapping(source = "article.type.name", target = "typename")
     @Mapping(source = "article.tagList", target = "tagNameList", qualifiedByName = "tag2string")
-    ArticleVo po2vo(Article article);
+    ArticleDto po2dto(Article article);
 
-    @Mapping(source = "articleVo.username", target = "user.username")
-    @Mapping(source = "articleVo.typename", target = "type.name")
-    @Mapping(source = "articleVo.tagNameList", target = "tagList", qualifiedByName = "string2tag")
-    Article vo2po(ArticleVo articleVo);
+    @Mapping(source = "articleDto.username", target = "user.username")
+    @Mapping(source = "articleDto.typename", target = "type.name")
+    @Mapping(source = "articleDto.tagNameList", target = "tagList", qualifiedByName = "string2tag")
+    Article dto2po(ArticleDto articleDto);
 
-    List<ArticleVo> pos2vos(List<Article> articles);
+    List<ArticleDto> poList2dtoList(List<Article> articles);
 
-    List<Article> vos2pos(List<ArticleVo> articleVos);
+    List<Article> dtoList2poList(List<ArticleDto> articleDtoList);
 
 }

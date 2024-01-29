@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 interface UserStore {
   username: string
-  token: string | undefined
+  token: string
 }
 
 export const useUserStore = defineStore('user', {

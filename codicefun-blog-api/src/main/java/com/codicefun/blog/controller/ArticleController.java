@@ -1,8 +1,8 @@
 package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
+import com.codicefun.blog.entity.dto.ArticleDto;
 import com.codicefun.blog.entity.po.Article;
-import com.codicefun.blog.entity.vo.ArticleVo;
 import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.mapper.ArticleMapper;
@@ -25,22 +25,22 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseVo<ArticleVo> getById(@PathVariable Integer id) {
+    public ResponseVo<ArticleDto> getById(@PathVariable Integer id) {
         Article article = articleService.getById(id);
-        ArticleVo articleVo = articleMapper.po2vo(article);
+        ArticleDto articleDto = articleMapper.po2dto(article);
 
-        return ResponseVo.success(articleVo);
+        return ResponseVo.success(articleDto);
     }
 
     @GetMapping
-    public ResponseVo<PageVo<ArticleVo>> getByEquals(
+    public ResponseVo<PageVo<ArticleDto>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
-            ArticleVo articleVo) {
-        Article article = articleMapper.vo2po(articleVo);
+            ArticleDto articleDto) {
+        Article article = articleMapper.dto2po(articleDto);
         Page<Article> page = (Page<Article>) articleService.getBtEquals(current, size, article);
-        List<ArticleVo> articleVos = articleMapper.pos2vos(page);
-        PageVo<ArticleVo> pageVo = PageVo.of(page.getTotal(), current, size, articleVos);
+        List<ArticleDto> articleVos = articleMapper.poList2dtoList(page);
+        PageVo<ArticleDto> pageVo = PageVo.of(page.getTotal(), current, size, articleVos);
 
         return ResponseVo.success(pageVo);
     }
