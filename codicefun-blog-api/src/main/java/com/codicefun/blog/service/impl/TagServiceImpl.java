@@ -1,7 +1,6 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.entity.dao.TagDao;
-import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Tag;
 import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.exception.BusinessException;
@@ -31,7 +30,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag getById(Integer id) {
         return tagDao.selectById(id)
-                     .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+                     .orElseThrow(BusinessException::notFoundResource);
     }
 
     @Override

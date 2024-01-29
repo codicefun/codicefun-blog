@@ -4,7 +4,6 @@ import com.codicefun.blog.entity.dao.ArticleDao;
 import com.codicefun.blog.entity.dao.TagDao;
 import com.codicefun.blog.entity.dao.TypeDao;
 import com.codicefun.blog.entity.dto.ArticleDto;
-import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.entity.po.Tag;
 import com.codicefun.blog.entity.po.Type;
@@ -42,7 +41,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article getById(Integer id) {
         return articleDao.selectById(id)
-                         .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+                         .orElseThrow(BusinessException::notFoundResource);
     }
 
     @Override

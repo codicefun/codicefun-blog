@@ -10,7 +10,7 @@ public enum ResponseStatusEnum {
     FAIL(400, "Request fail"),
 
     BUSINESS_ERROR(600, "Business error"),
-    RESOURCE_NOT_FOUND(601, "Resource not found"),
+    NOT_FOUND_RESOURCE(601, "Not found resource"),
     INVALID_LOGIN_FORM(602, "Invalid Username or Password "),
     INVALID_TOKEN(603, "Invalid Token");
 

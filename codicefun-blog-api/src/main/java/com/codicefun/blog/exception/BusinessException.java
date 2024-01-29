@@ -20,6 +20,11 @@ public class BusinessException extends RuntimeException {
         this.statusEnum = statusEnum;
     }
 
-    // TODO: Add method for lambda invoke
+    public static BusinessException notFoundResource() {
+        BusinessException e = new BusinessException();
+        e.statusEnum = ResponseStatusEnum.NOT_FOUND_RESOURCE;
+
+        return e;
+    }
 
 }

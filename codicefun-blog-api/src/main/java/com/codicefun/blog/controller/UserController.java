@@ -1,6 +1,5 @@
 package com.codicefun.blog.controller;
 
-import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.User;
 import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.exception.BusinessException;
@@ -23,7 +22,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseVo<User> getById(@PathVariable Integer id) {
         User user = userService.getById(id)
-                               .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+                               .orElseThrow(BusinessException::notFoundResource);
 
         return ResponseVo.success(user);
     }

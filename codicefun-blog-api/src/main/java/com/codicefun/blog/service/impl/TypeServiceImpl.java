@@ -1,7 +1,6 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.entity.dao.TypeDao;
-import com.codicefun.blog.entity.enums.ResponseStatusEnum;
 import com.codicefun.blog.entity.po.Type;
 import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.exception.BusinessException;
@@ -31,7 +30,7 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Type getById(Integer id) {
         return typeDao.selectById(id)
-                      .orElseThrow(() -> new BusinessException(ResponseStatusEnum.RESOURCE_NOT_FOUND));
+                      .orElseThrow(BusinessException::notFoundResource);
     }
 
     @Override
