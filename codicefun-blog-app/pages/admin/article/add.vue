@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import type { Article, Tag, Type } from '~/types';
@@ -9,22 +9,10 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const route = useRoute()
 const router = useRouter()
 const formData = ref<Article>({} as Article)
 const typeList = ref<Type[]>([] as Type[])
 const tagList = ref([] as Tag[])
-
-formData.value.content = '# Test content'
-
-const getArticle = async () => {
-  try {
-    const resp = await apis.article.getById(route.params.id as string)
-    formData.value = resp.data
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
-}
 
 const getTypeList = async () => {
   try {
@@ -56,23 +44,22 @@ const cancel = async () => {
         }
     )
     await router.push('/admin/article')
-    ElMessage({ showClose: true, message: 'Cancel edit', type: 'info' })
+    ElMessage({ showClose: true, message: 'Cancel add', type: 'info' })
   } catch (e) {
-    ElMessage({ showClose: true, message: 'Continue edit', type: 'info' })
+    ElMessage({ showClose: true, message: 'Continue add', type: 'info' })
   }
 }
 
 const submit = async () => {
   try {
-    await apis.article.edit(formData.value.id, formData.value)
+    await apis.article.add(formData.value)
     await router.push('/admin/article')
-    ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
+    ElMessage({ showClose: true, message: 'Add success', type: 'success' })
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
 }
 
-await getArticle()
 await getTypeList()
 await getTagList()
 </script>
@@ -95,8 +82,8 @@ await getTagList()
       <el-select v-model="formData.typename"
                  :reserve-keyword="false"
                  allow-create
-                 filterable
                  default-first-option
+                 filterable
                  style="width: 240px">
         <el-option v-for="item in typeList" :key="item.id" :value="item.name"/>
       </el-select>
@@ -105,12 +92,15 @@ await getTagList()
       <el-select v-model="formData.tagNameList"
                  :reserve-keyword="false"
                  allow-create
+                 default-first-option
                  filterable
                  multiple
-                 default-first-option
                  style="width: 400px">
         <el-option v-for="item in tagList" :key="item.id" :value="item.name"/>
       </el-select>
+    </el-form-item>
+    <el-form-item label="Picture">
+      <el-input v-model="formData.picture" style="width: 400px"/>
     </el-form-item>
   </el-form>
   <div class="form-button">

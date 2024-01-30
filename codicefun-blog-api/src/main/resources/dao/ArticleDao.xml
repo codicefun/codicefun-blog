@@ -24,7 +24,7 @@
     WHERE `a`.`id` = #{id}
   </select>
 
-  <insert id="insert">
+  <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     INSERT INTO `article`(`title`, `content`, `description`, `picture`, `user_id`, `type_id`)
       VALUE (#{title}, #{content}, #{description}, #{picture}, #{user.id}, #{type.id})
   </insert>

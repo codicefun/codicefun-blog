@@ -1,7 +1,6 @@
 package com.codicefun.blog.controller.admin;
 
 import com.codicefun.blog.entity.dto.ArticleDto;
-import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
@@ -20,8 +19,8 @@ public class AdminArticleController {
     }
 
     @PostMapping
-    public ResponseVo<Object> add(@RequestBody Article article) {
-        return articleService.add(article) ? ResponseVo.success() : ResponseVo.fail();
+    public ResponseVo<Object> add(@RequestBody ArticleDto articleDto) {
+        return articleService.add(articleDto) ? ResponseVo.success() : ResponseVo.fail();
     }
 
     @PutMapping("/{id}")

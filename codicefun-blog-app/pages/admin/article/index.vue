@@ -8,7 +8,6 @@ definePageMeta({
 })
 
 const router = useRouter();
-
 const tableData = ref<Article[]>()
 const current = ref(0)
 const size = ref(0)
@@ -43,11 +42,16 @@ const edit = async (id: number) => {
   await router.push(`/admin/article/${id}/edit`)
 }
 
+const add = async () => {
+  await router.push('/admin/article/add')
+}
+
 await getArticleList()
 </script>
 
 <template>
-  <el-table :data="tableData" style="width: 100%">
+  <el-button type="primary" @click="add">New Article</el-button>
+  <el-table :data="tableData">
     <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column prop="title" label="Title" width="600"/>
     <el-table-column label="type" prop="typename" width="100"/>
@@ -69,6 +73,7 @@ await getArticleList()
 </template>
 
 <style scoped>
+
 .el-pagination {
   margin-top: 10px;
 }

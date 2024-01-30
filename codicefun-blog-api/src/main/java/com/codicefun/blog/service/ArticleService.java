@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    boolean add(Article article);
+    boolean add(ArticleDto articleDto);
 
     Article getById(Integer id);
 

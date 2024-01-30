@@ -46,6 +46,8 @@ public interface ArticleMapper {
         return tagList;
     }
 
+    // TODO: Don't mapping type and tag, they'll be reset in service
+
     @Mapping(source = "article.user.username", target = "username")
     @Mapping(source = "article.type.name", target = "typename")
     @Mapping(source = "article.tagList", target = "tagNameList", qualifiedByName = "tag2string")

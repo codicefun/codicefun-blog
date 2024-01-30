@@ -24,4 +24,11 @@ public class User {
         return user;
     }
 
+    public static User admin() {
+        User user = new User();
+        user.setId(1);
+
+        return user;
+    }
+
 }

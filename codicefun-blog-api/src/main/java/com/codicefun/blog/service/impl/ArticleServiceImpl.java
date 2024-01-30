@@ -7,6 +7,7 @@ import com.codicefun.blog.entity.dto.ArticleDto;
 import com.codicefun.blog.entity.po.Article;
 import com.codicefun.blog.entity.po.Tag;
 import com.codicefun.blog.entity.po.Type;
+import com.codicefun.blog.entity.po.User;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
@@ -33,9 +34,17 @@ public class ArticleServiceImpl implements ArticleService {
         this.articleMapper = articleMapper;
     }
 
+    @Transactional
     @Override
-    public boolean add(Article article) {
-        return articleDao.insert(article) == 1;
+    public boolean add(ArticleDto articleDto) {
+        Article article = articleMapper.dto2po(articleDto);
+        // Admin only
+        article.setUser(User.admin());
+        updateType(articleDto, article);
+        articleDao.insert(article);
+        updateTag(article.getId(), articleDto.getTagNameList());
+
+        return true;
     }
 
     @Override
@@ -56,7 +65,14 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean updateById(Integer id, ArticleDto articleDto) {
         Article article = articleMapper.dto2po(articleDto);
         article.setId(id);
+        updateType(articleDto, article);
+        updateTag(article.getId(), articleDto.getTagNameList());
+        articleDao.updateById(article);
 
+        return true;
+    }
+
+    private void updateType(ArticleDto articleDto, Article article) {
         // get type
         String typename = articleDto.getTypename();
         Type type = typeDao.selectByName(typename)
@@ -69,14 +85,15 @@ public class ArticleServiceImpl implements ArticleService {
 
         // update type
         article.setType(type);
+    }
 
-        // update tag
+    private void updateTag(int articleId, List<String> tagNameList) {
         // delete tag
-        articleDao.deleteTag(article.getId());
+        articleDao.deleteTag(articleId);
 
         // get tag
         List<Tag> tagList = new ArrayList<>();
-        for (String tagName: articleDto.getTagNameList()) {
+        for (String tagName: tagNameList) {
             Tag tag = tagDao.selectByName(tagName)
                             .orElseGet(() -> {
                                 // If not found, create new tag
@@ -88,12 +105,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         // add tag
-        articleDao.insertTag(article.getId(), tagList);
-
-        // update article
-        articleDao.updateById(article);
-
-        return true;
+        articleDao.insertTag(articleId, tagList);
     }
 
 }
