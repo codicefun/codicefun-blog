@@ -8,6 +8,7 @@ const active = ref('1')
         :default-active="active"
         mode="horizontal"
     >
+      <!-- TODO: Considering use 'el-link' -->
       <el-menu-item index="1" @click="active = '1'">
         <nuxt-link to="/admin">Home</nuxt-link>
       </el-menu-item>
@@ -28,6 +29,9 @@ const active = ref('1')
       </el-menu-item>
       <el-menu-item index="7" @click="active = '7'">
         <nuxt-link to="/admin/login">Login</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="8">
+        <nuxt-link to="/">Blog</nuxt-link>
       </el-menu-item>
     </el-menu>
   </el-header>

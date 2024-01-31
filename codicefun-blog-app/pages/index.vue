@@ -39,7 +39,7 @@ await getArticleList()
       <el-card v-for="article in articleList.record" :key="article" class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
-            <span>{{ article.title }}</span>
+            <nuxt-link :to="`/article/${article.id}`">{{ article.title }}</nuxt-link>
           </div>
         </template>
         <el-row :gutter="20">
@@ -53,16 +53,16 @@ await getArticleList()
         <template #footer>
           <el-row class="card-footer">
             <el-col :span="3">
-              分类：{{ article.typename }}
+              type: {{ article.typename }}
             </el-col>
             <el-col :span="4">
-              浏览人数：{{ article.viewed }}
+              viewed: {{ article.viewed }}
             </el-col>
             <el-col :span="4">
-              点赞人数：{{ article.liked }}
+              liked: {{ article.liked }}
             </el-col>
             <el-col :span="5">
-              发布时间：{{ moment(article.createTime).format('YYYY-MM-DD') }}
+              create time: {{ moment(article.createTime).format('YYYY-MM-DD') }}
             </el-col>
           </el-row>
         </template>

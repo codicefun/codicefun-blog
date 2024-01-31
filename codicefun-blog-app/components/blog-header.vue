@@ -7,10 +7,12 @@
     <el-menu
         :default-active="'1'"
         mode="horizontal">
-      <el-menu-item index="1">首页</el-menu-item>
-      <el-menu-item index="2">分类</el-menu-item>
-      <el-menu-item index="3">标签</el-menu-item>
-      <el-menu-item index="4">关于本站</el-menu-item>
+      <el-menu-item index="1">
+        <nuxt-link to="/">Home</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="2">Type</el-menu-item>
+      <el-menu-item index="3">Tag</el-menu-item>
+      <el-menu-item index="4">About</el-menu-item>
     </el-menu>
   </el-header>
 </template>
