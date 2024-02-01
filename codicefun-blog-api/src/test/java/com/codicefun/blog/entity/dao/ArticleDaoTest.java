@@ -5,13 +5,14 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @MybatisTest
-class TypeDaoTest {
+class ArticleDaoTest {
 
     @Autowired
-    TypeDao typeDao;
+    ArticleDao dao;
 
     @Test
     void testInsert() {
+
     }
 
 }
