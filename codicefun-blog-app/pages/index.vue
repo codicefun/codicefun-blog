@@ -51,20 +51,19 @@ await getArticleList()
           </el-col>
         </el-row>
         <template #footer>
-          <el-row class="card-footer">
-            <el-col :span="3">
-              type: {{ article.typename }}
-            </el-col>
-            <el-col :span="4">
-              viewed: {{ article.viewed }}
-            </el-col>
-            <el-col :span="4">
-              liked: {{ article.liked }}
-            </el-col>
-            <el-col :span="5">
-              create time: {{ moment(article.createTime).format('YYYY-MM-DD') }}
-            </el-col>
-          </el-row>
+          <div class="article-meta">
+            <span>Author: Admin</span>
+            <span>Type: {{ article.typename }}</span>
+            <span>Viewed: {{ article.viewed }}</span>
+            <span>Liked: {{ article.liked }}</span>
+            <span>Create Time: {{ moment(article.createTime).format('YYYY-MM-DD') }}</span>
+          </div>
+          <div class="article-tag">
+            <span>Tag: </span>
+            <el-tag v-for="tag in article.tagNameList" :key="tag">
+              {{ tag }}
+            </el-tag>
+          </div>
         </template>
       </el-card>
       <div class="pagination">
@@ -102,5 +101,18 @@ await getArticleList()
 .pagination {
   display: flex;
   justify-content: right;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-tag {
+  margin-top: 10px;
+}
+
+.el-tag {
+  margin: 0 5px;
 }
 </style>
