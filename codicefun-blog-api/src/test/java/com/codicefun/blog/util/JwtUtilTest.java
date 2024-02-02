@@ -1,18 +1,18 @@
-package com.codicefun.blog.mapper;
+package com.codicefun.blog.util;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ArticleMapperTest {
+class JwtUtilTest {
 
     @Autowired
-    ArticleMapper mapper;
+    JwtUtil jwtUtil;
 
     @Test
-    void testPo2vo() {
-
+    void testGenerateToken() {
+        jwtUtil.generateToken("test");
     }
 
 }
