@@ -4,7 +4,8 @@
 <mapper namespace="com.codicefun.blog.entity.dao.TagDao">
 
   <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-    INSERT INTO `tag`(`name`) VALUE (#{name})
+    INSERT INTO `tag`(`name`)
+    VALUES (#{name})
   </insert>
 
   <select id="selectById" resultType="tag">

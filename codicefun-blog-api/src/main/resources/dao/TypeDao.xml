@@ -4,7 +4,8 @@
 <mapper namespace="com.codicefun.blog.entity.dao.TypeDao">
 
   <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-    INSERT INTO `type`(`name`) VALUE (#{name})
+    INSERT INTO `type`(`name`)
+    VALUES (#{name})
   </insert>
 
   <select id="selectById" resultType="type">
