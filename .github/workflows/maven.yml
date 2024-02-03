@@ -16,6 +16,8 @@ jobs:
     strategy:
       matrix:
         java-version: [ 17, 21 ]
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK ${{ matrix.java-version }}
@@ -31,4 +33,4 @@ jobs:
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@v4
         with:
-          directory: codicefun-blog-api
+          directory: ${{ github.workspace }}/codicefun-blog-api
