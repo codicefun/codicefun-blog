@@ -17,7 +17,7 @@ class ArticleDaoTest {
     ArticleDao dao;
 
     @Test
-    void testInsert() {
+    void insertTest() {
         Article article = new Article();
         User user = new User();
         Type type = new Type();
@@ -35,7 +35,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    void testSelectById() {
+    void selectByIdTest() {
         Article article = dao.selectById(1).orElseThrow(BusinessException::notFoundResource);
 
         assertEquals(article.getTitle(), "Test1");

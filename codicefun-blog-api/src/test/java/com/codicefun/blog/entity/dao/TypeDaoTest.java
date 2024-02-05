@@ -18,7 +18,7 @@ class TypeDaoTest {
     TypeDao dao;
 
     @Test
-    void testInsert() {
+    void insertTest() {
         Type type = Type.of("New");
 
         assertEquals(1, dao.insert(type));
@@ -26,7 +26,7 @@ class TypeDaoTest {
     }
 
     @Test
-    void testSelectById() {
+    void selectByIdTest() {
         Type type = dao.selectById(1)
                        .orElseThrow(BusinessException::notFoundResource);
 
@@ -34,7 +34,7 @@ class TypeDaoTest {
     }
 
     @Test
-    void testSelectByName() {
+    void selectByNameTest() {
         Type type = dao.selectByName("Test")
                        .orElseThrow(BusinessException::notFoundResource);
 
@@ -42,7 +42,7 @@ class TypeDaoTest {
     }
 
     @Test
-    void testSelectByEquals() {
+    void selectByEqualsTest() {
         Type type = Type.of("Test");
         List<Type> typeList = dao.selectByEquals(type);
 
@@ -51,14 +51,14 @@ class TypeDaoTest {
     }
 
     @Test
-    void testSelectAll() {
+    void selectAllTest() {
         List<Type> typeList = dao.selectAll();
 
         assertEquals(3, typeList.size());
     }
 
     @Test
-    void testUpdateById() {
+    void updateByIdTest() {
         Type type = new Type();
         type.setId(1);
         type.setName("New Test");
@@ -72,7 +72,7 @@ class TypeDaoTest {
     }
 
     @Test
-    void testDeleteById() {
+    void deleteByIdTest() {
         assertEquals(1, dao.deleteById(1));
         assertEquals(Optional.empty(), dao.selectById(1));
     }

@@ -34,7 +34,7 @@ class TagDaoTest {
     }
 
     @Test
-    void selectByName() {
+    void selectByNameTest() {
         Tag tag = dao.selectByName("Test")
                      .orElseThrow(BusinessException::notFoundResource);
 
@@ -42,7 +42,7 @@ class TagDaoTest {
     }
 
     @Test
-    void selectByEquals() {
+    void selectByEqualsTest() {
         Tag tag = Tag.of("Test");
         List<Tag> tagList = dao.selectByEquals(tag);
 
@@ -51,14 +51,14 @@ class TagDaoTest {
     }
 
     @Test
-    void selectAll() {
+    void selectAllTest() {
         List<Tag> tagList = dao.selectAll();
 
         assertEquals(3, tagList.size());
     }
 
     @Test
-    void updateById() {
+    void updateByIdTest() {
         Tag tag = new Tag();
         tag.setId(1);
         tag.setName("New Test");
@@ -72,7 +72,7 @@ class TagDaoTest {
     }
 
     @Test
-    void deleteById() {
+    void deleteByIdTest() {
         assertEquals(1, dao.deleteById(1));
         assertEquals(Optional.empty(), dao.selectById(1));
     }
