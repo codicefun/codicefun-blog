@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 public class Article {
 
-    // pk
     private Integer id;
 
     private String title;
@@ -20,9 +19,9 @@ public class Article {
     private Date createTime;
     private Date updateTime;
 
-    // fk
     private User user;
     private Type type;
     private List<Tag> tagList;
+    private List<Comment> commentList;
 
 }

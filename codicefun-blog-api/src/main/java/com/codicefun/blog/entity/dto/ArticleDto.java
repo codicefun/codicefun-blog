@@ -1,5 +1,6 @@
 package com.codicefun.blog.entity.dto;
 
+import com.codicefun.blog.entity.po.Comment;
 import lombok.Data;
 
 import java.util.Date;
@@ -21,5 +22,6 @@ public class ArticleDto {
     private String username;
     private String typename;
     private List<String> tagNameList;
+    private List<Comment> commentList;
 
 }

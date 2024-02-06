@@ -36,3 +36,6 @@ VALUES (1, 1),
        (10, 1),
        (1, 2),
        (1, 3);
+
+INSERT INTO `comment` (`nickname`, `email`, `content`, `article_id`, `parent_id`)
+VALUES ('guest', 'guest@codicefun.com', 'Nice blog', 1, NULL)

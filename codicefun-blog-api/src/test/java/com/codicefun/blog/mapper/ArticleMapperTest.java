@@ -1,5 +1,6 @@
 package com.codicefun.blog.mapper;
 
+import com.codicefun.blog.entity.po.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,8 +14,13 @@ class ArticleMapperTest {
     ArticleMapper mapper;
 
     @Test
-    void testPo2vo() {
-
+    void po2dtoTest() {
+        Article article = new Article();
+        article.setId(1);
+        article.setTitle("Test");
+        article.setContent("Test Content");
+        article.setDescription("Test Description");
+        article.setPicture("Test Picture");
     }
 
 }
