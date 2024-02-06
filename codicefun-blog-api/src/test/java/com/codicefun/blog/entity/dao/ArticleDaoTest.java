@@ -21,17 +21,18 @@ class ArticleDaoTest {
 
     @Test
     void insertTest() {
-        Article article = new Article();
         User user = new User();
         Type type = new Type();
         user.setId(1);
         type.setId(1);
-        article.setTitle("Test11");
-        article.setContent("Test11 content");
-        article.setDescription("Test11 description");
-        article.setPicture("https://picsum.photos/320/180");
-        article.setUser(user);
-        article.setType(type);
+        Article article = Article.builder()
+                                 .title("Test11")
+                                 .content("Test11 content")
+                                 .description("Test11 description")
+                                 .picture("https://picsum.photos/320/180")
+                                 .user(user)
+                                 .type(type)
+                                 .build();
 
         assertEquals(dao.insert(article), 1);
         assertEquals(article.getId(), 11);
@@ -47,7 +48,8 @@ class ArticleDaoTest {
 
     @Test
     void selectByEqualsTest() {
-        Article article = new Article();
+        Article article = Article.builder()
+                                 .build();
         List<Article> articleList = dao.selectByEquals(article);
 
         assertEquals(10, articleList.size());
@@ -55,9 +57,10 @@ class ArticleDaoTest {
 
     @Test
     void updateByIdTest() {
-        Article article = new Article();
-        article.setId(1);
-        article.setTitle("New Test");
+        Article article = Article.builder()
+                                 .id(1)
+                                 .title("New Test")
+                                 .build();
 
         assertEquals(1, dao.updateById(article));
 

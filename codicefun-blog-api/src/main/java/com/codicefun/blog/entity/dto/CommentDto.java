@@ -1,4 +1,4 @@
-package com.codicefun.blog.entity.po;
+package com.codicefun.blog.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class CommentDto {
 
     private Integer id;
 
@@ -21,7 +21,7 @@ public class Comment {
     private Integer liked;
     private Date createTime;
 
-    private Article article;
-    private Comment parent;
+    private Integer articleId;
+    private Integer parentId;
 
 }
