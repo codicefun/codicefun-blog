@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import apis from '~/apis';
 import type { Article } from '~/types';
-import moment from 'moment/moment';
-import { MdCatalog, MdPreview } from 'md-editor-v3';
+import { MdCatalog, MdEditor, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
+import 'md-editor-v3/lib/style.css';
+import moment from 'moment';
 
 const route = useRoute();
 const article = ref({} as Article)
+const commentText = ref('You can comment')
 
 const getArticle = async () => {
   try {
@@ -15,6 +17,11 @@ const getArticle = async () => {
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
   }
+}
+
+const comment = async () => {
+  ElMessage({ showClose: true, message: 'comment success', type: 'success' })
+  commentText.value = 'You can comment'
 }
 
 await getArticle()
@@ -50,10 +57,27 @@ onMounted(() => {
                     code-theme="atom"
                     editor-id="preview"
                     preview-theme="default"
+                    show-code-row-number
         />
       </el-card>
       <!-- Comment list -->
       <el-card shadow="hover">
+        <template #header>
+          Comment list
+        </template>
+        <template #footer>
+          <!-- TODO: language Hydration node mismatch -->
+          <md-editor v-model="commentText"
+                     :preview="false"
+                     editor-id="comment"
+                     language="en-US"
+                     show-code-row-number
+                     style="height: 200px"
+          />
+          <div style="display: flex; justify-content: right; margin-top: 10px;">
+            <el-button type="primary" @click="comment">Comment</el-button>
+          </div>
+        </template>
       </el-card>
     </el-col>
     <el-col :span="8" class="right">
