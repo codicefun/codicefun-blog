@@ -32,7 +32,8 @@ public class User {
 
     public static User admin() {
         User user = new User();
-        user.setId(1);
+        user.id = 1;
+        user.username = "admin";
 
         return user;
     }

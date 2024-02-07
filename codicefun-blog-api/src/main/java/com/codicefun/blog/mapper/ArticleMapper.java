@@ -48,14 +48,16 @@ public interface ArticleMapper {
 
     // TODO: Don't mapping type and tag, they'll be reset in service
 
-    @Mapping(source = "article.user.username", target = "username")
-    @Mapping(source = "article.type.name", target = "typename")
-    @Mapping(source = "article.tagList", target = "tagNameList", qualifiedByName = "tag2string")
+    @Mapping(target = "username", source = "article.user.username")
+    @Mapping(target = "typename", source = "article.type.name")
+    @Mapping(target = "tagNameList", source = "article.tagList", qualifiedByName = "tag2string")
+    @Mapping(target = "commentDtoList", source = "article.commentList")
     ArticleDto po2dto(Article article);
 
-    @Mapping(source = "articleDto.username", target = "user.username")
-    @Mapping(source = "articleDto.typename", target = "type.name")
-    @Mapping(source = "articleDto.tagNameList", target = "tagList", qualifiedByName = "string2tag")
+    @Mapping(target = "user.username", source = "articleDto.username")
+    @Mapping(target = "type.name", source = "articleDto.typename")
+    @Mapping(target = "tagList", source = "articleDto.tagNameList", qualifiedByName = "string2tag")
+    @Mapping(target = "commentList", source = "articleDto.commentDtoList")
     Article dto2po(ArticleDto articleDto);
 
     List<ArticleDto> poList2dtoList(List<Article> articles);
