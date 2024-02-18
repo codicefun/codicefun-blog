@@ -1,8 +1,10 @@
 package com.codicefun.blog.mapper;
 
 import com.codicefun.blog.entity.dto.ArticleDto;
-import com.codicefun.blog.entity.dto.CommentDto;
-import com.codicefun.blog.entity.po.*;
+import com.codicefun.blog.entity.po.Article;
+import com.codicefun.blog.entity.po.Tag;
+import com.codicefun.blog.entity.po.Type;
+import com.codicefun.blog.entity.po.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,16 +26,11 @@ class ArticleMapperTest {
         User user = User.admin();
         Type type = Type.of("Test");
         List<Tag> tagList = List.of(Tag.of("Test1"), Tag.of("Test2"), Tag.of("Test3"));
-        List<Comment> commentList = List.of(
-                Comment.builder().content("Test1").build(),
-                Comment.builder().content("Test2").build(),
-                Comment.builder().content("Test3").build());
         Article article = Article.builder()
                                  .id(1)
                                  .user(user)
                                  .type(type)
                                  .tagList(tagList)
-                                 .commentList(commentList)
                                  .build();
         ArticleDto articleDto = mapper.po2dto(article);
 
@@ -42,13 +39,8 @@ class ArticleMapperTest {
         assertEquals("Test", articleDto.getTypename());
 
         List<String> tagNameList = List.of("Test1", "Test2", "Test3");
-        List<CommentDto> commentDtoList = List.of(
-                CommentDto.builder().content("Test1").build(),
-                CommentDto.builder().content("Test2").build(),
-                CommentDto.builder().content("Test3").build());
 
         assertEquals(tagNameList, articleDto.getTagNameList());
-        assertEquals(commentDtoList, articleDto.getCommentDtoList());
     }
 
     @Test

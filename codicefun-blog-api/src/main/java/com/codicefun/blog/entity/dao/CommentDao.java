@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CommentDao {
 
+    int insert(Comment comment);
+
     List<Comment> selectByArticleId(Integer articleId);
 
 }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import apis from '~/apis';
-import type { Article } from '~/types';
+import type { Article, Comment, Page } from '~/types';
 import { MdCatalog, MdEditor, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import 'md-editor-v3/lib/style.css';
@@ -8,6 +8,8 @@ import moment from 'moment';
 
 const route = useRoute();
 const article = ref({} as Article)
+const comment = ref({} as Comment)
+const commentList = ref({} as Page<Comment>)
 const commentText = ref('You can comment')
 
 const getArticle = async () => {
@@ -19,12 +21,27 @@ const getArticle = async () => {
   }
 }
 
-const comment = async () => {
+const getComment = async (current = 1) => {
+  try {
+    const { data } = await apis.comment.getByArticleId(article.value.id, current, 10)
+    commentList.value = data
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
+}
+
+const addComment = async () => {
+  comment.value.articleId = article.value.id
+  await apis.comment.add(comment.value)
   ElMessage({ showClose: true, message: 'comment success', type: 'success' })
   commentText.value = 'You can comment'
+  // refresh comment list
+  await getComment()
 }
 
 await getArticle()
+await getComment()
+
 let scrollElement: string | HTMLElement | undefined = undefined
 onMounted(() => {
   scrollElement = document.documentElement
@@ -63,19 +80,37 @@ onMounted(() => {
       <!-- Comment list -->
       <el-card shadow="hover">
         <template #header>
-          Comment list
+          Comment List
         </template>
+        <div v-for="comment in commentList.record" :key="comment.id">
+          {{ comment.content }}
+          <hr>
+        </div>
         <template #footer>
           <!-- TODO: language Hydration node mismatch -->
-          <md-editor v-model="commentText"
-                     :preview="false"
-                     editor-id="comment"
-                     language="en-US"
-                     show-code-row-number
-                     style="height: 200px"
-          />
+          <el-form
+              :model="comment"
+              label-position="left"
+              label-width="60px"
+          >
+            <el-form-item label="nickname">
+              <el-input v-model="comment.nickname"/>
+            </el-form-item>
+            <el-form-item label="email">
+              <el-input v-model="comment.email"/>
+            </el-form-item>
+            <el-form-item label="content">
+              <md-editor v-model="comment.content"
+                         :preview="false"
+                         editor-id="comment"
+                         language="en-US"
+                         show-code-row-number
+                         style="height: 200px"
+              />
+            </el-form-item>
+          </el-form>
           <div style="display: flex; justify-content: right; margin-top: 10px;">
-            <el-button type="primary" @click="comment">Comment</el-button>
+            <el-button type="primary" @click="addComment">Comment</el-button>
           </div>
         </template>
       </el-card>

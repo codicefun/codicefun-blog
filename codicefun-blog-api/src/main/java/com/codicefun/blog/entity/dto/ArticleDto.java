@@ -21,6 +21,5 @@ public class ArticleDto {
     private String username;
     private String typename;
     private List<String> tagNameList;
-    private List<CommentDto> commentDtoList;
 
 }

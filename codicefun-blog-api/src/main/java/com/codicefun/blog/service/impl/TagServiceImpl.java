@@ -1,8 +1,8 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.entity.dao.TagDao;
+import com.codicefun.blog.entity.dto.PageDto;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.service.TagService;
 import com.github.pagehelper.Page;
@@ -34,11 +34,13 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public PageVo<Tag> getByEquals(Integer current, Integer size, Tag type) {
+    public PageDto<Tag> getByEquals(Integer current, Integer size, Tag type) {
+        // TODO: 'Page<Tag>' used without 'try'-with-resources statement
         Page<Tag> page = PageHelper.startPage(current, size);
         List<Tag> typeList = tagDao.selectByEquals(type);
 
-        return PageVo.of(page.getTotal(), current, size, typeList);
+        // TODO: typeList is equal page
+        return PageDto.of(page.getTotal(), current, size, typeList);
     }
 
     @Override

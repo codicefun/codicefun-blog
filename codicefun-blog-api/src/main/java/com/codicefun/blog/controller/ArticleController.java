@@ -2,8 +2,8 @@ package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
 import com.codicefun.blog.entity.dto.ArticleDto;
+import com.codicefun.blog.entity.dto.PageDto;
 import com.codicefun.blog.entity.po.Article;
-import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.mapper.ArticleMapper;
 import com.codicefun.blog.service.ArticleService;
@@ -33,16 +33,16 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseVo<PageVo<ArticleDto>> getByEquals(
+    public ResponseVo<PageDto<ArticleDto>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             ArticleDto articleDto) {
         Article article = articleMapper.dto2po(articleDto);
         Page<Article> page = (Page<Article>) articleService.getBtEquals(current, size, article);
         List<ArticleDto> articleVos = articleMapper.poList2dtoList(page);
-        PageVo<ArticleDto> pageVo = PageVo.of(page.getTotal(), current, size, articleVos);
+        PageDto<ArticleDto> pageDto = PageDto.of(page.getTotal(), current, size, articleVos);
 
-        return ResponseVo.success(pageVo);
+        return ResponseVo.success(pageDto);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.codicefun.blog.service;
 
+import com.codicefun.blog.entity.dto.PageDto;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVo;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface TagService {
 
     Tag getById(Integer id);
 
-    PageVo<Tag> getByEquals(Integer current, Integer size, Tag tag);
+    PageDto<Tag> getByEquals(Integer current, Integer size, Tag tag);
 
     List<Tag> getAll();
 

@@ -3,6 +3,11 @@
 
 <mapper namespace="com.codicefun.blog.entity.dao.CommentDao">
 
+  <insert id="insert">
+    INSERT INTO `comment` (`nickname`, `email`, `content`, `article_id`, `parent_id`)
+    VALUES (#{nickname}, #{email}, #{content}, #{article.id}, #{parent.id})
+  </insert>
+
   <select id="selectByArticleId" resultType="comment">
     SELECT *
     FROM `comment`

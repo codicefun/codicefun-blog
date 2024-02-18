@@ -1,8 +1,8 @@
 package com.codicefun.blog.service.impl;
 
 import com.codicefun.blog.entity.dao.TypeDao;
+import com.codicefun.blog.entity.dto.PageDto;
 import com.codicefun.blog.entity.po.Type;
-import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.exception.BusinessException;
 import com.codicefun.blog.service.TypeService;
 import com.github.pagehelper.Page;
@@ -34,11 +34,11 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public PageVo<Type> getByEquals(Integer current, Integer size, Type type) {
+    public PageDto<Type> getByEquals(Integer current, Integer size, Type type) {
         Page<Type> page = PageHelper.startPage(current, size);
         List<Type> typeList = typeDao.selectByEquals(type);
 
-        return PageVo.of(page.getTotal(), current, size, typeList);
+        return PageDto.of(page.getTotal(), current, size, typeList);
     }
 
     @Override

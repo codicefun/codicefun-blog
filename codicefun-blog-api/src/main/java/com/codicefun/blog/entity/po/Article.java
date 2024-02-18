@@ -28,6 +28,5 @@ public class Article {
     private User user;
     private Type type;
     private List<Tag> tagList;
-    private List<Comment> commentList;
 
 }

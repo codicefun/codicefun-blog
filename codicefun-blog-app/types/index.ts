@@ -46,3 +46,14 @@ export interface Article {
   typename: string
   tagNameList: string[]
 }
+
+export interface Comment {
+    id: number
+    nickname: string
+    email: string
+    content: string
+    liked: number
+    createTime: Date
+    articleId: number
+    parentId: number
+}

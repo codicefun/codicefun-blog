@@ -1,8 +1,8 @@
 package com.codicefun.blog.controller;
 
 import com.codicefun.blog.entity.Constants;
+import com.codicefun.blog.entity.dto.PageDto;
 import com.codicefun.blog.entity.po.Tag;
-import com.codicefun.blog.entity.vo.PageVo;
 import com.codicefun.blog.entity.vo.ResponseVo;
 import com.codicefun.blog.service.TagService;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +32,13 @@ public class TagController {
     }
 
     @GetMapping("/page")
-    public ResponseVo<PageVo<Tag>> getByEquals(
+    public ResponseVo<PageDto<Tag>> getByEquals(
             @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
             @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size,
             Tag tag) {
-        PageVo<Tag> pageVo = tagService.getByEquals(current, size, tag);
+        PageDto<Tag> pageDto = tagService.getByEquals(current, size, tag);
 
-        return ResponseVo.success(pageVo);
+        return ResponseVo.success(pageDto);
     }
 
     @GetMapping("/all")

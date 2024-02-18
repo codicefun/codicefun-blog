@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
+import java.util.List;
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CommentMapper {
 
@@ -16,5 +18,9 @@ public interface CommentMapper {
     @Mapping(target = "article.id", source = "articleId")
     @Mapping(target = "parent.id", source = "parentId")
     Comment dto2po(CommentDto commentDto);
+
+    List<CommentDto> poList2dtoList(List<Comment> commentList);
+
+    List<Comment> dtoList2poList(List<CommentDto> commentDtoList);
 
 }
