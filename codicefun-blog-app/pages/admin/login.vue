@@ -30,23 +30,23 @@ const login = async () => {
 
 <template>
   <div class="login-container">
-    <h2>管理员登录</h2>
+    <h2>Admin Login</h2>
     <div>
       <el-form
           :model="formData"
           label-position="left"
           label-width="60"
       >
-        <el-form-item label="用户名">
+        <el-form-item label="username">
           <el-input v-model="formData.username"/>
         </el-form-item>
-        <el-form-item label="密&nbsp;&nbsp;&nbsp;&nbsp;码">
+        <el-form-item label="password">
           <el-input v-model="formData.password" type="password"/>
         </el-form-item>
       </el-form>
       <div class="login-button">
-        <el-button type="warning" @click="formData = {} as UserForm">重置</el-button>
-        <el-button type="success" @click="login">登录</el-button>
+        <el-button type="warning" @click="formData = {} as UserForm">reset</el-button>
+        <el-button type="success" @click="login">login</el-button>
       </div>
     </div>
   </div>
