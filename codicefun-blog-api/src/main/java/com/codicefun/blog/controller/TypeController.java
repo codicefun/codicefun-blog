@@ -19,11 +19,6 @@ public class TypeController {
         this.typeService = typeService;
     }
 
-    @PostMapping
-    public ResponseVo<Object> add(@RequestBody Type type) {
-        return typeService.add(type) ? ResponseVo.success() : ResponseVo.fail();
-    }
-
     @GetMapping("/{id}")
     public ResponseVo<Type> getById(@PathVariable Integer id) {
         Type type = typeService.getById(id);
@@ -46,16 +41,6 @@ public class TypeController {
         List<Type> typeList = typeService.getAll();
 
         return ResponseVo.success(typeList);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseVo<Object> updateById(@PathVariable Integer id, @RequestBody Type type) {
-        return typeService.updateById(id, type) ? ResponseVo.success() : ResponseVo.fail();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseVo<Object> removeById(@PathVariable Integer id) {
-        return typeService.removeById(id) ? ResponseVo.success() : ResponseVo.fail();
     }
 
 }

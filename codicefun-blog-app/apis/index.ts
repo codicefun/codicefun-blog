@@ -8,6 +8,6 @@ export default {
   article,
   auth,
   type,
-    tag,
-    comment
+  tag,
+  comment
 }
