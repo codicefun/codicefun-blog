@@ -82,9 +82,14 @@ onMounted(() => {
         <template #header>
           Comment List
         </template>
-        <div v-for="comment in commentList.record" :key="comment.id">
-          {{ comment.content }}
-          <hr>
+        <div class="comment" v-for="comment in commentList.record" :key="comment.id">
+          <div>{{ comment.nickname }}:</div>
+          <div class="comment-content">{{ comment.content }}</div>
+          <div class="comment-footer">
+            <span>{{ moment(comment.createTime).format('YYYY-MM-DD') }}</span>
+            <span>liked: {{ comment.liked }}</span>
+            <span><el-button type="primary" link>replay</el-button></span>
+          </div>
         </div>
         <template #footer>
           <!-- TODO: language Hydration node mismatch -->
@@ -146,6 +151,19 @@ onMounted(() => {
 
 .el-tag {
   margin: 0 5px;
+}
+
+.comment {
+  padding: 10px 0;
+  border-bottom: 1px solid darkgray;
+}
+
+.comment-content {
+  margin: 10px 0;
+}
+
+.comment-footer > span {
+  margin-right: 10px;
 }
 </style>
 

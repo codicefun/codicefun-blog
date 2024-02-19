@@ -18,6 +18,7 @@ class CommentDaoTest {
 
     @Test
     void insertTest() {
+        // TODO: Generate data use datafaker, see: https://www.datafaker.net/documentation/getting-started/
         Article article = Article.builder()
                                  .id(1)
                                  .build();
