@@ -17,6 +17,8 @@ public interface ArticleDao {
 
     int updateById(Article article);
 
+    int deleteById(Integer id);
+
     /**
      * Delete article's tags
      *

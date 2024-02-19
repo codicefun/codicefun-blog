@@ -38,12 +38,22 @@ const handleCurrentChange = async (val: number) => {
   }
 }
 
+const add = async () => {
+  await router.push('/admin/article/add')
+}
+
 const edit = async (id: number) => {
   await router.push(`/admin/article/${id}/edit`)
 }
 
-const add = async () => {
-  await router.push('/admin/article/add')
+const remove = async (id: number) => {
+  try {
+    await apis.article.remove(id)
+    ElMessage({ showClose: true, message: 'delete success', type: 'success' })
+    await getArticleList()
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
 }
 
 await getArticleList()
@@ -58,7 +68,7 @@ await getArticleList()
     <el-table-column label="Operations" width="200">
       <template #default="{row}">
         <el-button type="primary" @click="edit(row.id)">Edit</el-button>
-        <el-button type="danger">Delete</el-button>
+        <el-button type="danger" @click="remove(row.id)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>

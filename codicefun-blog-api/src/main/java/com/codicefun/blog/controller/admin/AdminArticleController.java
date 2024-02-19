@@ -28,4 +28,9 @@ public class AdminArticleController {
         return articleService.updateById(id, articleDto) ? ResponseVo.success() : ResponseVo.fail();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseVo<Object> removeById(@PathVariable Integer id) {
+        return articleService.removeById(id) ? ResponseVo.success() : ResponseVo.fail();
+    }
+
 }

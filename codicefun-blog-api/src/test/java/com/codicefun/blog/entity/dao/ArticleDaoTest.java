@@ -71,6 +71,12 @@ class ArticleDaoTest {
     }
 
     @Test
+    void deleteByIdTest() {
+        assertEquals(1, dao.deleteById(1));
+        assertEquals(0, dao.deleteById(99));
+    }
+
+    @Test
     void deleteTagTest() {
         assertEquals(3, dao.deleteTag(1));
     }

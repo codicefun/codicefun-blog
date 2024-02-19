@@ -15,4 +15,6 @@ public interface ArticleService {
 
     boolean updateById(Integer id, ArticleDto articleDto);
 
+    boolean removeById(Integer id);
+
 }

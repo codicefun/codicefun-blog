@@ -108,4 +108,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleDao.insertTag(articleId, tagList);
     }
 
+    @Override
+    public boolean removeById(Integer id) {
+        return articleDao.deleteById(id) == 1;
+    }
+
 }
