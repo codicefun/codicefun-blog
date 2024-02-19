@@ -19,11 +19,6 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @PostMapping
-    public ResponseVo<Object> add(@RequestBody Tag tag) {
-        return tagService.add(tag) ? ResponseVo.success() : ResponseVo.fail();
-    }
-
     @GetMapping("/{id}")
     public ResponseVo<Tag> getById(@PathVariable Integer id) {
         Tag tag = tagService.getById(id);
@@ -46,16 +41,6 @@ public class TagController {
         List<Tag> tagList = tagService.getAll();
 
         return ResponseVo.success(tagList);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseVo<Object> updateById(@PathVariable Integer id, @RequestBody Tag tag) {
-        return tagService.updateById(id, tag) ? ResponseVo.success() : ResponseVo.fail();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseVo<Object> removeById(@PathVariable Integer id) {
-        return tagService.removeById(id) ? ResponseVo.success() : ResponseVo.fail();
     }
 
 }
