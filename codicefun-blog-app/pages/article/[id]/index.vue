@@ -12,9 +12,19 @@ const comment = ref({} as Comment)
 const commentList = ref({} as Page<Comment>)
 const commentText = ref('You can comment')
 
+const articleId = Number(route.params.id)
+
+const increaseViewed = async () => {
+  try {
+    await apis.article.increaseViewed(articleId)
+  } catch (e: any) {
+    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  }
+}
+
 const getArticle = async () => {
   try {
-    const { data } = await apis.article.getById(route.params.id as string)
+    const { data } = await apis.article.getById(articleId)
     article.value = data
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
@@ -39,6 +49,7 @@ const addComment = async () => {
   await getComment()
 }
 
+await increaseViewed()
 await getArticle()
 await getComment()
 

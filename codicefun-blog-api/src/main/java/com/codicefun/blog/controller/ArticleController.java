@@ -45,4 +45,9 @@ public class ArticleController {
         return ResponseVo.success(pageDto);
     }
 
+    @PutMapping("/{id}/viewed/increase")
+    public ResponseVo<Object> increaseViewed(@PathVariable Integer id) {
+        return articleService.increaseViewed(id) ? ResponseVo.success() : ResponseVo.fail();
+    }
+
 }

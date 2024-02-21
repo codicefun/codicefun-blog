@@ -60,6 +60,7 @@ class ArticleDaoTest {
         Article article = Article.builder()
                                  .id(1)
                                  .title("New Test")
+                                 .viewed(100)
                                  .build();
 
         assertEquals(1, dao.updateById(article));
@@ -68,6 +69,12 @@ class ArticleDaoTest {
                            .orElseThrow(BusinessException::notFoundResource);
 
         assertEquals("New Test", found.getTitle());
+        assertEquals(100, found.getViewed());
+    }
+
+    @Test
+    void updateViewedTest() {
+        assertEquals(1, dao.updateViewed(1));
     }
 
     @Test

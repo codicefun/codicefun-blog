@@ -19,7 +19,7 @@ formData.value.content = '# Test content'
 
 const getArticle = async () => {
   try {
-    const resp = await apis.article.getById(route.params.id as string)
+    const resp = await apis.article.getById(Number(route.params.id))
     formData.value = resp.data
   } catch (e: any) {
     ElMessage({ showClose: true, message: e.message, type: 'error' })
@@ -64,7 +64,7 @@ const cancel = async () => {
 
 const submit = async () => {
   try {
-    await apis.article.edit(formData.value.id, formData.value)
+    await apis.article.update(formData.value.id, formData.value)
     await router.push('/admin/article')
     ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   } catch (e: any) {

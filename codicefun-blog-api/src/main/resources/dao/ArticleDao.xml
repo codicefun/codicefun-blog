@@ -63,11 +63,23 @@
       <if test="picture != null and picture != ''">
         `picture` = #{picture},
       </if>
+      <if test="viewed != null and viewed >= 0">
+        `viewed` = #{viewed},
+      </if>
+      <if test="liked != null and liked >= 0">
+        `liked` = #{liked},
+      </if>
       <if test="type != null and type.id != null and type.id">
         `type_id` = #{type.id},
       </if>
       `update_time` = CURRENT_TIMESTAMP
     </set>
+    WHERE `id` = #{id}
+  </update>
+
+  <update id="updateViewed">
+    UPDATE `article`
+    SET `viewed` = `viewed` + 1
     WHERE `id` = #{id}
   </update>
 

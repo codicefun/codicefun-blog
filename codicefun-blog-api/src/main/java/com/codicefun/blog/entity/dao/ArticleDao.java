@@ -9,14 +9,20 @@ import java.util.Optional;
 
 public interface ArticleDao {
 
+    // Create
     int insert(Article article);
 
+    // Read
     Optional<Article> selectById(Integer id);
 
     List<Article> selectByEquals(Article article);
 
+    // Update
     int updateById(Article article);
 
+    int updateViewed(Integer id);
+
+    // Delete
     int deleteById(Integer id);
 
     /**

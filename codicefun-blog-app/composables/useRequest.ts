@@ -23,6 +23,7 @@ const request = async <T>(url: UrlType, options: RequestOption<T>) => {
     },
 
     onResponse({ response }) {
+      // TODO: Handle error message globally
       if (response.status !== 200) {
         return Promise.reject(response._data)
       }

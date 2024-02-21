@@ -93,7 +93,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         // get tag
         List<Tag> tagList = new ArrayList<>();
-        for (String tagName: tagNameList) {
+        for (String tagName : tagNameList) {
             Tag tag = tagDao.selectByName(tagName)
                             .orElseGet(() -> {
                                 // If not found, create new tag
@@ -108,6 +108,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleDao.insertTag(articleId, tagList);
     }
 
+    @Transactional
+    @Override
+    public boolean increaseViewed(Integer id) {
+        return articleDao.updateViewed(id) == 1;
+    }
+
+    @Transactional
     @Override
     public boolean removeById(Integer id) {
         return articleDao.deleteById(id) == 1;
