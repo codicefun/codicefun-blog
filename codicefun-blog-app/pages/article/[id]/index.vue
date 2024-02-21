@@ -50,7 +50,7 @@ onMounted(() => {
 
 <template>
   <el-row :gutter="20">
-    <el-col :span="16">
+    <el-col :span="16" class="left">
       <el-card shadow="hover">
         <template #header>
           <h1>{{ article.title }}</h1>
@@ -121,8 +121,11 @@ onMounted(() => {
       </el-card>
     </el-col>
     <el-col :span="8" class="right">
-      <el-affix target=".right">
+      <el-affix :offset="90">
         <el-card shadow="hover">
+          <template #header>
+            <el-text size="large" tag="b">Catalog</el-text>
+          </template>
           <client-only>
             <md-catalog :scroll-element="scrollElement"
                         editor-id="preview"
@@ -136,7 +139,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.el-card {
+.left .el-card {
   margin: 10px 0;
 }
 
