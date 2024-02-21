@@ -17,28 +17,19 @@ const dialogVisible = ref(false)
 const dialogTitle = ref('Add')
 
 const getTagList = async () => {
-  try {
-    const { data } = await apis.tag.getByEquals();
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    console.log(e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.tag.getByEquals();
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const handleCurrentChange = async (val: number) => {
-  try {
-    const { data } = await apis.tag.getByEquals(val);
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.tag.getByEquals(val);
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const add = async () => {
@@ -64,9 +55,7 @@ const remove = async (id: number) => {
     ElMessage({ showClose: true, message: 'delete success', type: 'success' })
     await getTagList()
   } catch (e: any) {
-    if (e instanceof Error) {
-      ElMessage({ showClose: true, message: e.message, type: 'error' })
-    } else {
+    if (!(e instanceof Error)) {
       ElMessage({ showClose: true, message: 'delete cancel', type: 'info' })
     }
   }
@@ -74,22 +63,16 @@ const remove = async (id: number) => {
 
 const update = async () => {
   dialogVisible.value = false
-  try {
-    // Add tag
-    if (dialogTitle.value === 'Add') {
-      await apis.tag.add(tag.value)
-      ElMessage({ showClose: true, message: 'Add success', type: 'success' })
-      await getTagList()
-    }
-    // Edit tag
-    else {
-      await apis.type.update(tag.value.id, tag.value)
-      ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
-    }
-  } catch (e: any) {
-    console.log(e)
-    console.log(typeof e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  // Add tag
+  if (dialogTitle.value === 'Add') {
+    await apis.tag.add(tag.value)
+    ElMessage({ showClose: true, message: 'Add success', type: 'success' })
+    await getTagList()
+  }
+  // Edit tag
+  else {
+    await apis.type.update(tag.value.id, tag.value)
+    ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   }
 }
 

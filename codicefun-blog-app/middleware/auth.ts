@@ -11,7 +11,6 @@ const isAuthenticated = async () => {
     await apis.auth.validate(token)
     return true
   } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
     return false
   }
 

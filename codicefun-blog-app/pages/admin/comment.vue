@@ -20,28 +20,19 @@ const dialogVisible = ref(false)
 const dialogTitle = ref('Add')
 
 const getCommentList = async () => {
-  try {
-    const { data } = await apis.comment.getAll();
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    console.log(e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.comment.getAll();
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const handleCurrentChange = async (val: number) => {
-  try {
-    const { data } = await apis.comment.getAll(val);
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.comment.getAll(val);
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const add = async () => {
@@ -67,9 +58,7 @@ const remove = async (id: number) => {
     ElMessage({ showClose: true, message: 'delete success', type: 'success' })
     await getCommentList()
   } catch (e: any) {
-    if (e instanceof Error) {
-      ElMessage({ showClose: true, message: e.message, type: 'error' })
-    } else {
+    if (!(e instanceof Error)) {
       ElMessage({ showClose: true, message: 'delete cancel', type: 'info' })
     }
   }
@@ -77,22 +66,16 @@ const remove = async (id: number) => {
 
 const update = async () => {
   dialogVisible.value = false
-  try {
-    // Add tag
-    if (dialogTitle.value === 'Add') {
-      await apis.comment.add(comment.value)
-      ElMessage({ showClose: true, message: 'Add success', type: 'success' })
-      await getCommentList()
-    }
-    // Edit tag
-    else {
-      await apis.comment.update(comment.value.id, comment.value)
-      ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
-    }
-  } catch (e: any) {
-    console.log(e)
-    console.log(typeof e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  // Add tag
+  if (dialogTitle.value === 'Add') {
+    await apis.comment.add(comment.value)
+    ElMessage({ showClose: true, message: 'Add success', type: 'success' })
+    await getCommentList()
+  }
+  // Edit tag
+  else {
+    await apis.comment.update(comment.value.id, comment.value)
+    ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   }
 }
 

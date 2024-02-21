@@ -14,28 +14,19 @@ const size = ref(0)
 const total = ref(0)
 
 const getArticleList = async () => {
-  try {
-    const { data } = await apis.article.getList();
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    console.log(e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.article.getList();
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const handleCurrentChange = async (val: number) => {
-  try {
-    const { data } = await apis.article.getList(val);
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.article.getList(val);
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const add = async () => {
@@ -47,13 +38,9 @@ const edit = async (id: number) => {
 }
 
 const remove = async (id: number) => {
-  try {
-    await apis.article.remove(id)
-    ElMessage({ showClose: true, message: 'delete success', type: 'success' })
-    await getArticleList()
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  await apis.article.remove(id)
+  ElMessage({ showClose: true, message: 'delete success', type: 'success' })
+  await getArticleList()
 }
 
 await getArticleList()

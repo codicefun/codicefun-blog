@@ -15,12 +15,8 @@ const typeList = ref<Type[]>([] as Type[])
 const tagList = ref([] as Tag[])
 
 const getTypeList = async () => {
-  try {
-    const resp = await apis.type.getAll()
-    typeList.value = resp.data
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const resp = await apis.type.getAll()
+  typeList.value = resp.data
 }
 
 const getTagList = async () => {
@@ -45,19 +41,15 @@ const cancel = async () => {
     )
     await router.push('/admin/article')
     ElMessage({ showClose: true, message: 'Cancel add', type: 'info' })
-  } catch (e) {
+  } catch {
     ElMessage({ showClose: true, message: 'Continue add', type: 'info' })
   }
 }
 
 const submit = async () => {
-  try {
-    await apis.article.add(formData.value)
-    await router.push('/admin/article')
-    ElMessage({ showClose: true, message: 'Add success', type: 'success' })
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  await apis.article.add(formData.value)
+  await router.push('/admin/article')
+  ElMessage({ showClose: true, message: 'Add success', type: 'success' })
 }
 
 await getTypeList()

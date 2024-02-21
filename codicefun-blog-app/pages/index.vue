@@ -9,25 +9,17 @@ const current = ref(0)
 const size = ref(0)
 
 const getArticleList = async () => {
-  try {
-    const { data } = await apis.article.getList()
-    articleList.value = data
-    total.value = data.total
-    current.value = data.current
-    size.value = data.size
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.article.getList()
+  articleList.value = data
+  total.value = data.total
+  current.value = data.current
+  size.value = data.size
 }
 
 const handleCurrentChange = async (val: number) => {
-  try {
-    const { data } = await apis.article.getList(val)
-    articleList.value = data
-    current.value = data.current
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.article.getList(val)
+  articleList.value = data
+  current.value = data.current
 }
 
 await getArticleList()

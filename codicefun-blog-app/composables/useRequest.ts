@@ -23,8 +23,9 @@ const request = async <T>(url: UrlType, options: RequestOption<T>) => {
     },
 
     onResponse({ response }) {
-      // TODO: Handle error message globally
-      if (response.status !== 200) {
+      if (response.status !== 200 || response._data.code != 200) {
+        console.log(response)
+        ElMessage({ showClose: true, message: response._data.message, type: 'error' })
         return Promise.reject(response._data)
       }
       return response._data.data

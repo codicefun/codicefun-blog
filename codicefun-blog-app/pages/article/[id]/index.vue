@@ -5,6 +5,7 @@ import { MdCatalog, MdEditor, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import 'md-editor-v3/lib/style.css';
 import moment from 'moment';
+import { addComment } from "@babel/types";
 
 const route = useRoute();
 const article = ref({} as Article)
@@ -15,29 +16,17 @@ const commentText = ref('You can comment')
 const articleId = Number(route.params.id)
 
 const increaseViewed = async () => {
-  try {
-    await apis.article.increaseViewed(articleId)
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  await apis.article.increaseViewed(articleId)
 }
 
 const getArticle = async () => {
-  try {
-    const { data } = await apis.article.getById(articleId)
-    article.value = data
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.article.getById(articleId)
+  article.value = data
 }
 
 const getComment = async (current = 1) => {
-  try {
-    const { data } = await apis.comment.getByArticleId(article.value.id, current, 10)
-    commentList.value = data
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.comment.getByArticleId(article.value.id, current, 10)
+  commentList.value = data
 }
 
 const addComment = async () => {

@@ -17,28 +17,19 @@ const dialogVisible = ref(false)
 const dialogTitle = ref('Add')
 
 const getTypeList = async () => {
-  try {
-    const { data } = await apis.type.getByEquals();
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    console.log(e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.type.getByEquals();
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 const handleCurrentChange = async (val: number) => {
-  try {
-    const { data } = await apis.type.getByEquals(val);
-    tableData.value = data.record
-    current.value = data.current
-    size.value = data.size
-    total.value = data.total
-  } catch (e: any) {
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
-  }
+  const { data } = await apis.type.getByEquals(val);
+  tableData.value = data.record
+  current.value = data.current
+  size.value = data.size
+  total.value = data.total
 }
 
 /**
@@ -71,9 +62,7 @@ const remove = async (id: number) => {
     ElMessage({ showClose: true, message: 'delete success', type: 'success' })
     await getTypeList()
   } catch (e: any) {
-    if (e instanceof Error) {
-      ElMessage({ showClose: true, message: e.message, type: 'error' })
-    } else {
+    if (!(e instanceof Error)) {
       ElMessage({ showClose: true, message: 'delete cancel', type: 'info' })
     }
   }
@@ -81,22 +70,16 @@ const remove = async (id: number) => {
 
 const update = async () => {
   dialogVisible.value = false
-  try {
-    // Add type
-    if (dialogTitle.value === 'Add') {
-      await apis.type.add(type.value)
-      ElMessage({ showClose: true, message: 'Add success', type: 'success' })
-      await getTypeList()
-    }
-    // Edit type
-    else {
-      await apis.type.update(type.value.id, type.value)
-      ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
-    }
-  } catch (e: any) {
-    console.log(e)
-    console.log(typeof e)
-    ElMessage({ showClose: true, message: e.message, type: 'error' })
+  // Add type
+  if (dialogTitle.value === 'Add') {
+    await apis.type.add(type.value)
+    ElMessage({ showClose: true, message: 'Add success', type: 'success' })
+    await getTypeList()
+  }
+  // Edit type
+  else {
+    await apis.type.update(type.value.id, type.value)
+    ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   }
 }
 
