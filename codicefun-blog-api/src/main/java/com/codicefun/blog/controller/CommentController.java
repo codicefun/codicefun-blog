@@ -22,6 +22,15 @@ public class CommentController {
         return commentService.add(commentDto) ? ResponseVo.success() : ResponseVo.fail();
     }
 
+    @GetMapping
+    public ResponseVo<PageDto<CommentDto>> getAll(
+            @RequestParam(defaultValue = Constants.PAGE_CURRENT) Integer current,
+            @RequestParam(defaultValue = Constants.PAGE_SIZE) Integer size) {
+        PageDto<CommentDto> pageDto = commentService.getAll(current, size);
+
+        return ResponseVo.success(pageDto);
+    }
+
     @GetMapping("/article/{id}")
     public ResponseVo<PageDto<CommentDto>> getByArticleId(
             @PathVariable Integer id,

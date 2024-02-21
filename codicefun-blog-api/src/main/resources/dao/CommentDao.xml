@@ -3,15 +3,61 @@
 
 <mapper namespace="com.codicefun.blog.entity.dao.CommentDao">
 
+  <resultMap id="CommentMap" type="comment">
+    <id property="id" column="id"/>
+    <association property="article" javaType="article">
+      <id property="id" column="article_id"/>
+    </association>
+    <association property="parent" javaType="comment">
+      <id property="id" column="parent_id"/>
+    </association>
+  </resultMap>
+
   <insert id="insert">
     INSERT INTO `comment` (`nickname`, `email`, `content`, `article_id`, `parent_id`)
     VALUES (#{nickname}, #{email}, #{content}, #{article.id}, #{parent.id})
   </insert>
+
+  <select id="selectAll" resultMap="CommentMap">
+    SELECT *
+    FROM `comment`
+  </select>
 
   <select id="selectByArticleId" resultType="comment">
     SELECT *
     FROM `comment`
     WHERE `article_id` = #{articleId}
   </select>
+
+  <update id="updateById">
+    UPDATE `comment`
+    <set>
+      <if test="nickname != null and nickname != ''">
+        nickname = #{nickname},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email},
+      </if>
+      <if test="content != null and content != ''">
+        content = #{content},
+      </if>
+      <if test="liked != null">
+        liked = #{liked},
+      </if>
+      <if test="article != null and article.id != null">
+        article_id = #{article.id},
+      </if>
+      <if test="parent != null and parent.id != null">
+        parent_id = #{parent.id},
+      </if>
+    </set>
+    WHERE `id` = #{id}
+  </update>
+
+  <delete id="deleteById">
+    DELETE
+    FROM `comment`
+    WHERE `id` = #{id}
+  </delete>
 
 </mapper>

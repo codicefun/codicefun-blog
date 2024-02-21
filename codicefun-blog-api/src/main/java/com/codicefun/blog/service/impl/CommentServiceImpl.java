@@ -33,12 +33,36 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public PageDto<CommentDto> getAll(Integer current, Integer size) {
+        Page<Object> page = PageHelper.startPage(current, size);
+        List<Comment> commentList = commentDao.selectAll();
+        List<CommentDto> commentDtoList = commentMapper.poList2dtoList(commentList);
+
+        return PageDto.of(page.getTotal(), current, size, commentDtoList);
+    }
+
+    @Override
     public PageDto<CommentDto> getByArticleId(Integer articleId, Integer current, Integer size) {
         Page<Comment> page = PageHelper.startPage(current, size);
         List<Comment> commentList = commentDao.selectByArticleId(articleId);
         List<CommentDto> commentDtoList = commentMapper.poList2dtoList(commentList);
 
         return PageDto.of(page.getTotal(), current, size, commentDtoList);
+    }
+
+    @Transactional
+    @Override
+    public boolean updateById(Integer id, CommentDto commentDto) {
+        commentDto.setId(id);
+        Comment comment = commentMapper.dto2po(commentDto);
+
+        return commentDao.updateById(comment) == 1;
+    }
+
+    @Transactional
+    @Override
+    public boolean removeById(Integer id) {
+        return commentDao.deleteById(id) == 1;
     }
 
 }

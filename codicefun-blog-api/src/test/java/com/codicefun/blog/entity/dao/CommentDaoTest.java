@@ -38,10 +38,44 @@ class CommentDaoTest {
     }
 
     @Test
+    void selectAllTest() {
+        List<Comment> commentList = dao.selectAll();
+
+        assertEquals(1, commentList.size());
+        assertEquals("guest", commentList.get(0).getNickname());
+    }
+
+    @Test
     void selectByArticleIdTest() {
         List<Comment> commentList = dao.selectByArticleId(1);
 
         assertEquals(1, commentList.size());
+    }
+
+    @Test
+    void updateTest() {
+        Article article = Article.builder()
+                                 .id(1)
+                                 .build();
+        Comment parent = Comment.builder()
+                                .id(1)
+                                .build();
+        Comment comment = Comment.builder()
+                                 .id(1)
+                                 .nickname("Test")
+                                 .email("test@gmail.com")
+                                 .content("Test")
+                                 .liked(0)
+                                 .article(article)
+                                 .parent(parent)
+                                 .build();
+
+        assertEquals(1, dao.updateById(comment));
+    }
+
+    @Test
+    void deleteTest() {
+        assertEquals(1, dao.deleteById(1));
     }
 
 }

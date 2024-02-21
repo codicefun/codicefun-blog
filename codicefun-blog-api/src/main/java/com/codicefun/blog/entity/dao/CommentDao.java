@@ -8,6 +8,12 @@ public interface CommentDao {
 
     int insert(Comment comment);
 
+    List<Comment> selectAll();
+
     List<Comment> selectByArticleId(Integer articleId);
+
+    int updateById(Comment comment);
+
+    int deleteById(Integer id);
 
 }
