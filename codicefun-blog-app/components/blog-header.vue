@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-
+const route = useRoute();
+const router = useRouter();
 </script>
 
 <template>
   <el-header>
     <el-menu
-        :default-active="'1'"
+        :default-active="route.name"
         mode="horizontal">
-      <el-menu-item index="1">
-        <nuxt-link to="/">Home</nuxt-link>
-      </el-menu-item>
-      <el-menu-item index="2">Type</el-menu-item>
-      <el-menu-item index="3">Tag</el-menu-item>
-      <el-menu-item index="4">About</el-menu-item>
+      <el-menu-item index="index" @click="router.push('/')">Home</el-menu-item>
+      <el-menu-item index="type" @click="router.push('/type')">Type</el-menu-item>
+      <el-menu-item index="tag" @click="router.push('/tag')">Tag</el-menu-item>
+      <el-menu-item index="about" @click="router.push('/About')">About</el-menu-item>
     </el-menu>
   </el-header>
 </template>
