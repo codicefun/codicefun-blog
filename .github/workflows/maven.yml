@@ -16,8 +16,6 @@ jobs:
     strategy:
       matrix:
         java-version: [ 17, 21 ]
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK ${{ matrix.java-version }}
