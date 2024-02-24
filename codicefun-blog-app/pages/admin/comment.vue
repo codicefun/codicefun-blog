@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Comment } from "~/types";
+import type { Comment, Page } from "~/types";
 import apis from "~/apis";
 import { MdEditor } from "md-editor-v3";
 import 'md-editor-v3/lib/preview.css';
@@ -10,41 +10,31 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const tableData = ref({} as Comment[])
-const comment = ref({} as Comment)
-const current = ref(0)
-const size = ref(0)
-const total = ref(0)
-
+const commentTable = ref({} as Page<Comment>)
+const commentForm = ref({} as Comment)
 const dialogVisible = ref(false)
 const dialogTitle = ref('Add')
 
 const getCommentList = async () => {
   const { data } = await apis.comment.getAll();
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  commentTable.value = data
 }
 
 const handleCurrentChange = async (val: number) => {
   const { data } = await apis.comment.getAll(val);
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  commentTable.value = data
 }
 
 const add = async () => {
   dialogVisible.value = true
   dialogTitle.value = 'Add'
-  comment.value = {} as Comment
+  commentForm.value = {} as Comment
 }
 
 const edit = async (row: Comment) => {
   dialogVisible.value = true
   dialogTitle.value = 'Edit'
-  comment.value = row
+  commentForm.value = row
 }
 
 const remove = async (id: number) => {
@@ -68,13 +58,13 @@ const update = async () => {
   dialogVisible.value = false
   // Add tag
   if (dialogTitle.value === 'Add') {
-    await apis.comment.add(comment.value)
+    await apis.comment.add(commentForm.value)
     ElMessage({ showClose: true, message: 'Add success', type: 'success' })
     await getCommentList()
   }
   // Edit tag
   else {
-    await apis.comment.update(comment.value.id, comment.value)
+    await apis.comment.update(commentForm.value.id, commentForm.value)
     ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   }
 }
@@ -84,7 +74,7 @@ await getCommentList()
 
 <template>
   <!--<el-button type="primary" @click="add">New Comment</el-button>-->
-  <el-table :data="tableData">
+  <el-table :data="commentTable.record">
     <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column label="Nickname" prop="nickname" width="200"/>
     <el-table-column label="Email" prop="email" width="200"/>
@@ -97,9 +87,9 @@ await getCommentList()
     </el-table-column>
   </el-table>
   <el-pagination
-      v-model:current-page="current"
-      v-model:page-size="size"
-      :total="total"
+      v-model:current-page="commentTable.current"
+      v-model:page-size="commentTable.size"
+      :total="commentTable.total"
       background
       layout="prev, pager, next"
       @current-change="handleCurrentChange"
@@ -110,18 +100,18 @@ await getCommentList()
       width="1100"
   >
     <el-form
-        :model="comment"
+        :model="commentForm"
         label-width="60"
         label-position="left"
     >
       <el-form-item label="nickname">
-        <el-input v-model="comment.nickname" style="width: 400px"/>
+        <el-input v-model="commentForm.nickname" style="width: 400px"/>
       </el-form-item>
       <el-form-item label="email">
-        <el-input v-model="comment.email" style="width: 400px"/>
+        <el-input v-model="commentForm.email" style="width: 400px"/>
       </el-form-item>
       <el-form-item label="content">
-        <md-editor v-model="comment.content"
+        <md-editor v-model="commentForm.content"
                    :preview="false"
                    language="en-US"
                    show-code-row-number

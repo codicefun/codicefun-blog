@@ -6,12 +6,12 @@ import apis from '~/apis';
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 const router = useRouter()
-const formData = ref<Article>({} as Article)
-const typeList = ref<Type[]>([] as Type[])
+const articleForm = ref({} as Article)
+const typeList = ref([] as Type[])
 const tagList = ref([] as Tag[])
 
 const getTypeList = async () => {
@@ -37,7 +37,7 @@ const cancel = async () => {
           confirmButtonText: 'YES',
           cancelButtonText: 'NO',
           type: 'warning',
-        }
+        },
     )
     await router.push('/admin/article')
     ElMessage({ showClose: true, message: 'Cancel add', type: 'info' })
@@ -47,7 +47,7 @@ const cancel = async () => {
 }
 
 const submit = async () => {
-  await apis.article.add(formData.value)
+  await apis.article.add(articleForm.value)
   await router.push('/admin/article')
   ElMessage({ showClose: true, message: 'Add success', type: 'success' })
 }
@@ -58,20 +58,20 @@ await getTagList()
 
 <template>
   <el-form
-      :model="formData"
+      :model="articleForm"
       label-position="top"
   >
     <el-form-item label="Title">
-      <el-input v-model="formData.title"/>
+      <el-input v-model="articleForm.title"/>
     </el-form-item>
     <el-form-item label="Description">
-      <el-input v-model="formData.description" :autosize="{minRows: 3}" type="textarea"/>
+      <el-input v-model="articleForm.description" :autosize="{minRows: 3}" type="textarea"/>
     </el-form-item>
     <el-form-item label="Content">
-      <md-editor v-model="formData.content"/>
+      <md-editor v-model="articleForm.content"/>
     </el-form-item>
     <el-form-item label="Type">
-      <el-select v-model="formData.typename"
+      <el-select v-model="articleForm.typename"
                  :reserve-keyword="false"
                  allow-create
                  default-first-option
@@ -81,7 +81,7 @@ await getTagList()
       </el-select>
     </el-form-item>
     <el-form-item label="Tags">
-      <el-select v-model="formData.tagNameList"
+      <el-select v-model="articleForm.tagNameList"
                  :reserve-keyword="false"
                  allow-create
                  default-first-option
@@ -92,7 +92,7 @@ await getTagList()
       </el-select>
     </el-form-item>
     <el-form-item label="Picture">
-      <el-input v-model="formData.picture" style="width: 400px"/>
+      <el-input v-model="articleForm.picture" style="width: 400px"/>
     </el-form-item>
   </el-form>
   <div class="form-button">

@@ -3,7 +3,7 @@ import apis from '~/apis';
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 interface UserForm {
@@ -11,8 +11,8 @@ interface UserForm {
   password: string
 }
 
+const formData = ref({} as UserForm)
 const router = useRouter();
-const formData = ref<UserForm>({} as UserForm)
 const userStore = useUserStore();
 
 const login = async () => {

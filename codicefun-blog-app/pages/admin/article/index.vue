@@ -1,32 +1,24 @@
 <script lang="ts" setup>
 import apis from '~/apis';
-import type { Article } from '~/types';
+import type { Article, Page } from '~/types';
+import edit from '~/pages/admin/article/[id]/edit.vue'
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 const router = useRouter();
-const tableData = ref<Article[]>()
-const current = ref(0)
-const size = ref(0)
-const total = ref(0)
+const articleTable = ref({} as Page<Article>)
 
 const getArticleList = async () => {
   const { data } = await apis.article.getList();
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  articleTable.value = data
 }
 
 const handleCurrentChange = async (val: number) => {
   const { data } = await apis.article.getList(val);
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  articleTable.value = data
 }
 
 const add = async () => {
@@ -48,7 +40,7 @@ await getArticleList()
 
 <template>
   <el-button type="primary" @click="add">New Article</el-button>
-  <el-table :data="tableData">
+  <el-table :data="articleTable.record">
     <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column prop="title" label="Title" width="600"/>
     <el-table-column label="type" prop="typename" width="100"/>
@@ -60,9 +52,9 @@ await getArticleList()
     </el-table-column>
   </el-table>
   <el-pagination
-      v-model:current-page="current"
-      v-model:page-size="size"
-      :total="total"
+      v-model:current-page="articleTable.current"
+      v-model:page-size="articleTable.size"
+      :total="articleTable.total"
       background
       layout="prev, pager, next"
       @current-change="handleCurrentChange"

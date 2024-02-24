@@ -3,9 +3,9 @@ const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
-const logout = () => {
+const logout = async () => {
   userStore.token = ''
-  router.push('/')
+  await router.push('/')
 }
 </script>
 

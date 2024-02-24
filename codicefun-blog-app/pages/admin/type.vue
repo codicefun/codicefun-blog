@@ -1,35 +1,25 @@
 <script setup lang="ts">
-import type { Type } from "~/types";
+import type { Page, Type } from "~/types";
 import apis from "~/apis";
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
-const tableData = ref<Type[]>()
-const type = ref({} as Type)
-const current = ref(0)
-const size = ref(0)
-const total = ref(0)
-
+const typeTable = ref({} as Page<Type>)
+const typeForm = ref({} as Type)
 const dialogVisible = ref(false)
 const dialogTitle = ref('Add')
 
 const getTypeList = async () => {
   const { data } = await apis.type.getByEquals();
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  typeTable.value = data
 }
 
 const handleCurrentChange = async (val: number) => {
   const { data } = await apis.type.getByEquals(val);
-  tableData.value = data.record
-  current.value = data.current
-  size.value = data.size
-  total.value = data.total
+  typeTable.value = data
 }
 
 /**
@@ -38,7 +28,7 @@ const handleCurrentChange = async (val: number) => {
 const add = async () => {
   dialogVisible.value = true
   dialogTitle.value = 'Add'
-  type.value = {} as Type
+  typeForm.value = {} as Type
 }
 
 /**
@@ -48,7 +38,7 @@ const add = async () => {
 const edit = async (row: Type) => {
   dialogVisible.value = true
   dialogTitle.value = 'Edit'
-  type.value = row
+  typeForm.value = row
 }
 
 const remove = async (id: number) => {
@@ -56,7 +46,7 @@ const remove = async (id: number) => {
     await ElMessageBox.confirm('Are you sure delete this type?', 'Warning', {
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancel',
-      type: 'warning'
+      type: 'warning',
     });
     await apis.type.remove(id)
     ElMessage({ showClose: true, message: 'delete success', type: 'success' })
@@ -72,13 +62,13 @@ const update = async () => {
   dialogVisible.value = false
   // Add type
   if (dialogTitle.value === 'Add') {
-    await apis.type.add(type.value)
+    await apis.type.add(typeForm.value)
     ElMessage({ showClose: true, message: 'Add success', type: 'success' })
     await getTypeList()
   }
   // Edit type
   else {
-    await apis.type.update(type.value.id, type.value)
+    await apis.type.update(typeForm.value.id, typeForm.value)
     ElMessage({ showClose: true, message: 'Edit success', type: 'success' })
   }
 }
@@ -88,7 +78,7 @@ await getTypeList()
 
 <template>
   <el-button type="primary" @click="add">New Type</el-button>
-  <el-table :data="tableData">
+  <el-table :data="typeTable.record">
     <el-table-column label="ID" prop="id" width="100"/>
     <el-table-column label="Name" prop="name" width="600"/>
     <el-table-column label="Operations" width="200">
@@ -99,9 +89,9 @@ await getTypeList()
     </el-table-column>
   </el-table>
   <el-pagination
-      v-model:current-page="current"
-      v-model:page-size="size"
-      :total="total"
+      v-model:current-page="typeTable.current"
+      v-model:page-size="typeTable.size"
+      :total="typeTable.total"
       background
       layout="prev, pager, next"
       @current-change="handleCurrentChange"
@@ -112,10 +102,10 @@ await getTypeList()
       width="500"
   >
     <el-form
-        v-model="type"
+        v-model="typeForm"
     >
       <el-form-item label="name">
-        <el-input v-model="type.name"/>
+        <el-input v-model="typeForm.name"/>
       </el-form-item>
     </el-form>
     <template #footer>

@@ -13,7 +13,6 @@ const isAuthenticated = async () => {
   } catch (e: any) {
     return false
   }
-
 }
 
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -29,5 +28,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return true
   }
 
+  ElMessage({ showClose: true, message: 'You must login', type: 'warning' })
   return navigateTo('/admin/login')
 })
