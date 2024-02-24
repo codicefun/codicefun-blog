@@ -1,34 +1,26 @@
 <script lang="ts" setup>
 import moment from 'moment';
 import apis from '~/apis';
-import type { Article, Page } from '~/types';
+import type { Article, Page } from '~/types'
 
-const articleList = ref<Page<Article>>({} as Page<Article>)
-const total = ref(0)
-const current = ref(0)
-const size = ref(0)
+const tableData = ref({} as Page<Article>)
 
-const getArticleList = async () => {
-  const { data } = await apis.article.getList()
-  articleList.value = data
-  total.value = data.total
-  current.value = data.current
-  size.value = data.size
+const { data, error } = await useAsyncData(() => apis.article.getList())
+if (!error.value) {
+  tableData.value = data.value?.data as Page<Article>
 }
 
 const handleCurrentChange = async (val: number) => {
   const { data } = await apis.article.getList(val)
-  articleList.value = data
-  current.value = data.current
+  tableData.value = data
 }
-
-await getArticleList()
 </script>
 
 <template>
   <el-row :gutter="20">
     <el-col :span="16">
-      <el-card v-for="article in articleList.record" :key="article" class="box-card" shadow="hover">
+      <!-- Article card list -->
+      <el-card v-for="article in tableData.record" :key="article" class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
             <nuxt-link :to="`/article/${article.id}`">{{ article.title }}</nuxt-link>
@@ -60,9 +52,9 @@ await getArticleList()
       </el-card>
       <div class="pagination">
         <el-pagination
-            v-model:current-page="current"
-            v-model:page-size="size"
-            :total="total"
+            :total="tableData.total"
+            v-model:current-page="tableData.current"
+            v-model:page-size="tableData.size"
             background
             layout="prev, pager, next"
             @current-change="handleCurrentChange"
@@ -87,7 +79,6 @@ await getArticleList()
 
 .card-footer {
   display: flex;
-  //justify-content: right;
 }
 
 .pagination {

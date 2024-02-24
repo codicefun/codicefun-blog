@@ -5,27 +5,16 @@ import { MdCatalog, MdEditor, MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import 'md-editor-v3/lib/style.css';
 import moment from 'moment';
-import { addComment } from "@babel/types";
 
 const route = useRoute();
 const article = ref({} as Article)
 const comment = ref({} as Comment)
 const commentList = ref({} as Page<Comment>)
 const commentText = ref('You can comment')
-
 const articleId = Number(route.params.id)
 
-const increaseViewed = async () => {
-  await apis.article.increaseViewed(articleId)
-}
-
-const getArticle = async () => {
-  const { data } = await apis.article.getById(articleId)
-  article.value = data
-}
-
 const getComment = async (current = 1) => {
-  const { data } = await apis.comment.getByArticleId(article.value.id, current, 10)
+  const { data } = await apis.comment.getByArticleId(articleId, current, 10)
   commentList.value = data
 }
 
@@ -38,8 +27,13 @@ const addComment = async () => {
   await getComment()
 }
 
-await increaseViewed()
-await getArticle()
+await useAsyncData(() => apis.article.increaseViewed(articleId))
+const { data, error } = await useAsyncData(() => apis.article.getById(articleId))
+
+if (!error.value) {
+  article.value = data.value?.data as Article
+}
+
 await getComment()
 
 let scrollElement: string | HTMLElement | undefined = undefined
@@ -51,6 +45,8 @@ onMounted(() => {
 <template>
   <el-row :gutter="20">
     <el-col :span="16" class="left">
+
+      <!-- Article meta data -->
       <el-card shadow="hover">
         <template #header>
           <h1>{{ article.title }}</h1>
@@ -69,19 +65,25 @@ onMounted(() => {
           </el-tag>
         </div>
       </el-card>
+
+      <!-- Article content -->
       <el-card class="article-content" shadow="hover">
         <md-preview :model-value="article.content"
                     code-theme="atom"
                     editor-id="preview"
+                    language="en-US"
                     preview-theme="default"
                     show-code-row-number
         />
       </el-card>
-      <!-- Comment list -->
+
+      <!-- Comment card -->
       <el-card shadow="hover">
         <template #header>
           Comment List
         </template>
+
+        <!-- Comment list -->
         <div class="comment" v-for="comment in commentList.record" :key="comment.id">
           <div>{{ comment.nickname }}:</div>
           <div class="comment-content">{{ comment.content }}</div>
@@ -91,8 +93,9 @@ onMounted(() => {
             <span><el-button type="primary" link>replay</el-button></span>
           </div>
         </div>
+
+        <!-- Comment form -->
         <template #footer>
-          <!-- TODO: language Hydration node mismatch -->
           <el-form
               :model="comment"
               label-position="left"
@@ -104,6 +107,10 @@ onMounted(() => {
             <el-form-item label="email">
               <el-input v-model="comment.email"/>
             </el-form-item>
+            <!--
+            TODO ISSUE: Hydration node mismatch when use md-editor with attr: language="en-US"
+              see: https://github.com/codicefun/codicefun-blog/issues/16
+             -->
             <el-form-item label="content">
               <md-editor v-model="comment.content"
                          :preview="false"

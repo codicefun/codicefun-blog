@@ -7,7 +7,7 @@ import 'md-editor-v3/lib/style.css';
 
 definePageMeta({
   layout: 'admin',
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 const tableData = ref({} as Comment[])
@@ -52,8 +52,8 @@ const remove = async (id: number) => {
     await ElMessageBox.confirm('Are you sure delete this tag?', 'Warning', {
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancel',
-      type: 'warning'
-    });
+      type: 'warning',
+    })
     await apis.comment.remove(id)
     ElMessage({ showClose: true, message: 'delete success', type: 'success' })
     await getCommentList()

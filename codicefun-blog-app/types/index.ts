@@ -1,3 +1,13 @@
+import type { NitroFetchOptions } from "nitropack";
+
+export interface Response<T> {
+  code: number
+  message: string
+  data: T
+}
+
+export type RequestOption = NitroFetchOptions<string>
+
 export interface Page<T> {
   total: number
   current: number
@@ -48,12 +58,12 @@ export interface Article {
 }
 
 export interface Comment {
-    id: number
-    nickname: string
-    email: string
-    content: string
-    liked: number
-    createTime: Date
-    articleId: number
-    parentId: number
+  id: number
+  nickname: string
+  email: string
+  content: string
+  liked: number
+  createTime: Date
+  articleId: number
+  parentId: number
 }
