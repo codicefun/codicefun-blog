@@ -1,6 +1,12 @@
 <script lang="ts" setup>
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
+const userStore = useUserStore()
+
+const logout = () => {
+  userStore.token = ''
+  router.push('/')
+}
 </script>
 
 <template>
@@ -16,6 +22,7 @@ const router = useRouter();
       <el-menu-item index="admin-tag" @click="router.push('/admin/tag')">Tag</el-menu-item>
       <el-menu-item index="admin-comment" @click="router.push('/admin/comment')">Comment</el-menu-item>
       <el-menu-item index="admin-login" @click="router.push('/admin/login')">Login</el-menu-item>
+      <el-menu-item index="admin-logout" @click="logout">Logout</el-menu-item>
       <el-menu-item index="index" @click="router.push('/')">Back to Blog</el-menu-item>
     </el-menu>
   </el-header>
