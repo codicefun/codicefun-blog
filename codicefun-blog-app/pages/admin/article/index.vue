@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import apis from '~/apis';
 import type { Article, Page } from '~/types';
-import edit from '~/pages/admin/article/[id]/edit.vue'
 
 definePageMeta({
   layout: 'admin',
