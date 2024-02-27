@@ -19,7 +19,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "md-editor-v3": "^4.11.2",
+    "md-editor-v3": "^4.11.3",
     "moment": "^2.30.1",
     "normalize.css": "^8.0.1",
     "pinia": "^2.1.7"
