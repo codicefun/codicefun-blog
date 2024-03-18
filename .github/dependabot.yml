@@ -4,11 +4,17 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: "maven"
     directory: "/codicefun-blog-api"
     schedule:
       interval: "weekly"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: "npm"
     directory: "/codicefun-blog-app"
     schedule:
       interval: "weekly"
+      time: "08:00"
+      timezone: "Asia/Shanghai"
