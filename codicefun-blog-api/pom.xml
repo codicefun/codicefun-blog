@@ -21,7 +21,7 @@
     <java.version>17</java.version>
     <json-path.version>2.9.0</json-path.version>
     <mybatis-starter.version>3.0.3</mybatis-starter.version>
-    <openapi-starter.version>2.3.0</openapi-starter.version>
+    <openapi-starter.version>2.4.0</openapi-starter.version>
     <pagehelper-stater.version>2.1.0</pagehelper-stater.version>
     <jjwt.version>0.12.5</jjwt.version>
     <mapstruct.version>1.6.0.Beta1</mapstruct.version>
