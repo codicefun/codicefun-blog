@@ -22,7 +22,7 @@
     <mybatis-starter.version>3.0.3</mybatis-starter.version>
     <openapi-starter.version>2.5.0</openapi-starter.version>
     <pagehelper-stater.version>2.1.0</pagehelper-stater.version>
-    <jjwt.version>0.12.5</jjwt.version>
+    <jjwt.version>0.12.6</jjwt.version>
     <mapstruct.version>1.6.0.Beta2</mapstruct.version>
     <lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
   </properties>
