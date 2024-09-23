@@ -16,7 +16,7 @@
     "element-plus": "^2.8.3",
     "nuxt": "^3.13.2",
     "vue": "^3.4.38",
-    "vue-router": "^4.4.3"
+    "vue-router": "^4.4.5"
   },
   "dependencies": {
     "md-editor-v3": "^4.20.2",
