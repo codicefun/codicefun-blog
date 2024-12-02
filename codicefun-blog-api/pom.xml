@@ -19,7 +19,7 @@
 
   <properties>
     <java.version>17</java.version>
-    <mybatis-starter.version>3.0.3</mybatis-starter.version>
+    <mybatis-starter.version>3.0.4</mybatis-starter.version>
     <openapi-starter.version>2.6.0</openapi-starter.version>
     <pagehelper-stater.version>2.1.0</pagehelper-stater.version>
     <jjwt.version>0.12.6</jjwt.version>
