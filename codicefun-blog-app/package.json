@@ -13,7 +13,7 @@
     "@element-plus/nuxt": "^1.1.4",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@pinia/nuxt": "^0.5.5",
-    "element-plus": "^2.11.2",
+    "element-plus": "^2.11.3",
     "nuxt": "^3.17.5",
     "vue": "^3.5.16",
     "vue-router": "^4.5.0"
