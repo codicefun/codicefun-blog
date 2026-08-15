@@ -7,13 +7,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.6</version>
+    <version>4.1.0</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>com.codicefun.blog</groupId>
   <artifactId>codicefun-blog-api</artifactId>
-  <version>2025.10.03.01</version>
+  <version>2026.08.15.01</version>
   <name>codicefun-blog-api</name>
   <description>codicefun-blog-api</description>
 
@@ -22,9 +22,9 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <mybatis-starter.version>3.0.4</mybatis-starter.version>
-    <openapi-starter.version>2.8.13</openapi-starter.version>
-    <pagehelper-stater.version>2.1.0</pagehelper-stater.version>
+    <mybatis-starter.version>4.1.0</mybatis-starter.version>
+    <openapi-starter.version>3.1.0</openapi-starter.version>
+    <pagehelper-stater.version>4.1.1</pagehelper-stater.version>
     <jjwt.version>0.12.6</jjwt.version>
     <mapstruct.version>1.6.3</mapstruct.version>
     <lombok.version>1.18.40</lombok.version>
@@ -39,6 +39,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-jdbc-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

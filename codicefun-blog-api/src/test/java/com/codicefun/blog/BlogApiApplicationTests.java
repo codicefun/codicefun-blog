@@ -1,7 +1,7 @@
 package com.codicefun.blog;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * <a href="https://www.baeldung.com/sonarqube-jacoco-code-coverage">Code Coverage with SonarQube and JaCoCo</a>
  */
 @SpringBootTest
-@AutoConfigureTestDatabase
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BlogApiApplicationTests {
 
     @Test
