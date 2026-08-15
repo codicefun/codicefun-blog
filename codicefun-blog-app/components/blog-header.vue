@@ -21,7 +21,6 @@ const router = useRouter();
   display: flex;
   justify-content: center;
   padding: 0;
-  //background-color: skyblue;
 }
 
 .el-menu {

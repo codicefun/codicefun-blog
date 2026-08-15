@@ -15,7 +15,6 @@
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 160px);
-  //background-color: whitesmoke;
   padding: 0;
 }
 
