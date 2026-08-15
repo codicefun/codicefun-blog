@@ -1,19 +1,14 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 
 interface UserStore {
   username: string
   token: string
 }
 
-export const useUserStore = defineStore('user', {
-  state: (): UserStore => {
-    return {
-      username: '',
-      token: ''
-    }
+export const useUserStore = defineStore('user', (): UserStore => {
+    return {username: '', token: ''}
   },
-  actions: {
-    
+  {
+    persist: true,
   },
-  persist: true
-})
+)
