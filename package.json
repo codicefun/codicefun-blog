@@ -1,6 +1,7 @@
 {
   "name": "codicefun-blog",
   "version": "0.1.0",
+  "description": "A corporate editorial blog platform built with Next.js full-stack.",
   "private": true,
   "scripts": {
     "dev": "next dev",
